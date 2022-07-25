@@ -21,6 +21,23 @@ from collections import OrderedDict
 import struct
 import numpy as np
 
+
+#import SI1132
+from mintsI2c.i2c_scd30 import SCD30
+from mintsI2c.i2c_as7265x import AS7265X
+
+import sys
+import time
+import os
+import smbus2
+
+debug  = False 
+
+bus     = smbus2.SMBus(0)
+scd30   = SCD30(bus,debug)
+as7265x = AS7265X(bus,debug)
+
+
 loRaE5MiniPorts     = mD.loRaE5MiniPorts
 canareePorts        = mD.canareePorts
 gpsPorts            = mD.gpsPorts
@@ -37,26 +54,48 @@ if __name__ == "__main__":
     availCanaree,serCanaree = mPL.getPort(canareePorts,0,115200)
     availGps,serGps         = mPL.getPort(gpsPorts,0,115200)
 
+    # I2C Devices 
+    scd30_valid    = scd30.initiate(30)
+    as7265x_valid  = as7265x.initiate()
+
+
     joined  = mPL.loRaE5MiniJoin(availE5Mini,serE5Mini)
     
     while joined:
 
         # Code Later
         # At this point we work on the canaree 
-        # sensorData = readSerialLineStr(serGPS,2,"GGA")
-        # print(sensorData)
-        # sensorData = readSerialLineStr(serGPS,2,"RMC")
-        # print(sensorData)
+       
+        #Read GPS
+        sensorData = mPL.readSerialLineStr(serGps,2,"GGA")
+        print(sensorData)
+        sensorData = mPL.readSerialLineStr(serGps,2,"RMC")
+        print(sensorData)
 
+        #Read IPS7100
         sensorData = mPL.readSerialLine(serCanaree,2,44)
-        # strOut = getMessegeStringHex(sensorData, "IPS7100CNR")
-        # sendCommand(serE5Mini,'AT+PORT=17',2)
-        # sendCommand(serE5Mini,'AT+MSGHEX='+str(strOut),5)
+        strOut = mPL.getMessegeStringHex(sensorData, "IPS7100CNR")
+        mPL.sendCommand(serE5Mini,'AT+PORT=17',2)
+        mPL.sendCommand(serE5Mini,'AT+MSGHEX='+str(strOut),5)
 
-
+        #Read Gases Canaree
         sensorData = mPL.readSerialLine(serCanaree,2,44)
-        # strOut = getMessegeStringHex(sensorData, "BME688CNR")
-        # sendCommand(serE5Mini,'AT+PORT=25',2)
-        # sendCommand(serE5Mini,'AT+MSGHEX='+str(strOut),5)
+        strOut = mPL.getMessegeStringHex(sensorData, "BME688CNR")
+        mPL.sendCommand(serE5Mini,'AT+PORT=25',2)
+        mPL.sendCommand(serE5Mini,'AT+MSGHEX='+str(strOut),5)
+
+        #Read I2C 
+        print("======== SCD30 ========")
+        if scd30_valid:
+            scd30.read()
+        print("=======================")
+        time.sleep(2.5)
+        
+        print("======= AS7265X =======")
+        if as7265x_valid:
+            as7265x.read()
+        print("=======================")
+        time.sleep(2.5)
+
 
 
