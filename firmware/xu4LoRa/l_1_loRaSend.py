@@ -65,34 +65,37 @@ if __name__ == "__main__":
 
         # Code Later
         # At this point we work on the canaree 
-       
-        #Read GPS
+        start_time = time.time()
+        # Read GPS
+        # Add Validity Port Check 
         sensorData = mPL.readSerialLineStr(serGps,2,"GGA")
         print(sensorData)
         sensorData = mPL.readSerialLineStr(serGps,2,"RMC")
         print(sensorData)
 
-        #Read IPS7100
+        # Read IPS7100
+        # Add Canaree Check 
         sensorData = mPL.readSerialLine(serCanaree,2,44)
         print(sensorData)
         strOut = mPL.getMessegeStringHex(sensorData, "IPS7100CNR")
         mPL.sendCommand(serE5Mini,'AT+PORT=17',2)
         mPL.sendCommand(serE5Mini,'AT+MSGHEX='+str(strOut),5)
 
-        #Read Gases Canaree
+        # Read BME688
+        # Add Canaree Check 
         sensorData = mPL.readSerialLine(serCanaree,2,44)
         print(sensorData)
         strOut = mPL.getMessegeStringHex(sensorData, "BME688CNR")
         mPL.sendCommand(serE5Mini,'AT+PORT=25',2)
         mPL.sendCommand(serE5Mini,'AT+MSGHEX='+str(strOut),5)
 
-        #Read I2C 
         print("======== SCD30 ========")
         if scd30_valid:
             scd30.read()
         print("=======================")
         time.sleep(2.5)
-        
+
+        # Read I2C 
         print("======= AS7265X =======")
         if as7265x_valid:
             as7265x.read()
@@ -101,3 +104,4 @@ if __name__ == "__main__":
 
 
 
+        print("--- %s seconds ---" % (time.time() - start_time))
