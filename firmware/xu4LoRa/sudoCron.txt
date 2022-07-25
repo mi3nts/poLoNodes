@@ -1,0 +1,8 @@
+# m h  dom mon dow   command
+@reboot sudo chmod 777 /dev/tty*
+@reboot sudo chmod 777 /dev/vid*
+@reboot sudo chmod 777 /dev/i2c*
+0 09 * * * sudo reboot
+
+
+
