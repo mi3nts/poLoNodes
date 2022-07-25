@@ -2,8 +2,6 @@
 # from turtle import st
 from getmac import get_mac_address
 import serial.tools.list_ports
-import datetime 
-import time 
 import yaml
 
 def findPorts(strIn1,strIn2):
@@ -40,47 +38,16 @@ def findMacAddress():
     return "xxxxxxxx"
 
 
-macAddress            = findMacAddress()
-latestDisplayOn       = False
-latestOn              = False
+macAddress                = findMacAddress()
 
 mintsDefinitions          = yaml.load(open('mintsXU4/mintsDefinitions.yaml'),Loader=yaml.FullLoader)
+
 dataFolder                = mintsDefinitions['dataFolder']
+appKey                    = mintsDefinitions['appKey']
 
-dataFolderReference       = dataFolder +"/reference"
-dataFolderMQTTReference   = dataFolder +"referenceMQTT"
-dataFolderRaw             = dataFolder +"raw"
-dataFolderMQTT            = dataFolder +"rawMQTT"
-rawPklsFolder             = dataFolder    + "/rawPkls"
-referencePklsFolder       = dataFolder    + "/referencePkls"
-mergedPklsFolder          = dataFolder    + "/mergedPkls"
-modelsPklsFolder          = dataFolder    + "/modelsPkls"
-liveFolder                = dataFolder    + "/liveUpdate/results"
-
-
-# For MQTT 
-mqttOn                    = True
-mqttCredentialsFile       = 'mintsXU4/credentials/credentials.yml'
-mqttLoRaCredentialsFile   = 'mintsXU4/credentials/loRacredentials.yml'
-portIDsFile               = 'mintsXU4/credentials/portIDs.yml'
-mqttBroker                = "mqtt.circ.utdallas.edu"
-mqttBrokerLoRa            = "mqtt.lora.trecis.cloud"
-mqttPort                  = 8883  # Secure port
-mqttPortLoRa              = 1883  # Secure port
-# Take this from a yaml file
-appKey                    = "12360222ADE66204590EE485292346D9"
-tlsCert                   = mintsDefinitions['tlsCert']
-timeSpan                  = mintsDefinitions['timeSpan']
-
-nodeIDsPre               = yaml.load(open('mintsXU4/credentials/nodeIDs.yaml'),Loader=yaml.FullLoader)
-nodeIDs                  = nodeIDsPre['nodeIDs']
-# 
 loRaE5MiniPorts          = findPorts("CP2102N USB to UART Bridge Controller","PID=10C4:EA60")
 canareePorts             = findPorts("Canaree PM","PID=10C4:EA60")
 gpsPorts                 = findPorts("u-blox GNSS receiver","PID=1546:01A8")
-
-
-keys                     = yaml.load(open('mintsXU4/credentials/keys.yml'),Loader=yaml.FullLoader)
 
 print("E5 Mini Ports:")
 for dev in loRaE5MiniPorts:
