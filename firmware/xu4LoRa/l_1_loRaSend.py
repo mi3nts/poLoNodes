@@ -37,8 +37,7 @@ if __name__ == "__main__":
     availCanaree,serCanaree = mPL.getPort(canareePorts,0,115200)
     availGps,serGps         = mPL.getPort(gpsPorts,0,115200)
 
-    # Intended to send the IDs through 
-    joined, serE5Mini  = mPL.loRaE5MiniJoin(availE5Mini,serE5Mini)
+    joined  = mPL.loRaE5MiniJoin(availE5Mini,serE5Mini)
     
     while joined:
 
