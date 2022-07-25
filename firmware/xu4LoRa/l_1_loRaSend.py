@@ -33,9 +33,12 @@ if __name__ == "__main__":
     mPL.readingDeviceProperties(macAddress,loRaE5MiniPorts,canareePorts,gpsPorts)
     
     availE5Mini,serE5Mini   = mPL.getPort(loRaE5MiniPorts,0,9600)
+    
     availCanaree,serCanaree = mPL.getPort(canareePorts,0,115200)
+    availGps,serGps         = mPL.getPort(gpsPorts,0,115200)
 
-    joined, serE5Mini  = mPL.loRaE5MiniJoin(macAddress,loRaE5MiniPorts,canareePorts,gpsPorts)
+    # Intended to send the IDs through 
+    joined, serE5Mini  = mPL.loRaE5MiniJoin(availE5Mini,serE5Mini)
     
     while joined:
 
@@ -56,6 +59,5 @@ if __name__ == "__main__":
         # strOut = getMessegeStringHex(sensorData, "BME688CNR")
         # sendCommand(serE5Mini,'AT+PORT=25',2)
         # sendCommand(serE5Mini,'AT+MSGHEX='+str(strOut),5)
-
 
 

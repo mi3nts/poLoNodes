@@ -25,12 +25,10 @@ macAddress          = mD.macAddress
 
 def getPort(portsIn,indexIn,baudRateIn):
     availabilty  = len(portsIn)>0
+    serPort = []
     if(availabilty):
         serPort = openSerial(portsIn[indexIn],baudRateIn)
     return availabilty,serPort;
-
-
-
 
 
 def readingDeviceProperties(macAddress,loRaE5MiniPorts,canareePorts,gpsPorts):
@@ -50,7 +48,12 @@ def readingDeviceProperties(macAddress,loRaE5MiniPorts,canareePorts,gpsPorts):
 
     return;
 
-def loRaE5MiniJoin(serE5Mini):
+def loRaE5MiniJoin(availE5Mini,serE5Mini):
+    
+    if (not availE5Mini):
+        print("E5 Mini Not Connected")
+        quit()
+         
     joined = False 
     # Read E5 Mini Credentials
     sendCommand(serE5Mini,'AT+RESET',2)
