@@ -74,12 +74,14 @@ if __name__ == "__main__":
 
         #Read IPS7100
         sensorData = mPL.readSerialLine(serCanaree,2,44)
+        print(sensorData)
         strOut = mPL.getMessegeStringHex(sensorData, "IPS7100CNR")
         mPL.sendCommand(serE5Mini,'AT+PORT=17',2)
         mPL.sendCommand(serE5Mini,'AT+MSGHEX='+str(strOut),5)
 
         #Read Gases Canaree
         sensorData = mPL.readSerialLine(serCanaree,2,44)
+        print(sensorData)
         strOut = mPL.getMessegeStringHex(sensorData, "BME688CNR")
         mPL.sendCommand(serE5Mini,'AT+PORT=25',2)
         mPL.sendCommand(serE5Mini,'AT+MSGHEX='+str(strOut),5)
