@@ -66,7 +66,7 @@ class SCD30:
                 co2, temp, rh = measurement
                 print("CO2: {:.2f}ppm, temp: {:.2f}'C, rh: {:.2f}%".format(co2,temp,rh))
                 time.sleep(1)
-                return co2,temp,rh;
+                return [co2,temp,rh];
             else:
                 time.sleep(1)
                 return;

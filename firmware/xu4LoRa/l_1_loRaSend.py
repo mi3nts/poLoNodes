@@ -31,11 +31,15 @@ import time
 import os
 import smbus2
 
+print("========= MINTS =========")
+
 debug  = False 
 
 bus     = smbus2.SMBus(0)
 scd30   = SCD30(bus,debug)
 as7265x = AS7265X(bus,debug)
+
+
 
 
 loRaE5MiniPorts     = mD.loRaE5MiniPorts
