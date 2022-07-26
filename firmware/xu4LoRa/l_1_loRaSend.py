@@ -2,6 +2,9 @@
 # MQTT Client demo
 # Continuously monitor two different MQTT topics for data,
 # check if the received data matches two predefined 'commands'
+
+print("========= MINTS =========")
+
 import base64
 from cgitb import strong
 import imp
@@ -31,7 +34,7 @@ import time
 import os
 import smbus2
 
-print("========= MINTS =========")
+
 
 debug  = False 
 
@@ -51,7 +54,6 @@ macAddress          = mD.macAddress
 
 if __name__ == "__main__":
 
-    print("========= MINTS =========")
     mPL.readingDeviceProperties(macAddress,loRaE5MiniPorts,canareePorts,gpsPorts)
     
     availE5Mini,serE5Mini   = mPL.getPort(loRaE5MiniPorts,0,9600)
