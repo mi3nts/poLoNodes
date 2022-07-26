@@ -47,6 +47,7 @@ macAddress          = mD.macAddress
 
 if __name__ == "__main__":
 
+    print("========= MINTS =========")
     mPL.readingDeviceProperties(macAddress,loRaE5MiniPorts,canareePorts,gpsPorts)
     
     availE5Mini,serE5Mini   = mPL.getPort(loRaE5MiniPorts,0,9600)
