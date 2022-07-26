@@ -89,19 +89,20 @@ if __name__ == "__main__":
         mPL.sendCommand(serE5Mini,'AT+PORT=25',2)
         mPL.sendCommand(serE5Mini,'AT+MSGHEX='+str(strOut),5)
 
+        # Read SCD30
         print("======== SCD30 ========")
         if scd30_valid:
-            scd30.read()
+            strOut  =  scd30.read()
+            print(strOut)
         print("=======================")
         time.sleep(2.5)
 
-        # Read I2C 
+        # Read AS7265X
         print("======= AS7265X =======")
         if as7265x_valid:
-            as7265x.read()
+            strOut  = as7265x.read()
+            print(strOut)            
         print("=======================")
         time.sleep(2.5)
-
-
 
         print("--- %s seconds ---" % (time.time() - start_time))
