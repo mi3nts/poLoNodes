@@ -71,20 +71,20 @@ def getLongitudeCords(longitudeStr,longitudeDirection):
 
 if __name__ == "__main__":
 
-    mPL.readingDeviceProperties(macAddress,loRaE5MiniPorts,canareePorts,gpsPorts)
+    # mPL.readingDeviceProperties(macAddress,loRaE5MiniPorts,canareePorts,gpsPorts)
     
-    availE5Mini,serE5Mini   = mPL.getPort(loRaE5MiniPorts,0,9600)
+    # availE5Mini,serE5Mini   = mPL.getPort(loRaE5MiniPorts,0,9600)
     
-    availCanaree,serCanaree = mPL.getPort(canareePorts,0,115200)
+    # availCanaree,serCanaree = mPL.getPort(canareePorts,0,115200)
     availGps,serGps         = mPL.getPort(gpsPorts,0,115200)
 
     # I2C Devices 
     scd30_valid    = scd30.initiate(30)
     as7265x_valid  = as7265x.initiate()
 
+    # joined  = mPL.loRaE5MiniJoin(availE5Mini,serE5Mini)
+    joined = True    
 
-    joined  = mPL.loRaE5MiniJoin(availE5Mini,serE5Mini)
-    
     while joined:
 
         # Code Later
