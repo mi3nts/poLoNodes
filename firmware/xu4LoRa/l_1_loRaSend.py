@@ -94,7 +94,9 @@ if __name__ == "__main__":
         # Read GPS
         # Add Validity Port Check 
         sensorData = mPL.readSerialLineStrAsIs(serGps,2,"GGA")
+        print(sensorData)
         sensorData = pynmea2.parse(sensorData)
+        print(sensorData)
         sensorDictionary = OrderedDict([
                 ("timestamp"         ,str(sensorData.timestamp)),
                 ("latitudeCoordinate" ,getLatitudeCords(sensorData.lat,sensorData.lat_dir)),
