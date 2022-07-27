@@ -18,7 +18,7 @@ import datetime
 import os
 import csv
 #import deepdish as dd
-from mintsXU4 import mintsLatest as mL
+#from mintsXU4 import mintsLatest as mL
 from mintsXU4 import mintsDefinitions as mD
 from getmac import get_mac_address
 import time
@@ -31,10 +31,10 @@ import math
 
 macAddress     = mD.macAddress
 dataFolder     = mD.dataFolder
-latestDisplayOn = mD.latestDisplayOn
-dataFolderMQTT = mD.dataFolderMQTT
-latestOn       = mD.latestOn
-mqttOn         = mD.mqttOn
+#latestDisplayOn = mD.latestDisplayOn
+# dataFolderMQTT = mD.dataFolderMQTT
+# latestOn       = mD.latestOn
+# mqttOn         = mD.mqttOn
 
 
 

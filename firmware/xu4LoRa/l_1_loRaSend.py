@@ -23,12 +23,12 @@ from mintsXU4 import mintsPoLo as mPL
 from collections import OrderedDict
 import struct
 import numpy as np
-
+import pynmea2
 
 #import SI1132
 from mintsI2c.i2c_scd30 import SCD30
 from mintsI2c.i2c_as7265x import AS7265X
-
+import math
 import sys
 import time
 import os
@@ -52,6 +52,23 @@ appKey              = mD.appKey
 macAddress          = mD.macAddress
 
 
+
+def getLatitudeCords(latitudeStr,latitudeDirection):
+    latitude = float(latitudeStr)
+    latitudeCord      =  math.floor(latitude/100) +(latitude - 100*(math.floor(latitude/100)))/60
+    if(latitudeDirection=="S"):
+        latitudeCord = -1*latitudeCord
+    return latitudeCord
+
+def getLongitudeCords(longitudeStr,longitudeDirection):
+    longitude = float(longitudeStr)
+    longitudeCord      =  math.floor(longitude/100) +(longitude - 100*(math.floor(longitude/100)))/60
+    if(longitudeDirection=="W"):
+        longitudeCord = -1*longitudeCord
+    return longitudeCord        
+
+
+
 if __name__ == "__main__":
 
     mPL.readingDeviceProperties(macAddress,loRaE5MiniPorts,canareePorts,gpsPorts)
@@ -73,43 +90,86 @@ if __name__ == "__main__":
         # Code Later
         # At this point we work on the canaree 
         start_time = time.time()
+        
         # Read GPS
         # Add Validity Port Check 
-        sensorData = mPL.readSerialLineStr(serGps,2,"GGA")
-        print(sensorData)
-        sensorData = mPL.readSerialLineStr(serGps,2,"RMC")
-        print(sensorData)
+        sensorData = mPL.readSerialLineStrAsIs(serGps,2,"GGA")
+        sensorData = pynmea2.parse(sensorData)
+        sensorDictionary = OrderedDict([
+                ("timestamp"         ,str(sensorData.timestamp)),
+                ("latitudeCoordinate" ,getLatitudeCords(sensorData.lat,sensorData.lat_dir)),
+                ("longitudeCoordinate",getLongitudeCords(sensorData.lon,sensorData.lon_dir)),
+                ("latitude"          ,sensorData.lat),
+                ("latitudeDirection" ,sensorData.lat_dir),
+                ("longitude"         ,sensorData.lon),
+                ("longitudeDirection",sensorData.lon_dir),
+                ("gpsQuality"        ,sensorData.gps_qual),
+                ("numberOfSatellites",sensorData.num_sats),
+                ("HorizontalDilution",sensorData.horizontal_dil),
+                ("altitude"          ,sensorData.altitude),
+                ("altitudeUnits"     ,sensorData.altitude_units),
+                ("undulation"        ,sensorData.geo_sep),
+                ("undulationUnits"   ,sensorData.geo_sep_units),
+                ("age"               ,sensorData.age_gps_data),
+                ("stationID"         ,sensorData.ref_station_id)
+        	 ])        
 
-        # Read IPS7100
-        # Add Canaree Check 
-        sensorData = mPL.readSerialLine(serCanaree,2,44)
-        print(sensorData)
-        strOut = mPL.getMessegeStringHex(sensorData, "IPS7100CNR")
-        mPL.sendCommand(serE5Mini,'AT+PORT=17',2)
-        mPL.sendCommand(serE5Mini,'AT+MSGHEX='+str(strOut),5)
+        print(sensorDictionary)
 
-        # Read BME688
-        # Add Canaree Check 
-        sensorData = mPL.readSerialLine(serCanaree,2,44)
-        print(sensorData)
-        strOut = mPL.getMessegeStringHex(sensorData, "BME688CNR")
-        mPL.sendCommand(serE5Mini,'AT+PORT=25',2)
-        mPL.sendCommand(serE5Mini,'AT+MSGHEX='+str(strOut),5)
+        sensorData= mPL.readSerialLineStrAsIs(serGps,2,"RMC")
+        sensorData = pynmea2.parse(sensorData)
+        sensorDictionary = OrderedDict([
+                ("timestamp"            ,sensorData.timestamp),
+                ("status"               ,sensorData.status),
+                ("latitude"             ,sensorData.lat),
+                ("latitudeDirection"    ,sensorData.lat_dir),
+                ("longitude"            ,sensorData.lon),
+                ("longitudeDirection"   ,sensorData.lon_dir),
+                ("speedOverGround"      ,sensorData.spd_over_grnd),
+                ("trueCourse"           ,sensorData.true_course),
+                ("dateStamp"            ,sensorData.datestamp),
+                ("magVariation"         ,sensorData.mag_variation),
+                ("magVariationDirection",sensorData.mag_var_dir)
+                 ])
+        
+        print(sensorDictionary)
 
-        # Read SCD30
-        print("======== SCD30 ========")
-        if scd30_valid:
-            strOut  =  scd30.read()
-            print(strOut)
-        print("=======================")
-        time.sleep(2.5)
+        # # Read IPS7100
+        # # Add Canaree Check 
+        # sensorData = mPL.readSerialLine(serCanaree,2,44)
+        # print(sensorData)
+        # strOut = mPL.getMessegeStringHex(sensorData, "IPS7100CNR")
+        # mPL.sendCommand(serE5Mini,'AT+PORT=17',2)
+        # mPL.sendCommand(serE5Mini,'AT+MSGHEX='+str(strOut),5)
 
-        # Read AS7265X
-        print("======= AS7265X =======")
-        if as7265x_valid:
-            strOut  = as7265x.read()
-            print(strOut)            
-        print("=======================")
-        time.sleep(2.5)
+        # # Read BME688
+        # # Add Canaree Check 
+        # sensorData = mPL.readSerialLine(serCanaree,2,44)
+        # print(sensorData)
+        # strOut = mPL.getMessegeStringHex(sensorData, "BME688CNR")
+        # mPL.sendCommand(serE5Mini,'AT+PORT=25',2)
+        # mPL.sendCommand(serE5Mini,'AT+MSGHEX='+str(strOut),5)
 
-        print("--- %s seconds ---" % (time.time() - start_time))
+        # # Read SCD30
+        # print("======== SCD30 ========")
+        # if scd30_valid:
+        #     sensorData  =  scd30.read()
+        #     strOut = mPL.getMessegeStringHex(sensorData, "SCD30")
+        #     mPL.sendCommand(serE5Mini,'AT+PORT=25',2)
+        #     mPL.sendCommand(serE5Mini,'AT+MSGHEX='+str(strOut),5)
+        #     print(sensorData)
+        # print("=======================")
+        # time.sleep(2.5)
+
+        # # Read AS7265X
+        # print("======= AS7265X =======")
+        # if as7265x_valid:
+        #     sensorData  = as7265x.read()
+        #     strOut = mPL.getMessegeStringHex(sensorData, "SCD30")
+        #     mPL.sendCommand(serE5Mini,'AT+PORT=25',2)
+        #     mPL.sendCommand(serE5Mini,'AT+MSGHEX='+str(strOut),5) 
+        # print("=======================")
+        # time.sleep(2.5)
+
+        # print("--- %s seconds ---" % (time.time() - start_time))
+

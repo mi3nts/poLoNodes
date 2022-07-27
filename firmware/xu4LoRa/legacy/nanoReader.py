@@ -1,7 +1,7 @@
 #
 import serial
 import datetime
-from mintsXU4 import mintsSensorReader as mSR
+from poLoNodes.firmware.xu4LoRa.mintsXU4 import mintsLoRaSensing as mSR
 from mintsXU4 import mintsDefinitions as mD
 import sys
 import time

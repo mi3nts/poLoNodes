@@ -2,7 +2,7 @@ from datetime import datetime
 from os import name
 import time
 from collections import deque
-from mintsXU4 import mintsSensorReader as mSR
+from poLoNodes.firmware.xu4LoRa.mintsXU4 import mintsLoRaSensing as mSR
 from mintsXU4 import mintsDefinitions as mD
 from mintsXU4 import mintsLatest as mL
 import numpy as np

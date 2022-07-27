@@ -37,13 +37,35 @@ def findMacAddress():
 
     return "xxxxxxxx"
 
-
 macAddress                = findMacAddress()
 
-mintsDefinitions          = yaml.load(open('mintsXU4/mintsDefinitions.yaml'),Loader=yaml.FullLoader)
+mintsDefinitions         = yaml.load(open('mintsXU4/credentials/mintsDefinitions.yaml'),Loader=yaml.FullLoader)
+credentials              = yaml.load(open('mintsXU4/credentials/credentials.yaml'),Loader=yaml.FullLoader)
+loRaCredentials          = yaml.load(open('mintsXU4/credentials/loRacredentials.yaml'),Loader=yaml.FullLoader)
+portIDs                  = yaml.load(open('mintsXU4/credentials/portIDs.yaml'),Loader=yaml.FullLoader)['portIDs']
+
+nodeIDs                  = yaml.load(open('mintsXU4/credentials/nodeIDs.yaml'),Loader=yaml.FullLoader)
+
+
+keys                     = yaml.load(open('mintsXU4/credentials/keys.yaml'),Loader=yaml.FullLoader)
+
 
 dataFolder                = mintsDefinitions['dataFolder']
-appKey                    = mintsDefinitions['appKey']
+
+mqttPortLoRa              = loRaCredentials['port']
+mqttBrokerLoRa            = loRaCredentials['broker']
+
+mqttOn                    = True
+
+nodeIDs                  = nodeIDs['nodeIDs']
+
+keys                     = yaml.load(open('mintsXU4/credentials/keys.yaml'),Loader=yaml.FullLoader)
+print(keys)
+appKey                   = keys['appKey']
+print(appKey)
+
+# mqttBroker                = mintsDefinitions['broker']
+tlsCert                   = mintsDefinitions['tlsCert']
 
 loRaE5MiniPorts          = findPorts("CP2102N USB to UART Bridge Controller","PID=10C4:EA60")
 canareePorts             = findPorts("Canaree PM","PID=10C4:EA60")

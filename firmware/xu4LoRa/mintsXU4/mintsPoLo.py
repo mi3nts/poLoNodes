@@ -1,5 +1,3 @@
-
-
 # MQTT Client demo
 # Continuously monitor two different MQTT topics for data,
 # check if the received data matches two predefined 'commands'
@@ -21,15 +19,12 @@ gpsPorts            = mD.gpsPorts
 appKey              = mD.appKey
 macAddress          = mD.macAddress
 
-
-
 def getPort(portsIn,indexIn,baudRateIn):
     availabilty  = len(portsIn)>0
     serPort = []
     if(availabilty):
         serPort = openSerial(portsIn[indexIn],baudRateIn)
     return availabilty,serPort;
-
 
 def readingDeviceProperties(macAddress,loRaE5MiniPorts,canareePorts,gpsPorts):
 
@@ -162,6 +157,31 @@ def readSerialLine(serIn,timeOutSensor,sizeExpected):
         # except:
         #     print("Incomplete String Read")
         #     line = []
+def readSerialLineStrAsIs(serIn,timeOutSensor,strExpected):
+    line = []
+    startTime = time.time()
+    startFound = False
+    while (time.time()-startTime)<timeOutSensor:   
+        # try:
+            for c in serIn.read():
+                line.append(chr(c))
+                # print((''.join(line)))
+
+                if chr(c) == '\n':
+                    if startFound == True:
+                        dataString     = (''.join(line))
+                        dataStringPost = dataString.replace('\r\n', '')
+                        
+                        if dataStringPost.find(strExpected) >0:
+                            return dataStringPost;
+                        else:
+                            line = []
+                    else:    
+                        startFound = True
+                        line = []
+
+
+
 
 def readSerialLineStr(serIn,timeOutSensor,strExpected):
     line = []
@@ -191,14 +211,36 @@ def readSerialLineStr(serIn,timeOutSensor,strExpected):
         #     print("Incomplete String Read")
         #     line = []
 
-
-
-
 def swapBytes(inputIn):
     return bytes([c for t in zip(inputIn[1::2], inputIn[::2]) for c in t])
 
 
 def getMessegeStringHex(dataIn, sensorIn):
+     if sensorIn == "SCD30":
+        strOut  = \
+            np.uint32(dataIn[0]).tobytes().hex().zfill(8)+ \
+            np.uint32(dataIn[1]).tobytes().hex().zfill(8) + \
+            np.uint32(dataIn[2]).tobytes().hex().zfill(8)
+        return strOut;
+
+     if sensorIn == "AS7265X":
+        strOut  = \
+            np.uint32(dataIn[0]).tobytes().hex().zfill(8)+ \
+            np.uint32(dataIn[1]).tobytes().hex().zfill(8) + \
+            np.uint32(dataIn[2]).tobytes().hex().zfill(8)+ \
+            np.uint32(dataIn[3]).tobytes().hex().zfill(8) + \
+            np.uint32(dataIn[4]).tobytes().hex().zfill(8)+ \
+            np.uint32(dataIn[5]).tobytes().hex().zfill(8) + \
+            np.uint32(dataIn[6]).tobytes().hex().zfill(8)+ \
+            np.float32(dataIn[7]).tobytes().hex().zfill(8)+ \
+            np.float32(dataIn[8]).tobytes().hex().zfill(8) + \
+            np.float32(dataIn[9]).tobytes().hex().zfill(8)+ \
+            np.float32(dataIn[10]).tobytes().hex().zfill(8) + \
+            np.float32(dataIn[11]).tobytes().hex().zfill(8)+ \
+            np.float32(dataIn[12]).tobytes().hex().zfill(8) + \
+            np.float32(dataIn[13]).tobytes().hex().zfill(8)
+        return strOut;
+
      if sensorIn == "IPS7100CNR":
         strOut  = \
             np.uint32(dataIn[1]).tobytes().hex().zfill(8)+ \
