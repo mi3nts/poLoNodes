@@ -139,7 +139,8 @@ if __name__ == "__main__":
         #     mPL.sendCommand(serE5Mini,'AT+PORT=25',2)
         #     mPL.sendCommand(serE5Mini,'AT+MSGHEX='+str(strOut),5) 
         # print("=======================")
-        # time.sleep(2.5)
+        
+        time.sleep(5)
 
         # print("--- %s seconds ---" % (time.time() - start_time))
 
