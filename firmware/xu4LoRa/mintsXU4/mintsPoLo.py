@@ -308,6 +308,7 @@ def readSensorData(online,serPort,sensorID):
             sensorData = readSerialLine(serPort,2,port['numOfParametors'])
             print(sensorData)
             hexString = mLS.encodeDecode(sensorData, sensorID,receiveTransmit)
+            print(hexString)
             sendCommand(serPort,'AT+PORT='+ str(port['portID']),2) 
             sendCommand(serPort,'AT+MSGHEX='+str(hexString ),5)
     else:
