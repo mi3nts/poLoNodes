@@ -8,6 +8,7 @@ import time
 import serial.tools.list_ports
 
 from mintsXU4 import mintsDefinitions as mD
+from mintsXU4 import mintsLoRaSensing as mLS
 
 from collections import OrderedDict
 import struct
@@ -19,35 +20,28 @@ gpsPorts            = mD.gpsPorts
 appKey              = mD.appKey
 macAddress          = mD.macAddress
 fPortIDs            = mD.fPortIDs
+receiveTransmit     = True
 
 def readSensorData(online,serPort,sensorID):
     if online:
         print(sensorID + " Online")  
         port = deriveSensorStats(sensorID)
-
-        # sensorData = mPL.readSerialLine(serCanaree,2,44)
-        # print(sensorData)
-        # strOut = mPL.getMessegeStringHex(sensorData, "IPS7100CNR")
-        # mPL.sendCommand(serE5Mini,'AT+PORT=17',2)
-        # mPL.sendCommand(serE5Mini,'AT+MSGHEX='+str(strOut),5)
-
+        print(port)
+        if port['portID']<255:
+            sensorData = mPS.readSerialLine(serPort,2,port['numOfParametors'])
+            print(sensorData)
+            hexString = mLS.encodeDecode(sensorData, sensorID,receiveTransmit)
+            sendCommand(serE5Mini,strcat('AT+PORT='+ str(port['portID']),2) 
+            sendCommand(serE5Mini,'AT+MSGHEX='+str(hexString ),5)
     else:
         print(sensorID + " Not Online")        
 
 
 def deriveSensorStats(sensorID):
     for port in fPortIDs:
-        if(port.sensor == sensorID):
-            print("F Port Found")
-            return [port.portID,port.numOfParametors]
-    return [-1,-1]
-
-    # print(fPortIDs)
-    # return "TEST"
-
-
-
-
+        if(port['sensor'] == sensorID):
+            return port;
+    return port;
 
 def getPort(portsIn,indexIn,baudRateIn):
     availabilty  = len(portsIn)>0
@@ -313,7 +307,6 @@ def joinNetwork(numberOfTries,ser,timeOutIn):
 
     return False;
     
-
 
 
 
