@@ -22,19 +22,7 @@ macAddress          = mD.macAddress
 fPortIDs            = mD.fPortIDs
 receiveTransmit     = True
 
-def readSensorData(online,serPort,sensorID):
-    if online:
-        print(sensorID + " Online")  
-        port = deriveSensorStats(sensorID)
-        print(port)
-        if port['portID']<255:
-            sensorData = mPS.readSerialLine(serPort,2,port['numOfParametors'])
-            print(sensorData)
-            hexString = mLS.encodeDecode(sensorData, sensorID,receiveTransmit)
-            sendCommand(serE5Mini,strcat('AT+PORT='+ str(port['portID']),2) 
-            sendCommand(serE5Mini,'AT+MSGHEX='+str(hexString ),5)
-    else:
-        print(sensorID + " Not Online")        
+ 
 
 
 def deriveSensorStats(sensorID):
@@ -311,3 +299,16 @@ def joinNetwork(numberOfTries,ser,timeOutIn):
 
 
 
+def readSensorData(online,serPort,sensorID):
+    if online:
+        print(sensorID + " Online")  
+        port = deriveSensorStats(sensorID)
+        print(port)
+        if port['portID']<255:
+            sensorData = readSerialLine(serPort,2,port['numOfParametors'])
+            print(sensorData)
+            hexString = mLS.encodeDecode(sensorData, sensorID,receiveTransmit)
+            sendCommand(serPort,'AT+PORT='+ str(port['portID']),2) 
+            sendCommand(serPort,'AT+MSGHEX='+str(hexString ),5)
+    else:
+        print(sensorID + " Not Online")       
