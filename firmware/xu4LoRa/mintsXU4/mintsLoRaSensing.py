@@ -34,19 +34,19 @@ import numpy as np
 
 macAddress     = mD.macAddress
 dataFolder     = mD.dataFolder
-portIDs        = mD.portIDs
+fPortIDs        = mD.fPortIDs
 
 mqttOn         = mD.mqttOn
 decoder        = json.JSONDecoder(object_pairs_hook=OrderedDict)
 
 
-def loRaSummaryReceive(message,portIDs):
+def loRaSummaryReceive(message,fPortIDs):
     nodeID = message.topic.split('/')[5]
     sensorPackage       =  decoder.decode(message.payload.decode("utf-8","ignore"))
     rxInfo              =  sensorPackage['rxInfo'][0]
     txInfo              =  sensorPackage['txInfo']
     loRaModulationInfo  =  txInfo['loRaModulationInfo']
-    sensorID            = portIDs[getPortIndex(sensorPackage['fPort'],portIDs)]['sensor']
+    sensorID            = fPortIDs[getPortIndex(sensorPackage['fPort'],portIDs)]['sensor']
     dateTime            = datetime.datetime.fromisoformat(sensorPackage['publishedAt'][0:26])
     base16Data          = base64.b64decode(sensorPackage['data'].encode()).hex()
     gatewayID           = base64.b64decode(rxInfo['gatewayID']).hex()
@@ -78,9 +78,9 @@ def loRaSummaryReceive(message,portIDs):
     return dateTime,gatewayID,nodeID,sensorID,framePort,base16Data;
 
 
-def getPortIndex(portIDIn,portIDs):
+def getPortIndex(portIDIn,fPortIDs):
     indexOut = 0
-    for portID in portIDs:
+    for portID in fPortIDs:
         if (portIDIn == portID['portID']):
             return indexOut; 
         indexOut = indexOut +1
