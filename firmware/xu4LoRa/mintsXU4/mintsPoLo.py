@@ -23,7 +23,7 @@ fPortIDs            = mD.fPortIDs
 def readSensorData(online,serPort,sensorID):
     if online:
         print(sensorID + " Online")  
-        port = deriveFPort(sensorID)
+        port = deriveSensorStats(sensorID)
 
         # sensorData = mPL.readSerialLine(serCanaree,2,44)
         # print(sensorData)
@@ -35,9 +35,15 @@ def readSensorData(online,serPort,sensorID):
         print(sensorID + " Not Online")        
 
 
-def deriveFPort(sensorID):
-    print(fPortIDs)
-    return "TEST"
+def deriveSensorStats(sensorID):
+    for port in fPortIDs:
+        if(port.sensor == sensorID):
+            print("F Port Found")
+            return [port.portID,port.numOfParametors]
+    return [-1,-1]
+
+    # print(fPortIDs)
+    # return "TEST"
 
 
 
