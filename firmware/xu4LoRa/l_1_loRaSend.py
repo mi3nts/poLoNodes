@@ -71,19 +71,18 @@ def getLongitudeCords(longitudeStr,longitudeDirection):
 
 if __name__ == "__main__":
 
-    # mPL.readingDeviceProperties(macAddress,loRaE5MiniPorts,canareePorts,gpsPorts)
+    mPL.readingDeviceProperties(macAddress,loRaE5MiniPorts,canareePorts,gpsPorts)
     
-    # availE5Mini,serE5Mini   = mPL.getPort(loRaE5MiniPorts,0,9600)
-    
-    # availCanaree,serCanaree = mPL.getPort(canareePorts,0,115200)
-    availGps,serGps         = mPL.getPort(gpsPorts,0,115200)
+    e5MiniOnline,serE5Mini   = mPL.getPort(loRaE5MiniPorts,0,9600)
+    canareeOnline,serCanaree = mPL.getPort(canareePorts,0,115200)
+    gpsOnline,serGps         = mPL.getPort(gpsPorts,0,115200)
 
     # I2C Devices 
-    scd30_valid    = scd30.initiate(30)
-    as7265x_valid  = as7265x.initiate()
+    scd30Online    = scd30.initiate(30)
+    as7265xOnline  = as7265x.initiate()
 
-    # joined  = mPL.loRaE5MiniJoin(availE5Mini,serE5Mini)
-    joined = True    
+    joined  = mPL.loRaE5MiniJoin(e5MiniOnline,serE5Mini)
+    # joined = True    
 
     while joined:
 
@@ -91,54 +90,22 @@ if __name__ == "__main__":
         # At this point we work on the canaree 
         start_time = time.time()
         
-        # Read GPS
-        # Add Validity Port Check 
-        sensorData = mPL.readSerialLineStrAsIs(serGps,2,"GGA")
-        print(sensorData)
-        sensorData = pynmea2.parse(sensorData)
-        print("NMEA Data")
-        print(sensorData)
-        sensorDictionary = OrderedDict([
-                ("timestamp"         ,str(sensorData.timestamp)),
-                ("latitudeCoordinate" ,getLatitudeCords(sensorData.lat,sensorData.lat_dir)),
-                ("longitudeCoordinate",getLongitudeCords(sensorData.lon,sensorData.lon_dir)),
-                ("latitude"          ,sensorData.lat),
-                ("latitudeDirection" ,sensorData.lat_dir),
-                ("longitude"         ,sensorData.lon),
-                ("longitudeDirection",sensorData.lon_dir),
-                ("gpsQuality"        ,sensorData.gps_qual),
-                ("numberOfSatellites",sensorData.num_sats),
-                ("HorizontalDilution",sensorData.horizontal_dil),
-                ("altitude"          ,sensorData.altitude),
-                ("altitudeUnits"     ,sensorData.altitude_units),
-                ("undulation"        ,sensorData.geo_sep),
-                ("undulationUnits"   ,sensorData.geo_sep_units),
-                ("age"               ,sensorData.age_gps_data),
-                ("stationID"         ,sensorData.ref_station_id)
-        	 ])        
+       
 
-        print(sensorDictionary)
-
-        sensorData= mPL.readSerialLineStrAsIs(serGps,2,"RMC")
-        sensorData = pynmea2.parse(sensorData)
-        sensorDictionary = OrderedDict([
-                ("timestamp"            ,sensorData.timestamp),
-                ("status"               ,sensorData.status),
-                ("latitude"             ,sensorData.lat),
-                ("latitudeDirection"    ,sensorData.lat_dir),
-                ("longitude"            ,sensorData.lon),
-                ("longitudeDirection"   ,sensorData.lon_dir),
-                ("speedOverGround"      ,sensorData.spd_over_grnd),
-                ("trueCourse"           ,sensorData.true_course),
-                ("dateStamp"            ,sensorData.datestamp),
-                ("magVariation"         ,sensorData.mag_variation),
-                ("magVariationDirection",sensorData.mag_var_dir)
-                 ])
+        ## Read IPS7100
+        # Add Canaree Check 
+        # The Function Should Take 
         
-        print(sensorDictionary)
+        ## Inputs 
+        # SensorID 
+        # Serial Port 
 
-        # # Read IPS7100
-        # # Add Canaree Check 
+        ## Derive 
+        # Port ID  
+        # Number of outputs
+
+
+        mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR")
         # sensorData = mPL.readSerialLine(serCanaree,2,44)
         # print(sensorData)
         # strOut = mPL.getMessegeStringHex(sensorData, "IPS7100CNR")
@@ -176,3 +143,49 @@ if __name__ == "__main__":
 
         # print("--- %s seconds ---" % (time.time() - start_time))
 
+ # Do While GPS Available 
+        # Read GPS
+        # Add Validity Port Check 
+        # sensorData = mPL.readSerialLineStrAsIs(serGps,2,"GGA")
+        # print(sensorData)
+        # sensorData = pynmea2.parse(sensorData)
+        # print("NMEA Data")
+        # print(sensorData)
+        # sensorDictionary = OrderedDict([
+        #         ("timestamp"         ,str(sensorData.timestamp)),
+        #         ("latitudeCoordinate" ,getLatitudeCords(sensorData.lat,sensorData.lat_dir)),
+        #         ("longitudeCoordinate",getLongitudeCords(sensorData.lon,sensorData.lon_dir)),
+        #         ("latitude"          ,sensorData.lat),
+        #         ("latitudeDirection" ,sensorData.lat_dir),
+        #         ("longitude"         ,sensorData.lon),
+        #         ("longitudeDirection",sensorData.lon_dir),
+        #         ("gpsQuality"        ,sensorData.gps_qual),
+        #         ("numberOfSatellites",sensorData.num_sats),
+        #         ("HorizontalDilution",sensorData.horizontal_dil),
+        #         ("altitude"          ,sensorData.altitude),
+        #         ("altitudeUnits"     ,sensorData.altitude_units),
+        #         ("undulation"        ,sensorData.geo_sep),
+        #         ("undulationUnits"   ,sensorData.geo_sep_units),
+        #         ("age"               ,sensorData.age_gps_data),
+        #         ("stationID"         ,sensorData.ref_station_id)
+        # 	 ])        
+
+        # print(sensorDictionary)
+
+        # sensorData= mPL.readSerialLineStrAsIs(serGps,2,"RMC")
+        # sensorData = pynmea2.parse(sensorData)
+        # sensorDictionary = OrderedDict([
+        #         ("timestamp"            ,sensorData.timestamp),
+        #         ("status"               ,sensorData.status),
+        #         ("latitude"             ,sensorData.lat),
+        #         ("latitudeDirection"    ,sensorData.lat_dir),
+        #         ("longitude"            ,sensorData.lon),
+        #         ("longitudeDirection"   ,sensorData.lon_dir),
+        #         ("speedOverGround"      ,sensorData.spd_over_grnd),
+        #         ("trueCourse"           ,sensorData.true_course),
+        #         ("dateStamp"            ,sensorData.datestamp),
+        #         ("magVariation"         ,sensorData.mag_variation),
+        #         ("magVariationDirection",sensorData.mag_var_dir)
+        #          ])
+        
+        # print(sensorDictionary)

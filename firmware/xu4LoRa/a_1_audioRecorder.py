@@ -16,7 +16,7 @@ import time
 
 time.sleep(1) 
 
-from mintsXU4 import mintsSensorReader as mSR
+from poLoNodes.firmware.xu4LoRa.mintsXU4 import mintsLoRaSensing as mSR
 from mintsXU4 import mintsDefinitions as mD
 
 from multiprocessing import Pool, freeze_support

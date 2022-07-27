@@ -18,6 +18,30 @@ canareePorts        = mD.canareePorts
 gpsPorts            = mD.gpsPorts
 appKey              = mD.appKey
 macAddress          = mD.macAddress
+fPortIDs            = mD.fPortIDs
+
+def readSensorData(online,serPort,sensorID):
+    if online:
+        print(sensorID + " Online")  
+        port = deriveFPort(sensorID)
+
+        # sensorData = mPL.readSerialLine(serCanaree,2,44)
+        # print(sensorData)
+        # strOut = mPL.getMessegeStringHex(sensorData, "IPS7100CNR")
+        # mPL.sendCommand(serE5Mini,'AT+PORT=17',2)
+        # mPL.sendCommand(serE5Mini,'AT+MSGHEX='+str(strOut),5)
+
+    else:
+        print(sensorID + " Not Online")        
+
+
+def deriveFPort(sensorID):
+    print(fPortIDs)
+    return "TEST"
+
+
+
+
 
 def getPort(portsIn,indexIn,baudRateIn):
     availabilty  = len(portsIn)>0
