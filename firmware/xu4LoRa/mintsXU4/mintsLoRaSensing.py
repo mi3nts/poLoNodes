@@ -31,6 +31,7 @@ import math
 import base64
 import json
 import struct
+import numpy as np
 
 macAddress     = mD.macAddress
 dataFolder     = mD.dataFolder
@@ -94,7 +95,7 @@ def encodeDecode(sensorID,sensorData,transmitReceive):
         
     # For transmitting data, transmitRecieve is True
 
-def transmitData(serPort,fPort,hexStr):
+# def transmitData(serPort,fPort,hexStr):
   
     
     
