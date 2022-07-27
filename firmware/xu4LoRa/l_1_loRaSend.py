@@ -81,8 +81,8 @@ if __name__ == "__main__":
     scd30Online    = scd30.initiate(30)
     as7265xOnline  = as7265x.initiate()
 
-    #joined  = mPL.loRaE5MiniJoin(e5MiniOnline,serE5Mini)
-    joined = True    
+    joined  = mPL.loRaE5MiniJoin(e5MiniOnline,serE5Mini)
+    # joined = True    
 
     while joined:
 
@@ -104,7 +104,7 @@ if __name__ == "__main__":
         # Port ID  
         # Number of outputs
 
-
+        print("TEST 1")
         mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR")
         
         # sensorData = mPL.readSerialLine(serCanaree,2,44)
