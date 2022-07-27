@@ -143,28 +143,7 @@ def sendCommand(serIn,commandStrIn,timeOutIn):
                 break
     return lines;
 
-def readSerialLine(serIn,timeOutSensor,sizeExpected):
-    line = []
-    startTime = time.time()
-    startFound = False
-    while (time.time()-startTime)<timeOutSensor:   
-        # try:
-            for c in serIn.read():
-                line.append(chr(c))
-                # print((''.join(line)))
 
-                if chr(c) == '\n':
-                    if startFound == True:
-                        dataString     = (''.join(line))
-                        dataStringPost = dataString.replace('\r\n', '')
-                        dataStringData =  dataStringPost.split(',')
-                        if sizeExpected == len(dataStringData):
-                            return dataStringData;
-                        else:
-                            line = []
-                    else:    
-                        startFound = True
-                        line = []
 
         # except:
         #     print("Incomplete String Read")
@@ -294,22 +273,55 @@ def joinNetwork(numberOfTries,ser,timeOutIn):
                 return True;
 
     return False;
-    
 
+def readSerialLine(serIn,timeOutSensor,sizeExpected):
+    line = []
+    startTime = time.time()
+    startFound = False
+    while (time.time()-startTime)<timeOutSensor:   
+        # try:
+            for c in serIn.read():
+                line.append(chr(c))
+                # print((''.join(line)))
 
+                if chr(c) == '\n':
+                    if startFound == True:
+                        dataString     = (''.join(line))
+                        dataStringPost = dataString.replace('\r\n', '')
+                        dataStringData =  dataStringPost.split(',')
+                        print("Read Serial Line")
+                        if sizeExpected == len(dataStringData):
+                            print("Returning Data")
+                            return dataStringData;
+                        else:
+                            line = []
+                    else:    
+                        startFound = True
+                        line = []
+  
+  
 
-
-def readSensorData(online,serPort,sensorID):
+def readSensorData(online,serPort,sensorID,serPortE5):
     if online:
         print(sensorID + " Online")  
         port = deriveSensorStats(sensorID)
         print(port)
+        print(port['portID'])
+        print(port['portID']<255)
+        
         if port['portID']<255:
             sensorData = readSerialLine(serPort,2,port['numOfParametors'])
+            print("Testing Read Sensor Data 1")
             print(sensorData)
-            hexString = mLS.encodeDecode(sensorData, sensorID,receiveTransmit)
+            hexString = mLS.encodeDecode( sensorID,sensorData,receiveTransmit)
             print(hexString)
-            sendCommand(serPort,'AT+PORT='+ str(port['portID']),2) 
-            sendCommand(serPort,'AT+MSGHEX='+str(hexString ),5)
+            sendCommand(serPortE5,'AT+PORT='+ str(port['portID']),2) 
+            sendCommand(serPortE5,'AT+MSGHEX='+str(hexString ),5)
+            return;
     else:
         print(sensorID + " Not Online")       
+        return;
+      
+        
+        
+        

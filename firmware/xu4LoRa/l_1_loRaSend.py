@@ -105,8 +105,8 @@ if __name__ == "__main__":
         # Number of outputs
 
         print("TEST 1")
-        mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR")
-        
+        mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
+        print("TEST 2")
         # sensorData = mPL.readSerialLine(serCanaree,2,44)
         # print(sensorData)
         # strOut = mPL.getMessegeStringHex(sensorData, "IPS7100CNR")
