@@ -215,7 +215,6 @@ def sensingIPS7100CNR(dataIn,transmitReceive):
             np.float32(dataIn[23]).tobytes().hex().zfill(8)+ \
             np.float32(dataIn[25]).tobytes().hex().zfill(8) + \
             np.float32(dataIn[27]).tobytes().hex().zfill(8)
-        print(strOut)
         return strOut;  
     else:
         dateTime = datetime.datetime.now()
