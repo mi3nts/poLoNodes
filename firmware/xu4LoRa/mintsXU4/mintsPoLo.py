@@ -298,7 +298,26 @@ def readSerialLine(serIn,timeOutSensor,sizeExpected):
                     else:    
                         startFound = True
                         line = []
-  
+
+def readSensorDataI2c(online,i2cObject,sensorID,serPortE5):
+    
+    if online:
+        print(sensorID + " Online")  
+        port = deriveSensorStats(sensorID)
+        if port['portID']<255:
+            sensorData  =  i2cObject.read()
+            sendCommandHex(serPortE5,sensorID,sensorData,port)  
+            return;
+    else:
+        print(sensorID + " Not Online")       
+        return;
+
+
+
+def sendCommandHex(serPortE5,sensorID,sensorData,port):
+    hexString = mLS.encodeDecode( sensorID,sensorData,receiveTransmit)
+    sendCommand(serPortE5,'AT+PORT='+ str(port['portID']),2) 
+    sendCommand(serPortE5,'AT+MSGHEX='+str(hexString ),5)    
   
 
 def readSensorData(online,serPort,sensorID,serPortE5):
@@ -307,9 +326,7 @@ def readSensorData(online,serPort,sensorID,serPortE5):
         port = deriveSensorStats(sensorID)
         if port['portID']<255:
             sensorData = readSerialLine(serPort,2,port['numOfParametors'])
-            hexString = mLS.encodeDecode( sensorID,sensorData,receiveTransmit)
-            sendCommand(serPortE5,'AT+PORT='+ str(port['portID']),2) 
-            sendCommand(serPortE5,'AT+MSGHEX='+str(hexString ),5)
+            sendCommandHex(serPortE5,sensorID,sensorData,port)
             return;
     else:
         print(sensorID + " Not Online")       

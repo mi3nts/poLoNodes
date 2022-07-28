@@ -238,9 +238,6 @@ def sensingIPS7100CNR(dataIn,transmitReceive):
         print(sensorDictionary)
         return sensorDictionary;
   
-  
-  
-
 def sensorReceiveLoRa(dateTime,nodeID,sensorID,framePort,base16Data):
     sensorDictionary =  OrderedDict([
                 ("dateTime" , str(dateTime))])
