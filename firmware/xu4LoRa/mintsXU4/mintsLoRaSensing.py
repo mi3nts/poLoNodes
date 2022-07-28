@@ -89,20 +89,85 @@ def getPortIndex(portIDIn,fPortIDs):
 
 def encodeDecode(sensorID,sensorData,transmitReceive):
     print("Encode Decode")
-    print(sensorID)
-    print(sensorID == "IPS7100CNR")
     if sensorID == "IPS7100CNR":
-        strOut = sensingIPS7100CNR(sensorData,transmitReceive)
-        print("Str Out")
-        print(strOut)
-        return strOut;
+        return sensingIPS7100CNR(sensorData,transmitReceive);
+    if sensorID == "BME688CNR":
+        return sensingBME688CNR(sensorData,transmitReceive); 
+    if sensorID == "SCD30":
+        return sensingSCD30(sensorData,transmitReceive);           
+    if sensorID == "AS7265X":
+        return sensingAS7265X(sensorData,transmitReceive);   
     return " "   
         
     # For transmitting data, transmitRecieve is True
+def sensingAS7265X(dataIn,transmitReceive):
+    print("sensingAS7265X")	
+    if (transmitReceive): 
+        strOut  = \
+            np.float32(dataIn[0]).tobytes().hex().zfill(8)+ \
+            np.float32(dataIn[1]).tobytes().hex().zfill(8) + \
+            np.float32(dataIn[2]).tobytes().hex().zfill(8)
+        return strOut;  
+    else:
+        dateTime = datetime.datetime.now()
+        sensorDictionary =  OrderedDict([
+                ("dateTime"     ,str(dateTime)),
+        		("co2"          ,struct.unpack('<f',bytes.fromhex(dataIn[0:8]))[0]),
+            	("temperature"  ,struct.unpack('<f',bytes.fromhex(dataIn[8:16]))[0]),
+                ("humidity"     ,struct.unpack('<f',bytes.fromhex(dataIn[16:24]))[0]),
+        ])
+        print(sensorDictionary)
+        return sensorDictionary;
 
-# def transmitData(serPort,fPort,hexStr):
-  
-    
+
+
+
+def sensingSCD30(dataIn,transmitReceive):
+    print("sensingSCD30")	
+    if (transmitReceive): 
+        strOut  = \
+            np.float32(dataIn[0]).tobytes().hex().zfill(8)+ \
+            np.float32(dataIn[1]).tobytes().hex().zfill(8) + \
+            np.float32(dataIn[2]).tobytes().hex().zfill(8)
+        return strOut;  
+    else:
+        dateTime = datetime.datetime.now()
+        sensorDictionary =  OrderedDict([
+                ("dateTime"     ,str(dateTime)),
+        		("co2"          ,struct.unpack('<f',bytes.fromhex(dataIn[0:8]))[0]),
+            	("temperature"  ,struct.unpack('<f',bytes.fromhex(dataIn[8:16]))[0]),
+                ("humidity"     ,struct.unpack('<f',bytes.fromhex(dataIn[16:24]))[0]),
+        ])
+        print(sensorDictionary)
+        return sensorDictionary;
+
+def sensingBME688CNR(dataIn,transmitReceive):
+    print("sensingBME688CNR")	
+    if (transmitReceive): 
+        strOut  = \
+            np.float32(dataIn[29]).tobytes().hex().zfill(8)+ \
+            np.float32(dataIn[31]).tobytes().hex().zfill(8) + \
+            np.float32(dataIn[33]).tobytes().hex().zfill(8)+ \
+            np.float32(dataIn[35]).tobytes().hex().zfill(8) + \
+            np.float32(dataIn[37]).tobytes().hex().zfill(8)+ \
+            np.float32(dataIn[39]).tobytes().hex().zfill(8) + \
+            np.float32(dataIn[41]).tobytes().hex().zfill(8)
+        return strOut;  
+    else:
+        dateTime = datetime.datetime.now()
+        sensorDictionary =  OrderedDict([
+                ("dateTime"    , str(dateTime)), 
+        		("temperature" ,struct.unpack('<f',bytes.fromhex(dataIn[0:8]))[0]),
+            	("humidity"    ,struct.unpack('<f',bytes.fromhex(dataIn[8:16]))[0]),
+                ("pressure"    ,struct.unpack('<f',bytes.fromhex(dataIn[16:24]))[0]),
+                ("vocAqi"      ,struct.unpack('<f',bytes.fromhex(dataIn[24:32]))[0]),
+            	("bvocEq"      ,struct.unpack('<f',bytes.fromhex(dataIn[32:40]))[0]),
+        		("gasEst"      ,struct.unpack('<f',bytes.fromhex(dataIn[40:48]))[0]), 
+            	("co2Eq"       ,struct.unpack('<f',bytes.fromhex(dataIn[48:56]))[0]),
+        ])
+        print(sensorDictionary)
+        return sensorDictionary;
+
     
 def sensingIPS7100CNR(dataIn,transmitReceive):
     print("sensingIPS7100CNR")	
