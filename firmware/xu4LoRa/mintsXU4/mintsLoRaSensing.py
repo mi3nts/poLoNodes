@@ -106,21 +106,49 @@ def sensingAS7265X(dataIn,transmitReceive):
         strOut  = \
             np.float32(dataIn[0]).tobytes().hex().zfill(8)+ \
             np.float32(dataIn[1]).tobytes().hex().zfill(8) + \
-            np.float32(dataIn[2]).tobytes().hex().zfill(8)
+            np.float32(dataIn[2]).tobytes().hex().zfill(8)+ \
+            np.float32(dataIn[3]).tobytes().hex().zfill(8) + \
+            np.float32(dataIn[4]).tobytes().hex().zfill(8)+ \
+            np.float32(dataIn[5]).tobytes().hex().zfill(8) + \
+            np.float32(dataIn[6]).tobytes().hex().zfill(8)+ \
+            np.float32(dataIn[7]).tobytes().hex().zfill(8) + \
+            np.float32(dataIn[8]).tobytes().hex().zfill(8)+ \
+            np.float32(dataIn[9]).tobytes().hex().zfill(8) + \
+            np.float32(dataIn[10]).tobytes().hex().zfill(8)+ \
+            np.float32(dataIn[11]).tobytes().hex().zfill(8) + \
+            np.float32(dataIn[12]).tobytes().hex().zfill(8)+ \
+            np.float32(dataIn[13]).tobytes().hex().zfill(8) + \
+            np.float32(dataIn[14]).tobytes().hex().zfill(8)+ \
+            np.float32(dataIn[15]).tobytes().hex().zfill(8) + \
+            np.float32(dataIn[16]).tobytes().hex().zfill(8)+ \
+            np.float32(dataIn[17]).tobytes().hex().zfill(8) 
+
         return strOut;  
     else:
         dateTime = datetime.datetime.now()
         sensorDictionary =  OrderedDict([
-                ("dateTime"     ,str(dateTime)),
-        		("co2"          ,struct.unpack('<f',bytes.fromhex(dataIn[0:8]))[0]),
-            	("temperature"  ,struct.unpack('<f',bytes.fromhex(dataIn[8:16]))[0]),
-                ("humidity"     ,struct.unpack('<f',bytes.fromhex(dataIn[16:24]))[0]),
+                ("dateTime"      ,str(dateTime)),
+        		("channelA410nm" ,struct.unpack('<f',bytes.fromhex(dataIn[0:8]))[0]),
+            	("channelB435nm" ,struct.unpack('<f',bytes.fromhex(dataIn[8:16]))[0]),
+        		("channelC460nm" ,struct.unpack('<f',bytes.fromhex(dataIn[16:24]))[0]),
+            	("channelD485nm" ,struct.unpack('<f',bytes.fromhex(dataIn[24:32]))[0]),                
+        		("channelE510nm" ,struct.unpack('<f',bytes.fromhex(dataIn[32:40]))[0]),
+            	("channelF535nm" ,struct.unpack('<f',bytes.fromhex(dataIn[40:48]))[0]),
+        		("channelG560nm" ,struct.unpack('<f',bytes.fromhex(dataIn[48:56]))[0]),
+            	("channelH585nm" ,struct.unpack('<f',bytes.fromhex(dataIn[56:64]))[0]),                
+        		("channelR610nm" ,struct.unpack('<f',bytes.fromhex(dataIn[64:72]))[0]),
+            	("channelI645nm" ,struct.unpack('<f',bytes.fromhex(dataIn[72:80]))[0]),
+        		("channelS680nm" ,struct.unpack('<f',bytes.fromhex(dataIn[80:88]))[0]),
+            	("channelJ705nm" ,struct.unpack('<f',bytes.fromhex(dataIn[88:96]))[0]),                
+        		("channelT730nm" ,struct.unpack('<f',bytes.fromhex(dataIn[96:104]))[0]),
+            	("channelU760nm" ,struct.unpack('<f',bytes.fromhex(dataIn[104:112]))[0]),
+        		("channelV810nm" ,struct.unpack('<f',bytes.fromhex(dataIn[112:120]))[0]),
+            	("channelW860nm" ,struct.unpack('<f',bytes.fromhex(dataIn[120:128]))[0]),                
+        		("channelK900nm" ,struct.unpack('<f',bytes.fromhex(dataIn[128:136]))[0]),
+            	("channelL940nm" ,struct.unpack('<f',bytes.fromhex(dataIn[136:144]))[0]),
         ])
         print(sensorDictionary)
         return sensorDictionary;
-
-
-
 
 def sensingSCD30(dataIn,transmitReceive):
     print("sensingSCD30")	
@@ -190,6 +218,7 @@ def sensingIPS7100CNR(dataIn,transmitReceive):
         print(strOut)
         return strOut;  
     else:
+        dateTime = datetime.datetime.now()
         sensorDictionary =  OrderedDict([
                 ("dateTime" , str(dateTime)), 
         		("pc0_1"  ,struct.unpack('<L',bytes.fromhex(dataIn[0:8]))[0]),
