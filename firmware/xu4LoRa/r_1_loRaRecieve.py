@@ -24,7 +24,7 @@ nodeIDs             = mD.nodeIDs
 
 
 tlsCert             = mD.tlsCert
-portIDs             = mD.portIDs
+fPortIDs              = mD.fPortIDs 
 
 connected        = False  # Stores the connection status
 broker       = mqttBrokerLoRa  
@@ -33,7 +33,7 @@ mqttUN       = loRaCredentials['username']
 mqttPW       = loRaCredentials['password'] 
 nodeObjects  = []
 decoder = json.JSONDecoder(object_pairs_hook=collections.OrderedDict)
-print(portIDs)
+print(fPortIDs )
 
 
 def getNodeIndex(nodeIDIn):
@@ -62,12 +62,13 @@ def on_message(client, userdata, msg):
         print(" - - - MINTS DATA RECEIVED - - - ")
         # print(msg.payload)
         dateTime,gatewayID,nodeID,sensorID,framePort,base16Data = \
-            mLS.loRaSummaryReceive(msg,portIDs)
+            mLS.loRaSummaryReceive(msg,fPortIDs)
         print("Node ID         : " + nodeID)
+        print("Sensor ID         : " + sensorID)
         nodeIndex = getNodeIndex(nodeID)
         if nodeIndex >= 0 :  
             print("============")
-            sensorDictionary = mLS.sensorReceiveLoRa(dateTime,nodeID,sensorID,framePort,base16Data)
+            sensorDictionary = mLS.encodeDecode(sensorID,base16Data,False)
             print(sensorDictionary)
             dateTime = datetime.datetime.strptime(sensorDictionary["dateTime"], '%Y-%m-%d %H:%M:%S.%f')
             print("Node ID         : " + nodeID)

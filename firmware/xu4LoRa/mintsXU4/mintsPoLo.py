@@ -74,7 +74,11 @@ def loRaE5MiniJoin(availE5Mini,serE5Mini):
     sendCommand(serE5Mini,'AT+DR=dr2',1)
     sendCommand(serE5Mini,'AT+CH=NUM, 56-63',1)
     sendCommand(serE5Mini,'AT+POWER=20',1)
-    sendCommand(serE5Mini,'AT+PORT=2',2)
+    # Changing to Power Mode Polo F Port
+
+
+    
+    # sendCommand(serE5Mini,'AT+PORT=4',2)
     
     # Check Join
     joined = joinNetwork(10,serE5Mini,10)
@@ -89,9 +93,14 @@ def loRaE5MiniJoin(availE5Mini,serE5Mini):
     else:
         print("Network Found")
 
-    messege    = hex(struct.unpack('<I', struct.pack('<I', 254))[0])
-    messege = messege.replace('0x','').zfill(2)
-    sendCommand(serE5Mini,'AT+MSGHEX='+str(messege),5)
+    sensorID = "PM"    
+    
+    sendCommandHex(serE5Mini,sensorID,[254],deriveSensorStats(sensorID))
+    
+    # sendCommandHex(serE5Mini,sensorID,sensorData,port)
+    # messege    = hex(struct.unpack('<I', struct.pack('<I', 254))[0])
+    # messege = messege.replace('0x','').zfill(2)
+    # sendCommand(serE5Mini,'AT+MSGHEX='+str(messege),5)
     
     return joined ;
 
@@ -299,18 +308,6 @@ def readSerialLine(serIn,timeOutSensor,sizeExpected):
                         startFound = True
                         line = []
 
-def readSensorDataI2c(online,i2cObject,sensorID,serPortE5):
-    
-    if online:
-        print(sensorID + " Online")  
-        port = deriveSensorStats(sensorID)
-        if port['portID']<255:
-            sensorData  =  i2cObject.read()
-            sendCommandHex(serPortE5,sensorID,sensorData,port)  
-            return;
-    else:
-        print(sensorID + " Not Online")       
-        return;
 
 
 
@@ -334,4 +331,17 @@ def readSensorData(online,serPort,sensorID,serPortE5):
       
         
         
+def readSensorDataI2c(online,i2cObject,sensorID,serPortE5):
+    
+    if online:
+        print(sensorID + " Online")  
+        port = deriveSensorStats(sensorID)
+        if port['portID']<255:
+            sensorData  =  i2cObject.read()
+            sendCommandHex(serPortE5,sensorID,sensorData,port)  
+            return;
+    else:
+        print(sensorID + " Not Online")       
+        return;
+
         

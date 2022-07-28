@@ -46,7 +46,7 @@ def loRaSummaryReceive(message,fPortIDs):
     rxInfo              =  sensorPackage['rxInfo'][0]
     txInfo              =  sensorPackage['txInfo']
     loRaModulationInfo  =  txInfo['loRaModulationInfo']
-    sensorID            = fPortIDs[getPortIndex(sensorPackage['fPort'],portIDs)]['sensor']
+    sensorID            = fPortIDs[getPortIndex(sensorPackage['fPort'],fPortIDs)]['sensor']
     dateTime            = datetime.datetime.fromisoformat(sensorPackage['publishedAt'][0:26])
     base16Data          = base64.b64decode(sensorPackage['data'].encode()).hex()
     gatewayID           = base64.b64decode(rxInfo['gatewayID']).hex()
@@ -72,9 +72,6 @@ def loRaSummaryReceive(message,fPortIDs):
             ("devAddr"         , sensorPackage['devAddr']),
             ("deviceAddDecoded", base64.b64decode(sensorPackage['devAddr'].encode()).hex())
         ])
-    # print(sensorDictionary)
-    # loRaWriteFinisher("LoRaNodes","Summary",dateTime,sensorDictionary)
-    # loRaWriteFinisher(gatewayID,"Summary",dateTime,sensorDictionary)
     return dateTime,gatewayID,nodeID,sensorID,framePort,base16Data;
 
 
@@ -97,9 +94,28 @@ def encodeDecode(sensorID,sensorData,transmitReceive):
         return sensingSCD30(sensorData,transmitReceive);           
     if sensorID == "AS7265X":
         return sensingAS7265X(sensorData,transmitReceive);   
+    if sensorID == "PM":
+        return sensingPM(sensorData,transmitReceive);   
+
     return " "   
         
     # For transmitting data, transmitRecieve is True
+
+def sensingPM(dataIn,transmitReceive):
+    print("sensingPM")	
+    if (transmitReceive): 
+        strOut  = \
+            np.ubyte(dataIn[0]).tobytes().hex().zfill(8)
+        return strOut;  
+    else:
+        dateTime = datetime.datetime.now()
+        sensorDictionary =  OrderedDict([
+                ("dateTime"      ,str(dateTime)),
+                ("powerMode",struct.unpack('<B',bytes.fromhex(dataIn[0:2]))[0])
+        ])
+        return sensorDictionary;
+
+
 def sensingAS7265X(dataIn,transmitReceive):
     print("sensingAS7265X")	
     if (transmitReceive): 
@@ -122,7 +138,6 @@ def sensingAS7265X(dataIn,transmitReceive):
             np.float32(dataIn[15]).tobytes().hex().zfill(8) + \
             np.float32(dataIn[16]).tobytes().hex().zfill(8)+ \
             np.float32(dataIn[17]).tobytes().hex().zfill(8) 
-
         return strOut;  
     else:
         dateTime = datetime.datetime.now()
@@ -147,7 +162,6 @@ def sensingAS7265X(dataIn,transmitReceive):
         		("channelK900nm" ,struct.unpack('<f',bytes.fromhex(dataIn[128:136]))[0]),
             	("channelL940nm" ,struct.unpack('<f',bytes.fromhex(dataIn[136:144]))[0]),
         ])
-        print(sensorDictionary)
         return sensorDictionary;
 
 def sensingSCD30(dataIn,transmitReceive):
@@ -166,7 +180,6 @@ def sensingSCD30(dataIn,transmitReceive):
             	("temperature"  ,struct.unpack('<f',bytes.fromhex(dataIn[8:16]))[0]),
                 ("humidity"     ,struct.unpack('<f',bytes.fromhex(dataIn[16:24]))[0]),
         ])
-        print(sensorDictionary)
         return sensorDictionary;
 
 def sensingBME688CNR(dataIn,transmitReceive):
@@ -193,7 +206,6 @@ def sensingBME688CNR(dataIn,transmitReceive):
         		("gasEst"      ,struct.unpack('<f',bytes.fromhex(dataIn[40:48]))[0]), 
             	("co2Eq"       ,struct.unpack('<f',bytes.fromhex(dataIn[48:56]))[0]),
         ])
-        print(sensorDictionary)
         return sensorDictionary;
 
     
@@ -235,7 +247,6 @@ def sensingIPS7100CNR(dataIn,transmitReceive):
         		("pm5_0"  ,struct.unpack('<f',bytes.fromhex(dataIn[96:104]))[0]), 
             	("pm10_0" ,struct.unpack('<f',bytes.fromhex(dataIn[104:112]))[0])
         ])
-        print(sensorDictionary)
         return sensorDictionary;
   
 def sensorReceiveLoRa(dateTime,nodeID,sensorID,framePort,base16Data):

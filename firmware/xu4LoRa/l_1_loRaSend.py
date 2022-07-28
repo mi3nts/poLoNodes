@@ -85,25 +85,8 @@ if __name__ == "__main__":
     # joined = True    
 
     while joined:
-
-        # Code Later
-        # At this point we work on the canaree 
+        # Add a try catch 
         start_time = time.time()
-        
-       
-
-        ## Read IPS7100
-        # Add Canaree Check 
-        # The Function Should Take 
-        
-        ## Inputs 
-        # SensorID 
-        # Serial Port 
-
-        ## Derive 
-        # Port ID  
-        # Number of outputs
-
         print("TEST 1")
         mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
         print("TEST 2")
