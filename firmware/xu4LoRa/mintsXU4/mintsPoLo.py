@@ -304,6 +304,8 @@ def readSerialLine(serIn,timeOutSensor,sizeExpected):
 
 def sendCommandHex(serPortE5,sensorID,sensorData,port):
     hexString = mLS.encodeDecode( sensorID,sensorData,receiveTransmit)
+    print(hexString)
+    print(str(port['portID']))
     sendCommand(serPortE5,'AT+PORT='+ str(port['portID']),2) 
     sendCommand(serPortE5,'AT+MSGHEX='+str(hexString ),5)    
   

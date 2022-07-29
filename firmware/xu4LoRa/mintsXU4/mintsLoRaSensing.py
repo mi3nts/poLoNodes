@@ -96,7 +96,8 @@ def encodeDecode(sensorID,sensorData,transmitReceive):
         return sensingAS7265X(sensorData,transmitReceive);   
     if sensorID == "PM":
         return sensingPM(sensorData,transmitReceive);   
-
+    if sensorID == "PMPoLo":
+        return sensingPM(sensorData,transmitReceive); 
     return " "   
         
     # For transmitting data, transmitRecieve is True
@@ -114,6 +115,21 @@ def sensingPM(dataIn,transmitReceive):
                 ("powerMode",struct.unpack('<B',bytes.fromhex(dataIn[0:2]))[0])
         ])
         return sensorDictionary;
+
+def sensingPMPoLo(dataIn,transmitReceive):
+    print("Reading Power Mode")	
+    if (transmitReceive): 
+        strOut  = \
+            np.ubyte(dataIn[0]).tobytes().hex().zfill(8)
+        return strOut;  
+    else:
+        dateTime = datetime.datetime.now()
+        sensorDictionary =  OrderedDict([
+                ("dateTime"      ,str(dateTime)),
+                ("powerMode",struct.unpack('<B',bytes.fromhex(dataIn[0:2]))[0])
+        ])
+        return sensorDictionary;
+
 
 
 def sensingAS7265X(dataIn,transmitReceive):
