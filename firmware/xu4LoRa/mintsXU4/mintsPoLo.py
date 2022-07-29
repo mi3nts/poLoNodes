@@ -116,7 +116,7 @@ def openSerial(portIn,baudRate):
 
     print(" ")
     print("Connected to: " + ser.portstr)
-    print(" ")
+    # print(" ")
     return ser;
 
 def sendCommand2(serIn,commandStrIn,timeOutIn):
