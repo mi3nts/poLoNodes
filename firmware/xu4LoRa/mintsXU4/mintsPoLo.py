@@ -316,7 +316,7 @@ def sendCommandHex(serPortE5,sensorID,sensorData,port):
 def readSensorData(online,serPort,sensorID,serPortE5):
     print("====================================")  
     print("-----------" +sensorID+ "-----------" ) 
-    print("Current Time (UTC): " str(datetime.now()))
+    print("Current Time (UTC): " +str(datetime.now()))
     if online:
         print(sensorID + " Online") 
         port = deriveSensorStats(sensorID)
@@ -332,6 +332,7 @@ def readSensorData(online,serPort,sensorID,serPortE5):
 def readSensorDataI2c(online,i2cObject,sensorID,serPortE5):
     print("====================================")  
     print("-----------" +sensorID+ "-----------" ) 
+    print("Current Time (UTC): " +str(datetime.now()))    
     if online:
         print(sensorID + " Online")  
         port = deriveSensorStats(sensorID)
