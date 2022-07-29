@@ -313,12 +313,13 @@ def sendCommandHex(serPortE5,sensorID,sensorData,port):
 
 def readSensorData(online,serPort,sensorID,serPortE5):
     print("====================================")  
-    print("Sensing " +sensorID)   
+    print("-----------" +sensorID+ "-----------" ) 
     if online:
         print(sensorID + " Online") 
         port = deriveSensorStats(sensorID)
         if port['portID']<255:
             sensorData = readSerialLine(serPort,2,port['numOfParametors'])
+            print(sensorData)
             sendCommandHex(serPortE5,sensorID,sensorData,port)
             return;
     else:
@@ -326,12 +327,16 @@ def readSensorData(online,serPort,sensorID,serPortE5):
         return;
         
 def readSensorDataI2c(online,i2cObject,sensorID,serPortE5):
+    print("====================================")  
+    print("-----------" +sensorID+ "-----------" ) 
     if online:
         print(" ------------------------------ ")  
         print(sensorID + " Online")  
         port = deriveSensorStats(sensorID)
         if port['portID']<255:
+            print("Reading I2C Data")
             sensorData  =  i2cObject.read()
+            print(sensorData)
             sendCommandHex(serPortE5,sensorID,sensorData,port)  
             return;
     else:
