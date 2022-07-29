@@ -85,7 +85,7 @@ def getPortIndex(portIDIn,fPortIDs):
 
 
 def encodeDecode(sensorID,sensorData,transmitReceive):
-    print("Encode Decode")
+    # print("Encode Decode")
     if sensorID == "IPS7100CNR":
         return sensingIPS7100CNR(sensorData,transmitReceive);
     if sensorID == "BME688CNR":
@@ -102,7 +102,7 @@ def encodeDecode(sensorID,sensorData,transmitReceive):
     # For transmitting data, transmitRecieve is True
 
 def sensingPM(dataIn,transmitReceive):
-    print("sensingPM")	
+    print("Sensing Power Mode")	
     if (transmitReceive): 
         strOut  = \
             np.ubyte(dataIn[0]).tobytes().hex().zfill(8)
@@ -117,7 +117,7 @@ def sensingPM(dataIn,transmitReceive):
 
 
 def sensingAS7265X(dataIn,transmitReceive):
-    print("sensingAS7265X")	
+    print("Sensing AS7265X")	
     if (transmitReceive): 
         strOut  = \
             np.float32(dataIn[0]).tobytes().hex().zfill(8)+ \
@@ -165,7 +165,7 @@ def sensingAS7265X(dataIn,transmitReceive):
         return sensorDictionary;
 
 def sensingSCD30(dataIn,transmitReceive):
-    print("sensingSCD30")	
+    print("Sensing SCD30")	
     if (transmitReceive): 
         strOut  = \
             np.float32(dataIn[0]).tobytes().hex().zfill(8)+ \
@@ -183,7 +183,7 @@ def sensingSCD30(dataIn,transmitReceive):
         return sensorDictionary;
 
 def sensingBME688CNR(dataIn,transmitReceive):
-    print("sensingBME688CNR")	
+    print("Sensing BME688CNR")	
     if (transmitReceive): 
         strOut  = \
             np.float32(dataIn[29]).tobytes().hex().zfill(8)+ \
@@ -210,7 +210,7 @@ def sensingBME688CNR(dataIn,transmitReceive):
 
     
 def sensingIPS7100CNR(dataIn,transmitReceive):
-    print("sensingIPS7100CNR")	
+    print("Sensing IPS7100CNR")	
     if (transmitReceive):  
         strOut  = \
             np.uint32(dataIn[1]).tobytes().hex().zfill(8)+ \
@@ -258,19 +258,6 @@ def sensorReceiveLoRa(dateTime,nodeID,sensorID,framePort,base16Data):
         sensorDictionary = IPS7100CNRLoRaWrite(dateTime,nodeID,sensorID,framePort,base16Data)        
     if(sensorID=="BME688CNR"):
         sensorDictionary =BME688CNRLoRaWrite(dateTime,nodeID,sensorID,framePort,base16Data)       
-    # if(sensorID=="PM"):
-    #     sensorDictionary =PMLoRaWrite(dateTime,nodeID,sensorID,framePort,base16Data)     
-    # if(sensorID=="BME280"):
-    #     sensorDictionary =BME280LoRaWrite(dateTime,nodeID,sensorID,framePort,base16Data)   
-
-    # if(sensorID=="GPGGALR"):
-    #     sensorDictionary =GPGGALRLoRaWrite(dateTime,nodeID,sensorID,framePort,base16Data) 
-    # if(sensorID=="SCD30"):
-    #     sensorDictionary =SCD30LoRaWrite(dateTime,nodeID,sensorID,framePort,base16Data) 
-    # if(sensorID=="INA219Duo"):
-    #     sensorDictionary =INA219DuoLoRaWrite(dateTime,nodeID,sensorID,framePort,base16Data) 
-    # if(sensorID=="MGS001"):
-    #     sensorDictionary =MGS001LoRaWrite(dateTime,nodeID,sensorID,framePort,base16Data) 
     return sensorDictionary;
 
 

@@ -58,15 +58,18 @@ def on_connect(client, userdata, flags, rc):
     
 def on_message(client, userdata, msg):
     # try:
-        print()
-        print(" - - - MINTS DATA RECEIVED - - - ")
-        # print(msg.payload)
+        # print()
+        # print(" - - - MINTS DATA RECEIVED - - - ")
+        # # print(msg.payload)
         dateTime,gatewayID,nodeID,sensorID,framePort,base16Data = \
             mLS.loRaSummaryReceive(msg,fPortIDs)
-        print("Node ID         : " + nodeID)
-        print("Sensor ID         : " + sensorID)
+
         nodeIndex = getNodeIndex(nodeID)
         if nodeIndex >= 0 :  
+            print()
+            print(" - - - MINTS DATA RECEIVED - - - ")
+            print("Node ID         : " + nodeID)
+            print("Sensor ID         : " + sensorID)
             print("============")
             sensorDictionary = mLS.encodeDecode(sensorID,base16Data,False)
             print(sensorDictionary)
