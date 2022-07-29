@@ -106,13 +106,13 @@ def sensingPM(dataIn,transmitReceive):
     print("Reading Power Mode")	
     if (transmitReceive): 
         strOut  = \
-            np.ubyte(dataIn[0]).tobytes().hex().zfill(8)
+            np.ubyte(dataIn[0]).tobytes().hex().zfill(2)
         return strOut;  
     else:
         dateTime = datetime.datetime.now()
         sensorDictionary =  OrderedDict([
                 ("dateTime"      ,str(dateTime)),
-                ("powerMode",struct.unpack('<B',bytes.fromhex(dataIn[0:2]))[0])
+                ("powerMode",struct.unpack('<B',bytes.fromhex(dataIn[0:8]))[0])
         ])
         return sensorDictionary;
 
@@ -120,9 +120,10 @@ def sensingPMPoLo(dataIn,transmitReceive):
     print("Reading Power Mode")	
     if (transmitReceive): 
         strOut  = \
-            np.ubyte(dataIn[0]).tobytes().hex().zfill(8)
+            np.ubyte(dataIn[0]).tobytes().hex().zfill(2)
         return strOut;  
     else:
+        print(dataIn)
         dateTime = datetime.datetime.now()
         sensorDictionary =  OrderedDict([
                 ("dateTime"      ,str(dateTime)),
