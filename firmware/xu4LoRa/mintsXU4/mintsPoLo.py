@@ -40,9 +40,9 @@ def getPort(portsIn,indexIn,baudRateIn):
 
 def readingDeviceProperties(macAddress,loRaE5MiniPorts,canareePorts,gpsPorts):
     
-    print("Mac Address          : {0}".format(macAddress))
+    print("Mac Address: {0}".format(macAddress))
     print()
-    print("LoRa E5 Mini Ports :")
+    print("LoRa E5 Mini Ports:")
     for dev in loRaE5MiniPorts:
         print("\t{0}".format(dev))
     
