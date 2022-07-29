@@ -102,8 +102,7 @@ def encodeDecode(sensorID,sensorData,transmitReceive):
     # For transmitting data, transmitRecieve is True
 
 def sensingPM(dataIn,transmitReceive):
-    print("==================")	
-    print("Sensing Power Mode")	
+    print("Reading Power Mode")	
     if (transmitReceive): 
         strOut  = \
             np.ubyte(dataIn[0]).tobytes().hex().zfill(8)
@@ -118,8 +117,7 @@ def sensingPM(dataIn,transmitReceive):
 
 
 def sensingAS7265X(dataIn,transmitReceive):
-    print("==================")	
-    print("Sensing AS7265X")	
+    print("Reading AS7265X")	
     if (transmitReceive): 
         strOut  = \
             np.float32(dataIn[0]).tobytes().hex().zfill(8)+ \
@@ -167,8 +165,7 @@ def sensingAS7265X(dataIn,transmitReceive):
         return sensorDictionary;
 
 def sensingSCD30(dataIn,transmitReceive):
-    print("==================")	
-    print("Sensing SCD30")	
+    print("Reading SCD30")	
     if (transmitReceive): 
         strOut  = \
             np.float32(dataIn[0]).tobytes().hex().zfill(8)+ \
@@ -186,8 +183,7 @@ def sensingSCD30(dataIn,transmitReceive):
         return sensorDictionary;
 
 def sensingBME688CNR(dataIn,transmitReceive):
-    print("==================")	
-    print("Sensing BME688CNR")	
+    print("Reading BME688CNR")	
     if (transmitReceive): 
         strOut  = \
             np.float32(dataIn[29]).tobytes().hex().zfill(8)+ \
@@ -214,8 +210,7 @@ def sensingBME688CNR(dataIn,transmitReceive):
 
     
 def sensingIPS7100CNR(dataIn,transmitReceive):
-    print("==================")	
-    print("Sensing IPS7100CNR")	
+    print("Reading IPS7100CNR")	
     if (transmitReceive):  
         strOut  = \
             np.uint32(dataIn[1]).tobytes().hex().zfill(8)+ \

@@ -57,7 +57,7 @@ def readingDeviceProperties(macAddress,loRaE5MiniPorts,canareePorts,gpsPorts):
     return;
 
 def loRaE5MiniJoin(availE5Mini,serE5Mini):
-    
+    print()
     if (not availE5Mini):
         print("E5 Mini Not Connected")
         quit()
