@@ -37,6 +37,8 @@ def findMacAddress():
 
     return "xxxxxxxx"
 
+print("============ MINTS POLO NODES ============")
+
 macAddress               = findMacAddress()
 
 mintsDefinitions         = yaml.load(open('mintsXU4/credentials/mintsDefinitions.yaml'),Loader=yaml.FullLoader)
@@ -69,21 +71,21 @@ canareePorts             = findPorts("Canaree PM","PID=10C4:EA60")
 gpsPorts                 = findPorts("u-blox GNSS receiver","PID=1546:01A8")
 
 
-print("")
+# print("")
 
-print("E5 Mini Ports:")
-for dev in loRaE5MiniPorts:
-    print("\t{0}".format(dev))
+# print("E5 Mini Ports:")
+# for dev in loRaE5MiniPorts:
+#     print("\t{0}".format(dev))
     
-print("Canaree Ports:")
-for dev in canareePorts:
-    print("\t{0}".format(dev))
+# print("Canaree Ports:")
+# for dev in canareePorts:
+#     print("\t{0}".format(dev))
 
-print("GPS Ports:")
-for dev in gpsPorts:
-    print("\t{0}".format(dev))
+# print("GPS Ports:")
+# for dev in gpsPorts:
+#     print("\t{0}".format(dev))
 
-print()
+# print()
 
 
 
