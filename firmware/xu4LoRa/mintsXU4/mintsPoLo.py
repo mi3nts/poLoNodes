@@ -95,8 +95,8 @@ def loRaE5MiniJoin(availE5Mini,serE5Mini):
         print()
         print("Network Found")
         print()
+ 
     sensorID = "PMPoLo"    
-    
     sendCommandHex(serE5Mini,sensorID,[254],deriveSensorStats(sensorID))
     
     return joined ;
