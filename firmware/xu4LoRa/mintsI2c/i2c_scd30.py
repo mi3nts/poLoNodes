@@ -64,7 +64,7 @@ class SCD30:
             measurement = self.read_measurement()
             if measurement is not None:
                 co2, temp, rh = measurement
-                print("CO2: {:.2f}ppm, temp: {:.2f}'C, rh: {:.2f}%".format(co2,temp,rh))
+                # print("CO2: {:.2f}ppm, temp: {:.2f}'C, rh: {:.2f}%".format(co2,temp,rh))
                 time.sleep(1)
                 return [co2,temp,rh];
             else:
