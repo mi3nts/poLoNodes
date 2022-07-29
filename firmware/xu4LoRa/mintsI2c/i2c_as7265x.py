@@ -144,7 +144,7 @@ class AS7265X():
         data.append(self.getCalibratedW())
         data.append(self.getCalibratedK())
         data.append(self.getCalibratedL())
-        print(data)
+        # print(data)
         time.sleep(1)        
         return data;
 

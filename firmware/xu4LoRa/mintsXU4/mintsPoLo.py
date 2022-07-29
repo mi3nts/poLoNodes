@@ -330,7 +330,6 @@ def readSensorDataI2c(online,i2cObject,sensorID,serPortE5):
     print("====================================")  
     print("-----------" +sensorID+ "-----------" ) 
     if online:
-        print(" ------------------------------ ")  
         print(sensorID + " Online")  
         port = deriveSensorStats(sensorID)
         if port['portID']<255:
