@@ -1,18 +1,3 @@
-# ***************************************************************************
-#  mintsXU4
-#   ---------------------------------
-#   Written by: Lakitha Omal Harindha Wijeratne
-#   - for -
-#   Mints: Multi-scale Integrated Sensing and Simulation
-#   ---------------------------------
-#   Date: February 4th, 2019
-#   ---------------------------------
-#   This module is written for generic implimentation of MINTS projects
-#   --------------------------------------------------------------------------
-#   https://github.com/mi3nts
-#   http://utdmints.info/
-#  ***************************************************************************
-
 import serial
 import datetime
 import os
@@ -123,7 +108,6 @@ def sensingPMPoLo(dataIn,transmitReceive):
             np.ubyte(dataIn[0]).tobytes().hex().zfill(2)
         return strOut;  
     else:
-        print(dataIn)
         dateTime = datetime.datetime.now()
         sensorDictionary =  OrderedDict([
                 ("dateTime"      ,str(dateTime)),
