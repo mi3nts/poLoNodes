@@ -60,9 +60,9 @@ mqttOn                    = True
 nodeIDs                  = nodeIDs['nodeIDs']
 
 keys                     = yaml.load(open('mintsXU4/credentials/keys.yaml'),Loader=yaml.FullLoader)
-print(keys)
+
 appKey                   = keys['appKey']
-print(appKey)
+
 
 # mqttBroker                = mintsDefinitions['broker']
 tlsCert                   = mintsDefinitions['tlsCert']
