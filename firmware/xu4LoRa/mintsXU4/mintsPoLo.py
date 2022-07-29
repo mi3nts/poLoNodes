@@ -89,8 +89,9 @@ def loRaE5MiniJoin(availE5Mini,serE5Mini):
         print("No Network Found")
         quit()
     else:
+        print()
         print("Network Found")
-
+        print()
     sensorID = "PM"    
     
     sendCommandHex(serE5Mini,sensorID,[254],deriveSensorStats(sensorID))

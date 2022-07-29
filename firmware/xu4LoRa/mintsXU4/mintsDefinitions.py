@@ -70,8 +70,6 @@ gpsPorts                 = findPorts("u-blox GNSS receiver","PID=1546:01A8")
 
 
 print("")
-print("Ports to be used")
-
 
 print("E5 Mini Ports:")
 for dev in loRaE5MiniPorts:
@@ -85,7 +83,7 @@ print("GPS Ports:")
 for dev in gpsPorts:
     print("\t{0}".format(dev))
 
-
+print("")
 
 
 
