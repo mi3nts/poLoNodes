@@ -115,6 +115,19 @@ def sensingPMPoLo(dataIn,transmitReceive):
         ])
         return sensorDictionary;
 
+def sensingMacAd(dataIn,transmitReceive):
+    print("Reading Mac Address")	
+    if (transmitReceive): 
+        strOut  = \
+            dataIn[0].zfill(12)
+        return strOut;  
+    else:
+        dateTime = datetime.datetime.now()
+        sensorDictionary =  OrderedDict([
+                ("dateTime"      ,str(dateTime)),
+                ("macAddress" ,dataIn),
+        ])
+        return sensorDictionary;
 
 
 def sensingAS7265X(dataIn,transmitReceive):
