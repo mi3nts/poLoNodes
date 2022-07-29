@@ -60,7 +60,8 @@ def loRaSummaryReceive(message,fPortIDs):
     return dateTime,gatewayID,nodeID,sensorID,framePort,base16Data;
 
 
-def getPortIndex(portIDIn,fPortIDs):
+    if sensorID == "PMPoLo":
+        return sensingPM(sensorData,transmitReceive); def getPortIndex(portIDIn,fPortIDs):
     indexOut = 0
     for portID in fPortIDs:
         if (portIDIn == portID['portID']):
@@ -83,6 +84,8 @@ def encodeDecode(sensorID,sensorData,transmitReceive):
         return sensingPM(sensorData,transmitReceive);   
     if sensorID == "PMPoLo":
         return sensingPM(sensorData,transmitReceive); 
+    if sensorID == "MacAD":
+        return sensingMacAD(sensorData,transmitReceive); 
     return " "   
         
     # For transmitting data, transmitRecieve is True
@@ -115,7 +118,7 @@ def sensingPMPoLo(dataIn,transmitReceive):
         ])
         return sensorDictionary;
 
-def sensingMacAd(dataIn,transmitReceive):
+def sensingMacAD(dataIn,transmitReceive):
     print("Reading Mac Address")	
     if (transmitReceive): 
         strOut  = \
