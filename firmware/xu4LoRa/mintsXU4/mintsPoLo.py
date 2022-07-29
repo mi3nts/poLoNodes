@@ -76,8 +76,6 @@ def loRaE5MiniJoin(availE5Mini,serE5Mini):
     sendCommand(serE5Mini,'AT+POWER=20',1)
     # Changing to Power Mode Polo F Port
 
-
-    
     # sendCommand(serE5Mini,'AT+PORT=4',2)
     
     # Check Join
@@ -130,7 +128,7 @@ def sendCommand2(serIn,commandStrIn,timeOutIn):
             if chr(c) == '\n':
                 dataString = (''.join(line)).replace("\n","").replace("\r","")
                 lines.append(dataString)
-                print(dataString)
+                # print(dataString)
                 line = []
                 break
     return serIn,lines;
@@ -147,12 +145,10 @@ def sendCommand(serIn,commandStrIn,timeOutIn):
             if chr(c) == '\n':
                 dataString = (''.join(line)).replace("\n","").replace("\r","")
                 lines.append(dataString)
-                print(dataString)
+                # print(dataString)
                 line = []
                 break
     return lines;
-
-
 
         # except:
         #     print("Incomplete String Read")
@@ -326,7 +322,7 @@ def readSensorData(online,serPort,sensorID,serPortE5):
             sendCommandHex(serPortE5,sensorID,sensorData,port)
             return;
     else:
-        print(sensorID + " Not Online")       
+        print(sensorID + " Offline")       
         return;
       
         
@@ -341,7 +337,7 @@ def readSensorDataI2c(online,i2cObject,sensorID,serPortE5):
             sendCommandHex(serPortE5,sensorID,sensorData,port)  
             return;
     else:
-        print(sensorID + " Not Online")       
+        print(sensorID + " Offline")       
         return;
 
         

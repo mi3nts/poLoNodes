@@ -68,11 +68,7 @@ def on_message(client, userdata, msg):
         if nodeIndex >= 0 :  
             print()
             print(" - - - MINTS DATA RECEIVED - - - ")
-            print("Node ID         : " + nodeID)
-            print("Sensor ID         : " + sensorID)
-            print("============")
             sensorDictionary = mLS.encodeDecode(sensorID,base16Data,False)
-            print(sensorDictionary)
             dateTime = datetime.datetime.strptime(sensorDictionary["dateTime"], '%Y-%m-%d %H:%M:%S.%f')
             print("Node ID         : " + nodeID)
             print("Gateway ID      : " + gatewayID)
@@ -80,6 +76,7 @@ def on_message(client, userdata, msg):
             print("Date Time       : " + str(dateTime))
             print("Port ID         : " + str(framePort))
             print("Base 16 Data    : " + base16Data)
+            print(sensorDictionary)
 
     # except Exception as e:
     #     print("[ERROR] Could not publish data, error: {}".format(e))

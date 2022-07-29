@@ -42,16 +42,11 @@ bus     = smbus2.SMBus(0)
 scd30   = SCD30(bus,debug)
 as7265x = AS7265X(bus,debug)
 
-
-
-
 loRaE5MiniPorts     = mD.loRaE5MiniPorts
 canareePorts        = mD.canareePorts
 gpsPorts            = mD.gpsPorts
 appKey              = mD.appKey
 macAddress          = mD.macAddress
-
-
 
 def getLatitudeCords(latitudeStr,latitudeDirection):
     latitude = float(latitudeStr)
@@ -66,8 +61,6 @@ def getLongitudeCords(longitudeStr,longitudeDirection):
     if(longitudeDirection=="W"):
         longitudeCord = -1*longitudeCord
     return longitudeCord        
-
-
 
 if __name__ == "__main__":
 
@@ -87,47 +80,16 @@ if __name__ == "__main__":
     while joined:
         # Add a try catch 
         start_time = time.time()
-        print("TEST 1")
         mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
-        print("TEST 2")
         mPL.readSensorData(canareeOnline,serCanaree,"BME688CNR",serE5Mini)
-        print("TEST 3")
+        mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
         mPL.readSensorDataI2c(canareeOnline,scd30,"SCD30",serE5Mini)
-        print("TEST 4")
+        mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
         mPL.readSensorDataI2c(canareeOnline,as7265x,"AS7265X",serE5Mini)
-        print("TEST 5")
+        
+        # Something for GPS - Just Use Both
 
-        # strOut = mPL.getMessegeStringHex(sensorData, "IPS7100CNR")
-        # mPL.sendCommand(serE5Mini,'AT+PORT=17',2)
-        # mPL.sendCommand(serE5Mini,'AT+MSGHEX='+str(strOut),5)
 
-        # # Read BME688
-        # # Add Canaree Check 
-        # sensorData = mPL.readSerialLine(serCanaree,2,44)
-        # print(sensorData)
-        # strOut = mPL.getMessegeStringHex(sensorData, "BME688CNR")
-        # mPL.sendCommand(serE5Mini,'AT+PORT=25',2)
-        # mPL.sendCommand(serE5Mini,'AT+MSGHEX='+str(strOut),5)
-
-        # # Read SCD30
-        # print("======== SCD30 ========")
-        # if scd30_valid:
-        #     sensorData  =  scd30.read()
-        #     strOut = mPL.getMessegeStringHex(sensorData, "SCD30")
-        #     mPL.sendCommand(serE5Mini,'AT+PORT=25',2)
-        #     mPL.sendCommand(serE5Mini,'AT+MSGHEX='+str(strOut),5)
-        #     print(sensorData)
-        # print("=======================")
-        # time.sleep(2.5)
-
-        # # Read AS7265X
-        # print("======= AS7265X =======")
-        # if as7265x_valid:
-        #     sensorData  = as7265x.read()
-        #     strOut = mPL.getMessegeStringHex(sensorData, "SCD30")
-        #     mPL.sendCommand(serE5Mini,'AT+PORT=25',2)
-        #     mPL.sendCommand(serE5Mini,'AT+MSGHEX='+str(strOut),5) 
-        # print("=======================")
         
         time.sleep(5)
 
