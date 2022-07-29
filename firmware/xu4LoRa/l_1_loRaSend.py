@@ -61,9 +61,11 @@ def getLongitudeCords(longitudeStr,longitudeDirection):
     return longitudeCord        
 
 if __name__ == "__main__":
-
+    
+    print()
     print("============ MINTS POLO NODES ============")
-
+    print()
+    
     mPL.readingDeviceProperties(macAddress,loRaE5MiniPorts,canareePorts,gpsPorts)
     
     print("")
