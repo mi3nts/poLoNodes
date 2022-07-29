@@ -101,7 +101,7 @@ def loRaE5MiniJoin(availE5Mini,serE5Mini):
     
     sensorID = "MacAD"    
     sendCommandHex(serE5Mini,sensorID,[macAddress],deriveSensorStats(sensorID))
-    
+
     return joined ;
 
 
@@ -147,7 +147,7 @@ def sendCommand(serIn,commandStrIn,timeOutIn):
             if chr(c) == '\n':
                 dataString = (''.join(line)).replace("\n","").replace("\r","")
                 lines.append(dataString)
-                # print(dataString)
+                print(dataString)
                 line = []
                 break
     return lines;
