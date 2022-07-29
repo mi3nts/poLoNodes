@@ -6,7 +6,7 @@
 import base64
 from cgitb import strong
 # import imp
-from this import d
+# from this import d
 import paho.mqtt.client as mqtt
 import datetime
 import yaml
