@@ -100,7 +100,7 @@ def loRaE5MiniJoin(availE5Mini,serE5Mini):
     sendCommandHex(serE5Mini,sensorID,[254],deriveSensorStats(sensorID))
     
     sensorID = "MacAD"    
-    sendCommandHex(serE5Mini,sensorID,[254],deriveSensorStats(sensorID))
+    sendCommandHex(serE5Mini,sensorID,macAddress,deriveSensorStats(sensorID))
     return joined ;
 
 
