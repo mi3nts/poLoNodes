@@ -67,7 +67,7 @@ if __name__ == "__main__":
 
     mPL.readingDeviceProperties(macAddress,loRaE5MiniPorts,canareePorts,gpsPorts)
     
-    print()
+    print("")
     
     e5MiniOnline,serE5Mini   = mPL.getPort(loRaE5MiniPorts,0,9600)
     canareeOnline,serCanaree = mPL.getPort(canareePorts,0,115200)
