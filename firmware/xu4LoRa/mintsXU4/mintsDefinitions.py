@@ -43,12 +43,9 @@ mintsDefinitions         = yaml.load(open('mintsXU4/credentials/mintsDefinitions
 credentials              = yaml.load(open('mintsXU4/credentials/credentials.yaml'),Loader=yaml.FullLoader)
 loRaCredentials          = yaml.load(open('mintsXU4/credentials/loRacredentials.yaml'),Loader=yaml.FullLoader)
 fPortIDs                 = yaml.load(open('mintsXU4/credentials/portIDs.yaml'),Loader=yaml.FullLoader)['portIDs']
-
 nodeIDs                  = yaml.load(open('mintsXU4/credentials/nodeIDs.yaml'),Loader=yaml.FullLoader)
 
-
 keys                     = yaml.load(open('mintsXU4/credentials/keys.yaml'),Loader=yaml.FullLoader)
-
 
 dataFolder                = mintsDefinitions['dataFolder']
 
@@ -70,6 +67,11 @@ tlsCert                   = mintsDefinitions['tlsCert']
 loRaE5MiniPorts          = findPorts("CP2102N USB to UART Bridge Controller","PID=10C4:EA60")
 canareePorts             = findPorts("Canaree PM","PID=10C4:EA60")
 gpsPorts                 = findPorts("u-blox GNSS receiver","PID=1546:01A8")
+
+
+print("")
+print("Ports to be used")
+
 
 print("E5 Mini Ports:")
 for dev in loRaE5MiniPorts:
