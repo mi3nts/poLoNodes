@@ -117,8 +117,9 @@ def sensingPM(dataIn,transmitReceive):
 
 
 def sensingAS7265X(dataIn,transmitReceive):
-    print("Reading AS7265X")	
+
     if (transmitReceive): 
+        print("AS7265X Read")	
         strOut  = \
             np.float32(dataIn[0]).tobytes().hex().zfill(8)+ \
             np.float32(dataIn[1]).tobytes().hex().zfill(8) + \
@@ -137,7 +138,9 @@ def sensingAS7265X(dataIn,transmitReceive):
             np.float32(dataIn[14]).tobytes().hex().zfill(8)+ \
             np.float32(dataIn[15]).tobytes().hex().zfill(8) + \
             np.float32(dataIn[16]).tobytes().hex().zfill(8)+ \
-            np.float32(dataIn[17]).tobytes().hex().zfill(8) 
+            np.float32(dataIn[17]).tobytes().hex().zfill(8) ;
+            
+   
         return strOut;  
     else:
         dateTime = datetime.datetime.now()
@@ -165,8 +168,9 @@ def sensingAS7265X(dataIn,transmitReceive):
         return sensorDictionary;
 
 def sensingSCD30(dataIn,transmitReceive):
-    print("Reading SCD30")	
+
     if (transmitReceive): 
+        print("SCD30 Read")	
         strOut  = \
             np.float32(dataIn[0]).tobytes().hex().zfill(8)+ \
             np.float32(dataIn[1]).tobytes().hex().zfill(8) + \
@@ -183,8 +187,9 @@ def sensingSCD30(dataIn,transmitReceive):
         return sensorDictionary;
 
 def sensingBME688CNR(dataIn,transmitReceive):
-    print("Reading BME688CNR")	
+
     if (transmitReceive): 
+        print("BME688CNR Read")	
         strOut  = \
             np.float32(dataIn[29]).tobytes().hex().zfill(8)+ \
             np.float32(dataIn[31]).tobytes().hex().zfill(8) + \
@@ -210,8 +215,9 @@ def sensingBME688CNR(dataIn,transmitReceive):
 
     
 def sensingIPS7100CNR(dataIn,transmitReceive):
-    print("Reading IPS7100CNR")	
+
     if (transmitReceive):  
+        print("IPS7100CNR Read")	
         strOut  = \
             np.uint32(dataIn[1]).tobytes().hex().zfill(8)+ \
             np.uint32(dataIn[3]).tobytes().hex().zfill(8) + \
