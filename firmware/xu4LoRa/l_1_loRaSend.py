@@ -3,11 +3,9 @@
 # Continuously monitor two different MQTT topics for data,
 # check if the received data matches two predefined 'commands'
 
-print("========= MINTS =========")
-
 import base64
 from cgitb import strong
-import imp
+# import imp
 from this import d
 import paho.mqtt.client as mqtt
 import datetime
