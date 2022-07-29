@@ -3,8 +3,10 @@
 # check if the received data matches two predefined 'commands'
 import base64
 from cgitb import strong
+from datetime import datetime
 from this import d
-import time 
+import time
+from xmlrpc.client import DateTime 
 import serial.tools.list_ports
 
 from mintsXU4 import mintsDefinitions as mD
@@ -314,6 +316,7 @@ def sendCommandHex(serPortE5,sensorID,sensorData,port):
 def readSensorData(online,serPort,sensorID,serPortE5):
     print("====================================")  
     print("-----------" +sensorID+ "-----------" ) 
+    print("Current Time (UTC): " str(datetime.now()))
     if online:
         print(sensorID + " Online") 
         port = deriveSensorStats(sensorID)

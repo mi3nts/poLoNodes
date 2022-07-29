@@ -34,6 +34,10 @@ mqttPW       = loRaCredentials['password']
 nodeObjects  = []
 decoder = json.JSONDecoder(object_pairs_hook=collections.OrderedDict)
 
+print()
+print("============ MINTS POLO NODES ============")
+print()
+    
 
 
 def getNodeIndex(nodeIDIn):
@@ -50,10 +54,12 @@ def on_connect(client, userdata, flags, rc):
     topic = "utd/lora/app/2/device/+/event/up"
     client.subscribe(topic)
     print("Subscrbing to Topic: "+ topic)
+    print()
     for node in nodeIDs:
-        print("Appending  Node")
+ 
         nodeID = node['nodeID']
-        print(nodeID)
+        print("Appending Node: " + nodeID)
+        print()
         # nodeObjects.append(mLN.node(nodeID))
     
 def on_message(client, userdata, msg):
