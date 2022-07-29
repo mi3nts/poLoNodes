@@ -84,6 +84,7 @@ def encodeDecode(sensorID,sensorData,transmitReceive):
     if sensorID == "PMPoLo":
         return sensingPM(sensorData,transmitReceive); 
     if sensorID == "MacAD":
+        print(sensorData)
         return sensingMacAD(sensorData,transmitReceive);         
     return " "   
         
