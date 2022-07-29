@@ -33,7 +33,7 @@ mqttUN       = loRaCredentials['username']
 mqttPW       = loRaCredentials['password'] 
 nodeObjects  = []
 decoder = json.JSONDecoder(object_pairs_hook=collections.OrderedDict)
-print(fPortIDs )
+
 
 
 def getNodeIndex(nodeIDIn):
