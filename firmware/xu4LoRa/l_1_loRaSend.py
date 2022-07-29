@@ -64,6 +64,7 @@ def getLongitudeCords(longitudeStr,longitudeDirection):
 
 if __name__ == "__main__":
 
+    print()
     mPL.readingDeviceProperties(macAddress,loRaE5MiniPorts,canareePorts,gpsPorts)
     
     e5MiniOnline,serE5Mini   = mPL.getPort(loRaE5MiniPorts,0,9600)

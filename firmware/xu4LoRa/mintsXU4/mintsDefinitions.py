@@ -83,7 +83,7 @@ print("GPS Ports:")
 for dev in gpsPorts:
     print("\t{0}".format(dev))
 
-print("")
+print()
 
 
 
