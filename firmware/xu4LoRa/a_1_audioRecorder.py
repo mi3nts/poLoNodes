@@ -24,7 +24,7 @@ from mintsAudio import config as cfg
 from mintsAudio import functions as fn
 
 sampleRate         = 44100  # Sample rate
-period             = 9 # Duration of recording
+period             = 120 # Duration of recording
 channelSelected    = 1
 audioFileNamePre   = "mintsAudio"
 tmpFolderName      = "/home/teamlary/NC/"
@@ -74,7 +74,6 @@ if __name__ == "__main__":
     print("=============")
     print("Connecting to the microphone on Channel: {0}".format(channelSelected) + " with Sample Rate " + str(sampleRate))
     main(cfg,currentIndex)    
-
 
 
 
