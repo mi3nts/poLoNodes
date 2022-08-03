@@ -41,7 +41,7 @@ def main(cfg):
     
 
     while True:
-        try:
+        # try:
             audioFolders = glob(tmpFolderName+ "/*/", recursive = True)
             time.sleep(1)
             print(audioFolders)
@@ -83,9 +83,9 @@ def main(cfg):
             #     mSR.sensorFinisher(dateTime,"MBC001",sensorDictionary)
             print("=============")            
          
-        except OSError as e:
-            print ("Error: %s - %s." % (e.filename, e.strerror))
-            print("Microphone Not Connected: Check connection")
+        # except OSError as e:
+        #     print ("Error: %s - %s." % (e.filename, e.strerror))
+        #     print("Microphone Not Connected: Check connection")
 
                
 
