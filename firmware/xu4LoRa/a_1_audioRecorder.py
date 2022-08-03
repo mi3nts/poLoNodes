@@ -38,7 +38,7 @@ currentIndex = 0
 
 
 def main(cfg,currentIndex):
-    labels = pd.read_csv("audioMints/labels/labels.csv") 
+    labels = pd.read_csv("mintsAudio/labels/labels.csv") 
     mSR.directoryCheck(tmpFolderName)
 
     while True:
