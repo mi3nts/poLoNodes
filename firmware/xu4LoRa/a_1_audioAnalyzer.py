@@ -53,7 +53,7 @@ def main(cfg):
                 # print(soundClassData)
 
                 baseDateTime = folderIn.split('/')
-                print(baseDateTime)
+                print(baseDateTime[-2])
                 dateTime  = datetime.datetime.strptime( baseDateTime[-1], '%Y_%m_%d_%H_%M_%S_%f')
                 print(dateTime)
                 # Get Date Time From the File
