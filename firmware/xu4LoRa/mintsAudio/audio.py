@@ -1,6 +1,6 @@
 import numpy as np
 
-from audioMints import config as cfg
+from mintsAudio import config as cfg
 # import config as cfg
 
 RANDOM = np.random.RandomState(cfg.RANDOM_SEED)
