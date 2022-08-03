@@ -36,7 +36,7 @@ dataFolder         = mD.dataFolder
 
 currentIndex = 0 
 
-def main(cfg,currentIndex):
+def main():
     labels = pd.read_csv("mintsAudio/labels/labels.csv") 
     
 
@@ -55,7 +55,7 @@ def main(cfg,currentIndex):
                 # Save it as .json with proper time for its name 
                 # The json files should be under mintsData/jsonAudio/dateTimeFileName
                 # delete the folder 
-                # create
+            
      
             #     for index, row in soundClassData.iterrows():
             #         sensorDictionary = OrderedDict([
@@ -96,8 +96,8 @@ if __name__ == "__main__":
     print("=============")
     print("    MINTS    ")
     print("=============")
-    print("Connecting to the microphone on Channel: {0}".format(channelSelected) + " with Sample Rate " + str(sampleRate))
-    main(cfg,currentIndex)    
+    # print("Connecting to the microphone on Channel: {0}".format(channelSelected) + " with Sample Rate " + str(sampleRate))
+    main()    
 
 
 
