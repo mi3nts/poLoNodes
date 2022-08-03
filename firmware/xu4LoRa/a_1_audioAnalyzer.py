@@ -46,11 +46,15 @@ def main(cfg):
             time.sleep(1)
             print(audioFolders)
             for folderIn in audioFolders:
-                freeze_support()
-                cfg = fn.configSetUp(cfg,folderIn,minConfidence,numOfThreads)
-                soundClassData = pd.read_csv(folderIn + '/'+ audioFileNamePre+  '.BirdNET.results.csv')
-                soundClassData["Labels"] = soundClassData["Scientific name"].map(labels.set_index("Scientific name")["Labels"])
-                print(soundClassData)
+                # freeze_support()
+                # cfg = fn.configSetUp(cfg,folderIn,minConfidence,numOfThreads)
+                # soundClassData = pd.read_csv(folderIn + '/'+ audioFileNamePre+  '.BirdNET.results.csv')
+                # soundClassData["Labels"] = soundClassData["Scientific name"].map(labels.set_index("Scientific name")["Labels"])
+                # print(soundClassData)
+
+                baseDateTime = folderIn.split('/')
+                dateTime  = datetime. strptime( baseDateTime[-1], '%Y_%m_/%d_%H_%M_%S_%f')
+                print(dateTime)
                 # Get Date Time From the File
                 # Save it as .json with proper time for its name 
                 # The json files should be under mintsData/jsonAudio/dateTimeFileName
