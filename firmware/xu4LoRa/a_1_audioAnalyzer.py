@@ -55,17 +55,18 @@ def main(cfg):
                 soundClassData["Labels"] = soundClassData["Scientific name"].map(labels.set_index("Scientific name")["Labels"])
 
                 baseDateTime = folderIn.split('/')
-                dateTime  = datetime.datetime.strptime(\
+                dateTimeBase  = datetime.datetime.strptime(\
                                 baseDateTime[-2], '%Y_%m_%d_%H_%M_%S_%f')
         
                 for index, row in soundClassData.iterrows():
-                    dateTimeNow = str(dateTime + datetime.timedelta(seconds = row['Start (s)']))
+                    dateTimeCurrent = str(dateTimeBase + datetime.timedelta(seconds = row['Start (s)']))
                     sensorDictionary = OrderedDict([
                         ("label"        ,row['Labels']),
                         ("confidence"   ,row['Confidence'])
                         ])
-                        
-                    with open(fn.getJsonFileName(folderIn,dateTimeNow), "w") as outfile:
+                    print(sensorDictionary)
+                    print(dateTimeCurrent)    
+                    with open(fn.getJsonFileName(folderIn,dateTimeCurrent), "w") as outfile:
                         json.dump(sensorDictionary, outfile)
            
             # Get Date Time From the File
