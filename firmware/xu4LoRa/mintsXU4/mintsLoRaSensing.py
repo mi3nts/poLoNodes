@@ -270,7 +270,16 @@ def sensingIPS7100CNR(dataIn,transmitReceive):
             	("pm10_0" ,struct.unpack('<f',bytes.fromhex(dataIn[104:112]))[0])
         ])
         return sensorDictionary;
-  
+
+
+def directoryCheck(outputPath):
+    exists = os.path.isfile(outputPath)
+    directoryIn = os.path.dirname(outputPath)
+    if not os.path.exists(directoryIn):
+        os.makedirs(directoryIn)
+    return exists
+
+
 # def sensorReceiveLoRa(dateTime,nodeID,sensorID,framePort,base16Data):
 #     sensorDictionary =  OrderedDict([
 #                 ("dateTime" , str(dateTime))])

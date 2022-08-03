@@ -20,7 +20,7 @@ import pandas as pd
 
 import functions as fn
 
-fs = 44100  # Sample rate
+fs      = 44100  # Sample rate
 seconds = 9  # Duration of recording
 
 """
