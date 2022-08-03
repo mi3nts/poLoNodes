@@ -10,10 +10,10 @@ RANDOM_SEED = 42
 ##########################
 
 #MODEL_PATH = 'checkpoints/V2.1/BirdNET_GLOBAL_2K_V2.1_Model' # This will load the protobuf model
-MODEL_PATH = 'audioMints/checkpoints/V2.1/BirdNET_GLOBAL_2K_V2.1_Model_FP32.tflite'
-MDATA_MODEL_PATH = 'audioMints/checkpoints/V2.1/BirdNET_GLOBAL_2K_V2.1_MData_Model_FP32.tflite'
-LABELS_FILE = 'audioMints/checkpoints/V2.1/BirdNET_GLOBAL_2K_V2.1_Labels.txt'
-TRANSLATED_LABELS_PATH = 'audioMints/labels/V2.1'
+MODEL_PATH = 'mintsAudio/checkpoints/V2.1/BirdNET_GLOBAL_2K_V2.1_Model_FP32.tflite'
+MDATA_MODEL_PATH = 'mintsAudio/checkpoints/V2.1/BirdNET_GLOBAL_2K_V2.1_MData_Model_FP32.tflite'
+LABELS_FILE = 'mintsAudio/checkpoints/V2.1/BirdNET_GLOBAL_2K_V2.1_Labels.txt'
+TRANSLATED_LABELS_PATH = 'mintsAudio/labels/V2.1'
 
 ##################
 # Audio settings #
@@ -50,7 +50,7 @@ LOCATION_FILTER_THRESHOLD = 0.03
 # If None or empty file, no custom species list will be used
 # Note: Entries in this list have to match entries from the LABELS_FILE
 # We use the 2021 eBird taxonomy for species names (Clements list)
-CODES_FILE = 'audioMints/eBird_taxonomy_codes_2021E.json'
+CODES_FILE = 'mintsAudio/eBird_taxonomy_codes_2021E.json'
 SPECIES_LIST_FILE = 'example/species_list.txt' 
 
 # File input path and output path for selection tables
