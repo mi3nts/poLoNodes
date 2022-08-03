@@ -53,7 +53,7 @@ def main(cfg):
                 # print(soundClassData)
 
                 baseDateTime = folderIn.split('/')
-                dateTime  = datetime.strptime( baseDateTime[-1], '%Y_%m_/%d_%H_%M_%S_%f')
+                dateTime  = datetime.datetime.strptime( baseDateTime[-1], '%Y_%m_/%d_%H_%M_%S_%f')
                 print(dateTime)
                 # Get Date Time From the File
                 # Save it as .json with proper time for its name 
