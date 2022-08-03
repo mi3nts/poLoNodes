@@ -50,6 +50,7 @@ nodeIDs                  = yaml.load(open('mintsXU4/credentials/nodeIDs.yaml'),L
 keys                     = yaml.load(open('mintsXU4/credentials/keys.yaml'),Loader=yaml.FullLoader)
 
 dataFolder                = mintsDefinitions['dataFolder']
+dataFolderTmp             = mintsDefinitions['dataFolderTmp']
 
 mqttPortLoRa              = loRaCredentials['port']
 mqttBrokerLoRa            = loRaCredentials['broker']

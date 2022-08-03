@@ -9,9 +9,6 @@ channelSelected    = 1
 audioFileName      = "mintsAudio" # Audio file name
 SaveAudioLoc       = "/home/teamlary/NC/" # Audio file is saved here
 
-
-
-
 def makeAudioFile(sampleRate,audioLength,channelSelected,audioFileName, SaveAudioLoc):
     
     recording = sd.rec(int(audioLength * sampleRate), samplerate=sampleRate, channels=channelSelected)

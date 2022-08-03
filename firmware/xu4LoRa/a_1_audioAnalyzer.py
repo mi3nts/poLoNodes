@@ -27,7 +27,7 @@ sampleRate         = 44100  # Sample rate
 period             = 120    # Duration of recording
 channelSelected    = 1
 audioFileNamePre   = "mintsAudio"
-tmpFolderName      = mD.dataFolderTmp
+tmpFolderName      = "/home/teamlary/mintsDataTmp/"
 minConfidence      = .3
 numOfThreads       = 4
 

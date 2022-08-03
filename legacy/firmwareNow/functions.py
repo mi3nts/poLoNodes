@@ -337,11 +337,6 @@ def analyzeFile(item):
 
     return True
 
-
-
-
-
-
 def configSetUp(cfgIn,outPutPath,confidenceIn,cpuThreads):
 
     # Parse arguments
