@@ -355,7 +355,6 @@ def getAudioFileName(folderIn):
 
 def makeAudioFile2(sampleRateIn,audioLength,channelNum,tmpFolder):
     fileName = getAudioFileName(tmpFolder)
-
     print("Recording  an audio file to be saved @: " + fileName)
     recording = sd.rec(int(audioLength * sampleRateIn),\
         samplerate=sampleRateIn,\
