@@ -350,7 +350,7 @@ def analyzeFile(item):
 def getAudioFileName(folderIn):
     dateTimeIn = datetime.datetime.now()
     strOut = str(dateTimeIn)+".wav"
-    strOut.replace("-","_").replace(" ","").replace(":","_") 
+    strOut = strOut.replace("-","_").replace(" ","").replace(":","_") 
     return folderIn + "/" + strOut;
 
 def makeAudioFile2(sampleRateIn,audioLength,channelNum,tmpFolder):
