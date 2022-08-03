@@ -36,7 +36,7 @@ dataFolder         = mD.dataFolder
 
 currentIndex = 0 
 
-def main():
+def main(cfg):
     labels = pd.read_csv("mintsAudio/labels/labels.csv") 
     
 
@@ -97,7 +97,7 @@ if __name__ == "__main__":
     print("    MINTS    ")
     print("=============")
     # print("Connecting to the microphone on Channel: {0}".format(channelSelected) + " with Sample Rate " + str(sampleRate))
-    main()    
+    main(cfg)    
 
 
 
