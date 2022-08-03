@@ -7,7 +7,7 @@ import numpy as np
 import warnings
 warnings.filterwarnings("ignore")
 
-from audioMints import config as cfg
+from mintsAudio import config as cfg
 # import config as cfg
 
 # Import TFLite from runtrime or Tensorflow;
