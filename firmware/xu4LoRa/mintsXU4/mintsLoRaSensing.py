@@ -271,7 +271,6 @@ def sensingIPS7100CNR(dataIn,transmitReceive):
         ])
         return sensorDictionary;
 
-
 def directoryCheck(outputPath):
     exists = os.path.isfile(outputPath)
     directoryIn = os.path.dirname(outputPath)
