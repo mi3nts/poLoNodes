@@ -4,7 +4,7 @@ from scipy.io.wavfile import write
 import os
 
 import csv
-
+import json
 import sys
 from collections import OrderedDict
 import datetime
@@ -28,11 +28,14 @@ sampleRate         = 44100  # Sample rate
 period             = 120    # Duration of recording
 channelSelected    = 1
 audioFileNamePre   = "mintsAudio"
-tmpFolderName     = mD.dataFolderTmp
+
 minConfidence      = .3
 numOfThreads       = 4
 
-dataFolder         = mD.dataFolder
+dataFolder        = mD.dataFolder
+tmpFolderName     = mD.dataFolderTmp
+jsonFolderName    = mD.dataFolderJson
+
 
 currentIndex = 0 
 
@@ -46,29 +49,33 @@ def main(cfg):
             time.sleep(1)
             print(audioFolders)
             for folderIn in audioFolders:
-                # freeze_support()
-                # cfg = fn.configSetUp(cfg,folderIn,minConfidence,numOfThreads)
-                # soundClassData = pd.read_csv(folderIn + '/'+ audioFileNamePre+  '.BirdNET.results.csv')
-                # soundClassData["Labels"] = soundClassData["Scientific name"].map(labels.set_index("Scientific name")["Labels"])
-                # print(soundClassData)
+                freeze_support()
+                cfg = fn.configSetUp(cfg,folderIn,minConfidence,numOfThreads)
+                soundClassData = pd.read_csv(folderIn + '/'+ audioFileNamePre+  '.BirdNET.results.csv')
+                soundClassData["Labels"] = soundClassData["Scientific name"].map(labels.set_index("Scientific name")["Labels"])
 
                 baseDateTime = folderIn.split('/')
-                print(baseDateTime[-2])
-                dateTime  = datetime.datetime.strptime( baseDateTime[-2], '%Y_%m_%d_%H_%M_%S_%f')
-                print(dateTime)
-                # Get Date Time From the File
+                dateTime  = datetime.datetime.strptime(\
+                                baseDateTime[-2], '%Y_%m_%d_%H_%M_%S_%f')
+        
+                for index, row in soundClassData.iterrows():
+                    dateTimeNow = str(dateTime + datetime.timedelta(seconds = row['Start (s)']))
+                    sensorDictionary = OrderedDict([
+                        ("label"        ,row['Labels']),
+                        ("confidence"   ,row['Confidence'])
+                        ])
+                        
+                    with open(fn.getJsonFileName(folderIn,dateTimeNow), "w") as outfile:
+                        json.dump(sensorDictionary, outfile)
+           
+            # Get Date Time From the File
                 # Save it as .json with proper time for its name 
                 # The json files should be under mintsData/jsonAudio/dateTimeFileName
                 # delete the folder 
             
-     
-            #     for index, row in soundClassData.iterrows():
-            #         sensorDictionary = OrderedDict([
-            #             ("dateTime"     ,str(dateTime + datetime.timedelta(seconds = row['Start (s)']))),
-            #             ("label"        ,row['Labels']),
-            #             ("confidence"   ,row['Confidence'])
-            #             ])
-            # #     mSR.sensorFinisher(dateTime,"MBC001",sensorDictionary)    
+                
+            
+            #     mSR.sensorFinisher(dateTime,"MBC001",sensorDictionary)    
 
             # Read All the folder names 
 

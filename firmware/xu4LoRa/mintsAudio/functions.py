@@ -353,6 +353,12 @@ def getAudioFileName(folderIn):
     strOut = strOut.replace("-","_").replace(" ","_").replace(":","_").replace(".","_")
     return folderIn + "/" + strOut + "/mintsAudio" +".wav"
 
+def getJsonFileName(folderIn,dateTimeIn):
+    strOut = str(dateTimeIn)
+    strOut = strOut.replace("-","_").replace(" ","_").replace(":","_").replace(".","_")
+    return folderIn + "/" + strOut + "_mintsAudio" +".json"
+
+
 def makeAudioFile2(sampleRateIn,audioLength,channelNum,tmpFolder):
     fileName = getAudioFileName(tmpFolder)
     print("Recording  an audio file to be saved @: " + fileName)

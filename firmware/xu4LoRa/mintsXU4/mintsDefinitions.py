@@ -51,6 +51,7 @@ keys                     = yaml.load(open('mintsXU4/credentials/keys.yaml'),Load
 
 dataFolder                = mintsDefinitions['dataFolder']
 dataFolderTmp             = mintsDefinitions['dataFolderTmp']
+dataFolderJson            = mintsDefinitions['dataFolderJson']
 
 mqttPortLoRa              = loRaCredentials['port']
 mqttBrokerLoRa            = loRaCredentials['broker']
