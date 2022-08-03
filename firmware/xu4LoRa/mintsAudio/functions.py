@@ -355,12 +355,13 @@ def getAudioFileName(folderIn):
 
 def makeAudioFile2(sampleRateIn,audioLength,channelNum,tmpFolder):
     fileName = getAudioFileName(tmpFolder)
-    mSR.directoryCheck(fileName)
+
     print("Recording  an audio file to be saved @: " + fileName)
     recording = sd.rec(int(audioLength * sampleRateIn),\
         samplerate=sampleRateIn,\
              channels=channelNum)
     sd.wait()  # Wait until recording is finished
+    mSR.directoryCheck(fileName)
     write(fileName,sampleRateIn, recording)  # Save as WAV file
     print("Recording Saved")
     return recording;
