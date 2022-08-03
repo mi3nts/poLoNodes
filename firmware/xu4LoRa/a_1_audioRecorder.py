@@ -33,19 +33,31 @@ numOfThreads       = 4
 
 dataFolder         = mD.dataFolder
 
-
 currentIndex = 0 
+
+
+
+
+
 
 
 def main(cfg,currentIndex):
     labels = pd.read_csv("mintsAudio/labels/labels.csv") 
-    mSR.directoryCheck(tmpFolderName)
-
+    
     while True:
         try:
-            dateTime = datetime.datetime.now()
-            recording = fn.makeAudioFile(sampleRate,period,channelSelected,audioFileNamePre+ ".wav",tmpFolderName)
-                
+
+            print("=============")            
+            print("Begin Recording")
+            recording = fn.makeAudioFile2(
+                        sampleRate,\
+                        period,\
+                        channelSelected,\
+                        tmpFolderName)
+            print("Recording Done") 
+            print("=============")
+            print()
+               
             # Freeze support for excecutable
             # freeze_support()
             # cfg = fn.configSetUp(cfg,tmpFolderName,minConfidence,numOfThreads)
@@ -60,8 +72,6 @@ def main(cfg,currentIndex):
             #          ])
             #     mSR.sensorFinisher(dateTime,"MBC001",sensorDictionary)
       
-            print("=============")
-            print()
 
         except OSError as e:
             print ("Error: %s - %s." % (e.filename, e.strerror))

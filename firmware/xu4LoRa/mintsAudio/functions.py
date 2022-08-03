@@ -21,6 +21,8 @@ from mintsAudio import config as cfg
 
 from mintsAudio import audio
 from mintsAudio import model
+from mintsXU4 import mintsLoRaSensing as mSR
+
 
 def clearErrorLog():
 
@@ -345,8 +347,24 @@ def analyzeFile(item):
 
     return True
 
+def getAudioFileName(folderIn):
+    dateTimeIn = datetime.datetime.now()
+    strOut = str(dateTimeIn)+".wav"
+    strOut.replace("-","_").replace(" ","").replace(":","_") 
+    return folderIn + "/" + strOut;
 
-## 
+def makeAudioFile2(sampleRateIn,audioLength,channelNum,tmpFolder):
+    fileName = getAudioFileName(tmpFolder)
+    mSR.directoryCheck(fileName)
+    print("Recording  an audio file to be saved @: " + fileName)
+    recording = sd.rec(int(audioLength * sampleRateIn),\
+        samplerate=sampleRateIn,\
+             channels=channelNum)
+    sd.wait()  # Wait until recording is finished
+    write(fileName,sampleRateIn, recording)  # Save as WAV file
+    print("Recording Saved")
+    return recording;
+
 def makeAudioFile(sampleRateIn,audioLength,channelNum,fileName,fileSaveLocation):
     
     recording = sd.rec(int(audioLength * sampleRateIn), samplerate=sampleRateIn, channels=channelNum)
