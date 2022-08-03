@@ -16,7 +16,7 @@ import time
 
 time.sleep(1) 
 
-from poLoNodes.firmware.xu4LoRa.mintsXU4 import mintsLoRaSensing as mSR
+from mintsXU4 import mintsLoRaSensing as mSR
 from mintsXU4 import mintsDefinitions as mD
 
 from multiprocessing import Pool, freeze_support
@@ -24,7 +24,7 @@ from mintsAudio import config as cfg
 from mintsAudio import functions as fn
 
 sampleRate         = 44100  # Sample rate
-period             = 120 # Duration of recording
+period             = 120    # Duration of recording
 channelSelected    = 1
 audioFileNamePre   = "mintsAudio"
 tmpFolderName      = "/home/teamlary/NC/"
