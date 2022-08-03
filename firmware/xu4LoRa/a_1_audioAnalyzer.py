@@ -11,6 +11,7 @@ import datetime
 
 import numpy as np
 import pandas as pd
+from glob import glob
 
 import time
 
@@ -27,7 +28,7 @@ sampleRate         = 44100  # Sample rate
 period             = 120    # Duration of recording
 channelSelected    = 1
 audioFileNamePre   = "mintsAudio"
-tmpFolderName      = "/home/teamlary/mintsDataTmp/"
+tmpFolderName     = mD.dataFolderTmp
 minConfidence      = .3
 numOfThreads       = 4
 
@@ -38,23 +39,35 @@ currentIndex = 0
 def main(cfg,currentIndex):
     labels = pd.read_csv("mintsAudio/labels/labels.csv") 
     
+
     while True:
         try:
+            audioFolders = glob(tmpFolderName+ "/*/", recursive = True)
+            time.sleep(1)
+            print(audioFolders)
+            for folderIn in audioFolders:
+                freeze_support()
+                cfg = fn.configSetUp(cfg,folderIn,minConfidence,numOfThreads)
+                soundClassData = pd.read_csv(folderIn + '/'+ audioFileNamePre+  '.BirdNET.results.csv')
+                soundClassData["Labels"] = soundClassData["Scientific name"].map(labels.set_index("Scientific name")["Labels"])
+                print(soundClassData)
+                # Get Date Time From the File
+                # Save it as .json with proper time for its name 
+                # The json files should be under mintsData/jsonAudio/dateTimeFileName
+                # delete the folder 
+                # create
+     
+            #     for index, row in soundClassData.iterrows():
+            #         sensorDictionary = OrderedDict([
+            #             ("dateTime"     ,str(dateTime + datetime.timedelta(seconds = row['Start (s)']))),
+            #             ("label"        ,row['Labels']),
+            #             ("confidence"   ,row['Confidence'])
+            #             ])
+            # #     mSR.sensorFinisher(dateTime,"MBC001",sensorDictionary)    
 
-            print("=============")            
-            recording = fn.makeAudioFile2(
-                        sampleRate,\
-                        period,\
-                        channelSelected,\
-                        tmpFolderName)
-            print("=============")
-            print()
+            # Read All the folder names 
 
-        except OSError as e:
-            print ("Error: %s - %s." % (e.filename, e.strerror))
-            print("Microphone Not Connected: Check connection")
 
-               
             # Freeze support for excecutable
             # freeze_support()
             # cfg = fn.configSetUp(cfg,tmpFolderName,minConfidence,numOfThreads)
@@ -68,6 +81,14 @@ def main(cfg,currentIndex):
             #         ("confidence"   ,row['Confidence'])
             #          ])
             #     mSR.sensorFinisher(dateTime,"MBC001",sensorDictionary)
+            print("=============")            
+         
+        except OSError as e:
+            print ("Error: %s - %s." % (e.filename, e.strerror))
+            print("Microphone Not Connected: Check connection")
+
+               
+
       
 
 
