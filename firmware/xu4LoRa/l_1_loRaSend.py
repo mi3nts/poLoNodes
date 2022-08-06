@@ -91,6 +91,10 @@ if __name__ == "__main__":
         mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
         mPL.readSensorDataI2c(canareeOnline,as7265x,"AS7265X",serE5Mini)
         
+        sensorData = mPL.readSerialLineStrAsIs(serGps,2,"GGA")
+        print(sensorData)
+        sensorData = mPL.readSerialLineStrAsIs(serGps,2,"GGA")
+        print(sensorData)
         # Something for GPS - Just Use Both
 
 
