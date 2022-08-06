@@ -1,3 +1,4 @@
+from pyrsistent import T
 import serial
 import datetime
 import os
@@ -84,7 +85,11 @@ def encodeDecode(sensorID,sensorData,transmitReceive):
     if sensorID == "PMPoLo":
         return sensingPM(sensorData,transmitReceive); 
     if sensorID == "MacAD":
-        return sensingMacAD(sensorData,transmitReceive);         
+        return sensingMacAD(sensorData,transmitReceive);      
+    if sensorID == "GPGGA":
+        return sensingGPGGA(sensorData,transmitReceive);         
+    if sensorID == "GPRMC":
+        return sensingGPRMC(sensorData,transmitReceive);   
     return " "   
         
     # For transmitting data, transmitRecieve is True
@@ -128,6 +133,99 @@ def sensingMacAD(dataIn,transmitReceive):
         sensorDictionary =  OrderedDict([
                 ("dateTime"      ,str(dateTime)),
                 ("macAddress" ,dataIn),
+        ])
+        return sensorDictionary;
+
+        
+def getLatitudeCords(latitudeStr,latitudeDirection):
+    latitude = float(latitudeStr)
+    latitudeCord      =  math.floor(latitude/100) +(latitude - 100*(math.floor(latitude/100)))/60
+    if(latitudeDirection=="S"):
+        latitudeCord = -1*latitudeCord
+    return latitudeCord
+
+def getLongitudeCords(longitudeStr,longitudeDirection):
+    longitude = float(longitudeStr)
+    longitudeCord      =  math.floor(longitude/100) +(longitude - 100*(math.floor(longitude/100)))/60
+    if(longitudeDirection=="W"):
+        longitudeCord = -1*longitudeCord
+    return longitudeCord      
+
+
+def sensingGPGGA(dataIn,transmitReceive):
+
+    if (transmitReceive): 
+        dataIn = pynmea2.parse(dataIn)
+        if (dataIn.gps_qua>0):
+            timeStamp = str(dataIn.timestamp).split(":")
+            print("GPGGA Read")	
+            strOut  = \
+                np.ubyte(timeStamp[0]).tobytes().hex().zfill(2)+ \
+                np.ubyte(timeStamp[1]).tobytes().hex().zfill(2)+ \
+                np.ubyte(timeStamp[2]).tobytes().hex().zfill(2)+ \
+                np.double(getLatitudeCords(dataIn.lat,dataIn.lat_dir)).tobytes().hex().zfill(16)+ \
+                np.double(getLatitudeCords(dataIn.lat,dataIn.lat_dir)).tobytes().hex().zfill(16) + \
+                np.ubyte(dataIn.gps_qual).tobytes().hex().zfill(2)+ \
+                np.ubyte(dataIn.num_of_sat).tobytes().hex().zfill(2)+ \
+                np.float32(dataIn.horizontal_dil).tobytes().hex().zfill(8) +\
+                np.float32(dataIn.altitude).tobytes().hex().zfill(8) +\
+                np.float32(dataIn.geo_sep).tobytes().hex().zfill(8) ;
+            return strOut;  
+        else:
+            print("GPGGA Data Not Read: No GPS Signal")	
+
+    else:
+        dateTime = datetime.datetime.now()
+        sensorDictionary =  OrderedDict([
+                ("dateTime"            ,str(dateTime)),
+        		("hour"                ,struct.unpack('<B',bytes.fromhex(dataIn[0:2]))[0]),
+                ("minute"              ,struct.unpack('<B',bytes.fromhex(dataIn[2:4]))[0]),
+                ("second"              ,struct.unpack('<B',bytes.fromhex(dataIn[4:6]))[0]),
+            	("latitudeCoordinate"  ,struct.unpack('<d',bytes.fromhex(dataIn[6:22]))[0]),
+                ("longitudeCoordinate" ,struct.unpack('<d',bytes.fromhex(dataIn[22:38]))[0]),
+	            ("gpsQuality"          ,struct.unpack('<B',bytes.fromhex(dataIn[38:40]))[0]),
+                ("numberOfSatellites"  ,struct.unpack('<B',bytes.fromhex(dataIn[40:42]))[0]),
+                ("HorizontalDilution"  ,struct.unpack('<f',bytes.fromhex(dataIn[42:50]))[0]),
+            	("altitude"            ,struct.unpack('<f',bytes.fromhex(dataIn[50:58]))[0]),
+        		("undulation"          ,struct.unpack('<f',bytes.fromhex(dataIn[58:66]))[0]),
+        ])
+        return sensorDictionary;
+
+def sensingGPRMC(dataIn,transmitReceive):
+
+    if (transmitReceive): 
+        dataIn = pynmea2.parse(dataIn)
+        if (dataIn.status=='A'):
+            timeStamp = str(dataIn.timestamp).split(":")
+            dateStamp = str(dataIn.datestamp).split("-")
+            print("GPRMC Read")	
+            strOut  = \
+                np.uint16(dateStamp[0]).tobytes().hex().zfill(4)+ \
+                np.ubyte(dateStamp[1]).tobytes().hex().zfill(2)+ \
+                np.ubyte(dateStamp[2]).tobytes().hex().zfill(2)+ \
+                np.ubyte(timeStamp[0]).tobytes().hex().zfill(2)+ \
+                np.ubyte(timeStamp[1]).tobytes().hex().zfill(2)+ \
+                np.ubyte(timeStamp[2]).tobytes().hex().zfill(2)+ \
+                np.double(getLatitudeCords(dataIn.lat,dataIn.lat_dir)).tobytes().hex().zfill(16)+ \
+                np.double(getLatitudeCords(dataIn.lat,dataIn.lat_dir)).tobytes().hex().zfill(16) + \
+                np.float32(dataIn.spd_over_grnd).tobytes().hex().zfill(8) ;
+            return strOut;  
+        else:
+            print("GPRMC Data Not Read: No GPS Signal")	
+
+    else:
+        dateTime = datetime.datetime.now()
+        sensorDictionary =  OrderedDict([
+                ("dateTime"            ,str(dateTime)),
+         		("year"                ,struct.unpack('<H',bytes.fromhex(dataIn[0:4]))[0]),
+                ("month"               ,struct.unpack('<B',bytes.fromhex(dataIn[4:6]))[0]),
+                ("day"                 ,struct.unpack('<B',bytes.fromhex(dataIn[6:8]))[0]),               
+        		("hour"                ,struct.unpack('<B',bytes.fromhex(dataIn[8:10]))[0]),
+                ("minute"              ,struct.unpack('<B',bytes.fromhex(dataIn[10:12]))[0]),
+                ("second"              ,struct.unpack('<B',bytes.fromhex(dataIn[12:14]))[0]),
+            	("latitudeCoordinate"  ,struct.unpack('<d',bytes.fromhex(dataIn[14:30]))[0]),
+                ("longitudeCoordinate" ,struct.unpack('<d',bytes.fromhex(dataIn[30:46]))[0]),
+        		("speedOverGround"     ,struct.unpack('<f',bytes.fromhex(dataIn[46:50]))[0]),
         ])
         return sensorDictionary;
 

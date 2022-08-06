@@ -255,7 +255,26 @@ def sendCommandHex(serPortE5,sensorID,sensorData,port):
     # print(hexString)
     sendCommand(serPortE5,'AT+PORT='+ str(port['portID']),2) 
     sendCommand(serPortE5,'AT+MSGHEX='+str(hexString ),5)    
-  
+
+def readSensorDataGPS(online,serPort,sensorID,serPortE5):
+    print("====================================")  
+    print("-----------" +sensorID+ "-----------" ) 
+    print("Current Time (UTC): " +str(datetime.now()))
+    if online:
+        print(sensorID + " Online") 
+        port = deriveSensorStats(sensorID)
+        if port['portID']==6:
+            sensorData = readSerialLineStrAsIs(serPort,2,"GGA")
+            print(sensorData)
+            sendCommandHex(serPortE5,sensorID,sensorData,port)            
+        if port['portID']==7:
+            sensorData = readSerialLineStrAsIs(serPort,2,"RMC")
+            print(sensorData)
+            sendCommandHex(serPortE5,sensorID,sensorData,port)
+            return;
+    else:
+        print(sensorID + " Offline")       
+        return;
 
 def readSensorData(online,serPort,sensorID,serPortE5):
     print("====================================")  
