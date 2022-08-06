@@ -59,7 +59,7 @@ OUTPUT_PATH = 'NC/'
 
 # Number of threads to use for inference.
 # Can be as high as number of CPUs in your system
-CPU_THREADS = 8
+CPU_THREADS = 4
 TFLITE_THREADS = 1 
 
 # False will output logits, True will convert to sigmoid activations
