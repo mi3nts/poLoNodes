@@ -63,7 +63,7 @@ def main(cfg):
                         ])
                     print(sensorDictionary)
                     print(dateTimeCurrent)    
-                    with open(fn.getJsonFileName(folderIn,dateTimeCurrent), "w") as outfile:
+                    with open(fn.getJsonFileName(jsonFolderName,dateTimeCurrent), "w") as outfile:
                         json.dump(sensorDictionary, outfile)
            
 
