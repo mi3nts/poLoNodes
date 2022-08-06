@@ -164,7 +164,7 @@ def sensingGPGGA(dataIn,transmitReceive):
                 np.ubyte(timeStamp[1]).tobytes().hex().zfill(2)+ \
                 np.ubyte(timeStamp[2]).tobytes().hex().zfill(2)+ \
                 np.double(getLatitudeCords(dataIn.lat,dataIn.lat_dir)).tobytes().hex().zfill(16)+ \
-                np.double(getLatitudeCords(dataIn.lat,dataIn.lat_dir)).tobytes().hex().zfill(16) + \
+                np.double(getLongitudeCords(dataIn.lon,dataIn.lon_dir)).tobytes().hex().zfill(16) + \
                 np.ubyte(dataIn.gps_qual).tobytes().hex().zfill(2)+ \
                 np.ubyte(dataIn.num_sats).tobytes().hex().zfill(2)+ \
                 np.float32(dataIn.horizontal_dil).tobytes().hex().zfill(8) +\
@@ -207,7 +207,7 @@ def sensingGPRMC(dataIn,transmitReceive):
                 np.ubyte(timeStamp[1]).tobytes().hex().zfill(2)+ \
                 np.ubyte(timeStamp[2]).tobytes().hex().zfill(2)+ \
                 np.double(getLatitudeCords(dataIn.lat,dataIn.lat_dir)).tobytes().hex().zfill(16)+ \
-                np.double(getLatitudeCords(dataIn.lat,dataIn.lat_dir)).tobytes().hex().zfill(16) + \
+                np.double(getLongitudeCords(dataIn.lon,dataIn.lon_dir)).tobytes().hex().zfill(16) + \
                 np.float32(dataIn.spd_over_grnd).tobytes().hex().zfill(8) ;
             return strOut;  
         else:
