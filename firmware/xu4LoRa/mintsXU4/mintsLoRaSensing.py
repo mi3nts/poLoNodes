@@ -1,4 +1,4 @@
-from pyrsistent import T
+
 import serial
 import datetime
 import os
