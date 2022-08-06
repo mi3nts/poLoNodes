@@ -53,4 +53,4 @@ scikit_learn.libs/libgomp-d22c30c5.so.1.0.0: cannot allocate memory in static TL
 Adding the following to the ~.bashrc 
 ```
 export LD_PRELOAD=/home/teamlary/.local/lib/python3.8/site-packages/scikit_learn.libs/libgomp-d22c30c5.so.1.0.0
-~~~
+```
