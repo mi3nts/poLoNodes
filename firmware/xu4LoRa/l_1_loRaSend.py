@@ -84,12 +84,12 @@ if __name__ == "__main__":
     while joined:
         # Add a try catch 
         start_time = time.time()
-        mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
-        mPL.readSensorData(canareeOnline,serCanaree,"BME688CNR",serE5Mini)
-        mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
-        mPL.readSensorDataI2c(canareeOnline,scd30,"SCD30",serE5Mini)
-        mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
-        mPL.readSensorDataI2c(canareeOnline,as7265x,"AS7265X",serE5Mini)
+        #mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
+        #mPL.readSensorData(canareeOnline,serCanaree,"BME688CNR",serE5Mini)
+        #mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
+        #mPL.readSensorDataI2c(canareeOnline,scd30,"SCD30",serE5Mini)
+        #mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
+        #mPL.readSensorDataI2c(canareeOnline,as7265x,"AS7265X",serE5Mini)
         
         sensorData = mPL.readSerialLineStrAsIs(serGps,2,"GGA")
         print(sensorData)
