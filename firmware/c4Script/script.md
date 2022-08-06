@@ -33,6 +33,7 @@ pip3 install getmac
 pip3 install pynmea2
 pip3 install scipy
 pip3  install pandas
+pip3 install numpy==1.21
 ```
 
 - Installing I2C dependancies
