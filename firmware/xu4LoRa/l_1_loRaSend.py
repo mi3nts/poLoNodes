@@ -93,7 +93,7 @@ if __name__ == "__main__":
         
         sensorData = mPL.readSerialLineStrAsIs(serGps,2,"GGA")
         print(sensorData)
-        sensorData = mPL.readSerialLineStrAsIs(serGps,2,"GGA")
+        sensorData = mPL.readSerialLineStrAsIs(serGps,2,"RMC")
         print(sensorData)
         # Something for GPS - Just Use Both
 
