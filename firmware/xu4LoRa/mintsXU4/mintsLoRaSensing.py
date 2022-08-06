@@ -225,7 +225,7 @@ def sensingGPRMC(dataIn,transmitReceive):
                 ("second"              ,struct.unpack('<B',bytes.fromhex(dataIn[12:14]))[0]),
             	("latitudeCoordinate"  ,struct.unpack('<d',bytes.fromhex(dataIn[14:30]))[0]),
                 ("longitudeCoordinate" ,struct.unpack('<d',bytes.fromhex(dataIn[30:46]))[0]),
-        		("speedOverGround"     ,struct.unpack('<f',bytes.fromhex(dataIn[46:50]))[0]),
+        		("speedOverGround"     ,struct.unpack('<f',bytes.fromhex(dataIn[46:54]))[0]),
         ])
         return sensorDictionary;
 

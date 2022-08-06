@@ -75,6 +75,7 @@ def on_message(client, userdata, msg):
             print()
             print(" - - - MINTS DATA RECEIVED - - - ")
             sensorDictionary = mLS.encodeDecode(sensorID,base16Data,False)
+            print(sensorDictionary["dateTime"])
             dateTime = datetime.datetime.strptime(sensorDictionary["dateTime"], '%Y-%m-%d %H:%M:%S.%f')
             print("Node ID         : " + nodeID)
             print("Gateway ID      : " + gatewayID)
