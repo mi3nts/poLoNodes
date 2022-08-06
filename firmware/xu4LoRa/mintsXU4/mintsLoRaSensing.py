@@ -156,7 +156,7 @@ def sensingGPGGA(dataIn,transmitReceive):
 
     if (transmitReceive): 
         dataIn = pynmea2.parse(dataIn)
-        if (dataIn.gps_qua>0):
+        if (dataIn.gps_qual>0):
             timeStamp = str(dataIn.timestamp).split(":")
             print("GPGGA Read")	
             strOut  = \
