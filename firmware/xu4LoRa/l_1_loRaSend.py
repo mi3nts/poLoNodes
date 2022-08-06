@@ -92,7 +92,7 @@ if __name__ == "__main__":
         #mPL.readSensorDataI2c(canareeOnline,as7265x,"AS7265X",serE5Mini)
 
         mPL.readSensorDataGPS(gpsOnline,serGps,"GPGGA",serE5Mini)
-        mPL.readSensorDataGPS(gpsOnline,serGps,"GPGGA",serE5Mini)
+        mPL.readSensorDataGPS(gpsOnline,serGps,"GPRMC",serE5Mini)
         #sensorData = mPL.readSerialLineStrAsIs(serGps,2,"GGA")
         #sensorDataGGA = pynmea2.parse(sensorData)
         #print(sensorData)
