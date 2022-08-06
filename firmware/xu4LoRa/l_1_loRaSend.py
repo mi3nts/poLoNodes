@@ -90,17 +90,19 @@ if __name__ == "__main__":
         #mPL.readSensorDataI2c(canareeOnline,scd30,"SCD30",serE5Mini)
         #mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
         #mPL.readSensorDataI2c(canareeOnline,as7265x,"AS7265X",serE5Mini)
-        
-        sensorData = mPL.readSerialLineStrAsIs(serGps,2,"GGA")
-        sensorDataGGA = pynmea2.parse(sensorData)
-        print(sensorData)
-        print(sensorDataGGA)
-        print(sensorDataGGA.lat)
-        sensorData = mPL.readSerialLineStrAsIs(serGps,2,"RMC")
-        sensorDataRMC = pynmea2.parse(sensorData)
-        print(sensorData)
-        print(sensorDataRMC)
-        print(sensorDataRMC.lat)
+
+        mPL.readSensorDataGPS(gpsOnline,serGps,"GPGGA",serE5Mini)
+        mPL.readSensorDataGPS(gpsOnline,serGps,"GPGGA",serE5Mini)
+        #sensorData = mPL.readSerialLineStrAsIs(serGps,2,"GGA")
+        #sensorDataGGA = pynmea2.parse(sensorData)
+        #print(sensorData)
+        #print(sensorDataGGA)
+        #print(sensorDataGGA.lat)
+        #sensorData = mPL.readSerialLineStrAsIs(serGps,2,"RMC")
+        #sensorDataRMC = pynmea2.parse(sensorData)
+        #print(sensorData)
+       # print(sensorDataRMC)
+        #print(sensorDataRMC.lat)
         
         
         # Something for GPS - Just Use Both
@@ -119,41 +121,41 @@ if __name__ == "__main__":
         # sensorData = pynmea2.parse(sensorData)
         # print("NMEA Data")
         # print(sensorData)
-        sensorData =  sensorDataGGA
-        sensorDictionary = OrderedDict([
-                 ("timestamp"         ,str(sensorData.timestamp)),
-                 ("latitudeCoordinate" ,getLatitudeCords(sensorData.lat,sensorData.lat_dir)),
-                ("longitudeCoordinate",getLongitudeCords(sensorData.lon,sensorData.lon_dir)),
-                  ("latitude"          ,sensorData.lat),
-                 ("latitudeDirection" ,sensorData.lat_dir),
-                 ("longitude"         ,sensorData.lon),
-                 ("longitudeDirection",sensorData.lon_dir),
-                 ("gpsQuality"        ,sensorData.gps_qual),
-                 ("numberOfSatellites",sensorData.num_sats),
-                 ("HorizontalDilution",sensorData.horizontal_dil),
-                 ("altitude"          ,sensorData.altitude),
-                 ("altitudeUnits"     ,sensorData.altitude_units),
-                 ("undulation"        ,sensorData.geo_sep),
-                 ("undulationUnits"   ,sensorData.geo_sep_units),
-                 ("age"               ,sensorData.age_gps_data),
-                 ("stationID"         ,sensorData.ref_station_id)
-         	 ])        
-
-        print(sensorDictionary)
-        sensorData= sensorDataRMC
+        #sensorData =  sensorDataGGA
+       # sensorDictionary = OrderedDict([
+        #         ("timestamp"         ,str(sensorData.timestamp)),
+        #         ("latitudeCoordinate" ,getLatitudeCords(sensorData.lat,sensorData.lat_dir)),
+        #        ("longitudeCoordinate",getLongitudeCords(sensorData.lon,sensorData.lon_dir)),
+        #          ("latitude"          ,sensorData.lat),
+        #         ("latitudeDirection" ,sensorData.lat_dir),
+        #         ("longitude"         ,sensorData.lon),
+        #        ("longitudeDirection",sensorData.lon_dir),
+        #         ("gpsQuality"        ,sensorData.gps_qual),
+       #          ("numberOfSatellites",sensorData.num_sats),
+        #         ("HorizontalDilution",sensorData.horizontal_dil),
+        #         ("altitude"          ,sensorData.altitude),
+        #         ("altitudeUnits"     ,sensorData.altitude_units),
+        #         ("undulation"        ,sensorData.geo_sep),
+        #         ("undulationUnits"   ,sensorData.geo_sep_units),
+        #         ("age"               ,sensorData.age_gps_data),
+        #         ("stationID"         ,sensorData.ref_station_id)
+        # 	 ])        
+        #print(sensorDictionary)
+        #sensorData= sensorDataRMC
         # sensorData= mPL.readSerialLineStrAsIs(serGps,2,"RMC")
         # sensorData = pynmea2.parse(sensorData)
-        sensorDictionary = OrderedDict([
-                 ("timestamp"            ,sensorData.timestamp),
-                 ("status"               ,sensorData.status),
-                 ("latitude"             ,sensorData.lat),
-                 ("latitudeDirection"    ,sensorData.lat_dir),
-                 ("longitude"            ,sensorData.lon),
-                 ("longitudeDirection"   ,sensorData.lon_dir),
-                 ("speedOverGround"      ,sensorData.spd_over_grnd),
-                 ("trueCourse"           ,sensorData.true_course),
-                 ("dateStamp"            ,sensorData.datestamp),
-                 ("magVariation"         ,sensorData.mag_variation),
-                 ("magVariationDirection",sensorData.mag_var_dir)
-                  ])
-        print(sensorDictionary)
+        #sensorDictionary = OrderedDict([
+        #         ("timestamp"            ,sensorData.timestamp),
+        #         ("status"               ,sensorData.status),
+        #         ("latitude"             ,sensorData.lat),
+        #         ("latitudeDirection"    ,sensorData.lat_dir),
+        #         ("longitude"            ,sensorData.lon),
+        #         ("longitudeDirection"   ,sensorData.lon_dir),
+        #         ("speedOverGround"      ,sensorData.spd_over_grnd),
+        #         ("trueCourse"           ,sensorData.true_course),
+        #         ("dateStamp"            ,sensorData.datestamp),
+        #        ("magVariation"         ,sensorData.mag_variation),
+        #         ("magVariationDirection",sensorData.mag_var_dir)
+        #          ])
+        #print(sensorDictionary)
+
