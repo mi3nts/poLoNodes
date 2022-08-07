@@ -64,6 +64,7 @@ def main(cfg):
                     print(sensorDictionary)
                     print(dateTimeCurrent)    
                     with open(fn.getJsonFileName(jsonFolderName,dateTimeCurrent), "w") as outfile:
+                        mSR.directoryCheck(jsonFolderName)
                         json.dump(sensorDictionary, outfile)
            
 
@@ -78,7 +79,6 @@ if __name__ == "__main__":
     print("=============")
     # print("Connecting to the microphone on Channel: {0}".format(channelSelected) + " with Sample Rate " + str(sampleRate))
     main(cfg)    
-
 
 
 
