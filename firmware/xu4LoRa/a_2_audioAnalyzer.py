@@ -8,7 +8,7 @@ import json
 import sys
 from collections import OrderedDict
 import datetime
-
+import shutil
 import numpy as np
 import pandas as pd
 from glob import glob
@@ -47,6 +47,8 @@ def main(cfg):
             audioFolders = glob(tmpFolderName+ "/*/", recursive = True)
             time.sleep(1)
             for folderIn in audioFolders:
+                print("-----------------------------")
+                print("Looking up folder: " +folderIn)
                 freeze_support()
                 cfg = fn.configSetUp(cfg,folderIn,minConfidence,numOfThreads)
                 soundClassData = pd.read_csv(folderIn + '/'+ audioFileNamePre+  '.BirdNET.results.csv')
@@ -54,7 +56,10 @@ def main(cfg):
                 baseDateTime = folderIn.split('/')
                 dateTimeBase  = datetime.datetime.strptime(\
                                 baseDateTime[-2], '%Y_%m_%d_%H_%M_%S_%f')
-        
+                print("Deleting the folder: " +folderIn)
+                if os.path.exists(folderIn):
+                    shutil.rmtree(folderIn)
+                
                 for index, row in soundClassData.iterrows():
                     dateTimeCurrent = str(dateTimeBase + datetime.timedelta(seconds = row['Start (s)']))
                     sensorDictionary = OrderedDict([
@@ -62,22 +67,16 @@ def main(cfg):
                         ("confidence"   ,row['Confidence'])
                         ])
                     print(sensorDictionary)
-                    print(dateTimeCurrent)    
+                    print(dateTimeCurrent)
+                    mSR.directoryCheck(fn.getJsonFileName(jsonFolderName,dateTimeCurrent))
                     with open(fn.getJsonFileName(jsonFolderName,dateTimeCurrent), "w") as outfile:
-                        mSR.directoryCheck(jsonFolderName)
                         json.dump(sensorDictionary, outfile)
            
-
-               
-
-      
-
 
 if __name__ == "__main__":
     print("=============")
     print("    MINTS    ")
     print("=============")
-    # print("Connecting to the microphone on Channel: {0}".format(channelSelected) + " with Sample Rate " + str(sampleRate))
     main(cfg)    
 
 

@@ -256,6 +256,15 @@ def sendCommandHex(serPortE5,sensorID,sensorData,port):
     sendCommand(serPortE5,'AT+PORT='+ str(port['portID']),2) 
     sendCommand(serPortE5,'AT+MSGHEX='+str(hexString ),5)    
 
+def readSensorDataBirdSong(sensorData,sensorID,serPortE5):
+    print("====================================")
+    print("-----------" +sensorID+ "-----------" ) 
+    print("Current Time (UTC): " +str(datetime.now()))
+    print(sensorID + " Online") 
+    port = deriveSensorStats(sensorID)  
+    sendCommandHex(serPortE5,sensorID,sensorData,port)
+    return;
+    
 def readSensorDataGPS(online,serPort,sensorID,serPortE5):
     print("====================================")  
     print("-----------" +sensorID+ "-----------" ) 

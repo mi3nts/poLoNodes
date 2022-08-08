@@ -17,6 +17,7 @@ import base64
 import json
 import struct
 import numpy as np
+from datetime import timedelta
 
 macAddress     = mD.macAddress
 dataFolder     = mD.dataFolder
@@ -89,11 +90,36 @@ def encodeDecode(sensorID,sensorData,transmitReceive):
     if sensorID == "GPGGA":
         return sensingGPGGA(sensorData,transmitReceive);         
     if sensorID == "GPRMC":
-        return sensingGPRMC(sensorData,transmitReceive);   
+        return sensingGPRMC(sensorData,transmitReceive);  
+    if sensorID == "MBCLR001":
+        return sensingMBCLR001(sensorData,transmitReceive);        
+      
     return " "   
         
     # For transmitting data, transmitRecieve is True
+def sensingMBCLR001(dataIn,transmitReceive):
 
+    if (transmitReceive): 
+        print("MBCLR001 Read")	
+        strOut  = \
+            np.uint16(dataIn[0]).tobytes().hex().zfill(4)+ \
+            np.uint16(dataIn[1]).tobytes().hex().zfill(4)+ \
+            np.float32(dataIn[2]).tobytes().hex().zfill(8)
+        return strOut;  
+    else:
+        dateTimePre = datetime.datetime.now() 
+        lag = struct.unpack('<H',bytes.fromhex(dataIn[0:4]))[0]
+        dateTime = dateTimePre - timedelta(seconds = lag)
+        sensorDictionary =  OrderedDict([
+                ("dateTime"     ,str(dateTime)),
+            	("label"        ,struct.unpack('<H',bytes.fromhex(dataIn[4:8]))[0]),
+                ("confidence"   ,struct.unpack('<f',bytes.fromhex(dataIn[8:16]))[0]),
+        ])
+        return sensorDictionary;
+    
+    
+    
+    
 def sensingPM(dataIn,transmitReceive):
     print("Reading Power Mode")	
     if (transmitReceive): 
