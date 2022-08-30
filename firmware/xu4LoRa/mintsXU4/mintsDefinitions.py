@@ -14,6 +14,17 @@ def findPorts(strIn1,strIn2):
             allPorts.append(str(p[0]).split(" ")[0])
     return allPorts
 
+def findPortsGPS(strIn1):
+    ports = list(serial.tools.list_ports.comports())
+    allPorts = []
+    for p in ports:
+        currentPortStr1 = str(p[1])
+        if(currentPortStr1.find(strIn1)>=0):
+            allPorts.append(str(p[0]).split(" ")[0])
+    return allPorts
+  
+  
+  
 def findMacAddress():
     macAddress= get_mac_address(interface="eth0")
     if (macAddress!= None):
@@ -70,7 +81,7 @@ tlsCert                   = mintsDefinitions['tlsCert']
 
 loRaE5MiniPorts          = findPorts("CP2102N USB to UART Bridge Controller","PID=10C4:EA60")
 canareePorts             = findPorts("Canaree PM","PID=10C4:EA60")
-gpsPorts                 = findPorts("u-blox GNSS receiver","PID=1546:01A8")
+gpsPorts                 = findPortsGPS("u-blox")
 
     
 
