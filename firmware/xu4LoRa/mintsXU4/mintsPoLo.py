@@ -252,12 +252,12 @@ def readSerialLine(serIn,timeOutSensor,sizeExpected):
 
 def sendCommandHex(serPortE5,sensorID,sensorData,port):
     hexString = mLS.encodeDecode( sensorID,sensorData,receiveTransmit)
-    print("HEX STRING" + hexString)
+    print("HEX STRING: " + hexString)
     if hexString is not None:
         sendCommand(serPortE5,'AT+PORT='+ str(port['portID']),2) 
         sendCommand(serPortE5,'AT+MSGHEX='+str(hexString ),5)    
     else: 
-        print("No Data Received for sensor " + sensorID)
+        print("No data received for sensor " + sensorID)
 
 def readSensorDataBirdSong(sensorData,sensorID,serPortE5):
     print("====================================")
