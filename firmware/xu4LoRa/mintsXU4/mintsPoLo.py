@@ -275,10 +275,13 @@ def readSensorDataGPS(online,serPort,sensorID,serPortE5):
         if port['portID']==6:
             sensorData = readSerialLineStrAsIs(serPort,2,"GGA")
             print(sensorData)
+            # Add an if statement 
+            
             sendCommandHex(serPortE5,sensorID,sensorData,port)            
         if port['portID']==7:
             sensorData = readSerialLineStrAsIs(serPort,2,"RMC")
             print(sensorData)
+            # Add an if statement 
             sendCommandHex(serPortE5,sensorID,sensorData,port)
             return;
     else:
