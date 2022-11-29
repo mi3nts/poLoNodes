@@ -104,7 +104,7 @@ if __name__ == "__main__":
         time.sleep(1)
         for idx, fileIn in enumerate(jsonFiles):
             if(idx>=0):
-            	print("Too Many JSON files")
+                print("Too Many JSON files")
                 break
             print("-======================================================================-")
             print("Looking up file: " + fileIn +" with index:" + str(idx)) 
