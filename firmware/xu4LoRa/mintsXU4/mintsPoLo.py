@@ -275,8 +275,7 @@ def readSensorDataGPS(online,serPort,sensorID,serPortE5):
         if port['portID']==6:
             sensorData = readSerialLineStrAsIs(serPort,2,"GGA")
             print(sensorData)
-            # Add an if statement 
-            
+            print("PostSensorData")
             sendCommandHex(serPortE5,sensorID,sensorData,port)            
         if port['portID']==7:
             sensorData = readSerialLineStrAsIs(serPort,2,"RMC")
@@ -321,59 +320,3 @@ def readSensorDataI2c(online,i2cObject,sensorID,serPortE5):
         print(sensorID + " Offline")       
         return;
 
-
-# def getMessegeStringHex(dataIn, sensorIn):
-#      if sensorIn == "SCD30":
-#         strOut  = \
-#             np.uint32(dataIn[0]).tobytes().hex().zfill(8)+ \
-#             np.uint32(dataIn[1]).tobytes().hex().zfill(8) + \
-#             np.uint32(dataIn[2]).tobytes().hex().zfill(8)
-#         return strOut;
-
-#      if sensorIn == "AS7265X":
-#         strOut  = \
-#             np.uint32(dataIn[0]).tobytes().hex().zfill(8)+ \
-#             np.uint32(dataIn[1]).tobytes().hex().zfill(8) + \
-#             np.uint32(dataIn[2]).tobytes().hex().zfill(8)+ \
-#             np.uint32(dataIn[3]).tobytes().hex().zfill(8) + \
-#             np.uint32(dataIn[4]).tobytes().hex().zfill(8)+ \
-#             np.uint32(dataIn[5]).tobytes().hex().zfill(8) + \
-#             np.uint32(dataIn[6]).tobytes().hex().zfill(8)+ \
-#             np.float32(dataIn[7]).tobytes().hex().zfill(8)+ \
-#             np.float32(dataIn[8]).tobytes().hex().zfill(8) + \
-#             np.float32(dataIn[9]).tobytes().hex().zfill(8)+ \
-#             np.float32(dataIn[10]).tobytes().hex().zfill(8) + \
-#             np.float32(dataIn[11]).tobytes().hex().zfill(8)+ \
-#             np.float32(dataIn[12]).tobytes().hex().zfill(8) + \
-#             np.float32(dataIn[13]).tobytes().hex().zfill(8)
-#         return strOut;
-
-#      if sensorIn == "IPS7100CNR":
-#         strOut  = \
-#             np.uint32(dataIn[1]).tobytes().hex().zfill(8)+ \
-#             np.uint32(dataIn[3]).tobytes().hex().zfill(8) + \
-#             np.uint32(dataIn[5]).tobytes().hex().zfill(8)+ \
-#             np.uint32(dataIn[7]).tobytes().hex().zfill(8) + \
-#             np.uint32(dataIn[9]).tobytes().hex().zfill(8)+ \
-#             np.uint32(dataIn[11]).tobytes().hex().zfill(8) + \
-#             np.uint32(dataIn[13]).tobytes().hex().zfill(8)+ \
-#             np.float32(dataIn[15]).tobytes().hex().zfill(8)+ \
-#             np.float32(dataIn[17]).tobytes().hex().zfill(8) + \
-#             np.float32(dataIn[19]).tobytes().hex().zfill(8)+ \
-#             np.float32(dataIn[21]).tobytes().hex().zfill(8) + \
-#             np.float32(dataIn[23]).tobytes().hex().zfill(8)+ \
-#             np.float32(dataIn[25]).tobytes().hex().zfill(8) + \
-#             np.float32(dataIn[27]).tobytes().hex().zfill(8)
-
-#         return strOut;
-
-#      if sensorIn == "BME688CNR":
-#         strOut  = \
-#             np.float32(dataIn[29]).tobytes().hex().zfill(8)+ \
-#             np.float32(dataIn[31]).tobytes().hex().zfill(8) + \
-#             np.float32(dataIn[33]).tobytes().hex().zfill(8)+ \
-#             np.float32(dataIn[35]).tobytes().hex().zfill(8) + \
-#             np.float32(dataIn[37]).tobytes().hex().zfill(8)+ \
-#             np.float32(dataIn[39]).tobytes().hex().zfill(8) + \
-#             np.float32(dataIn[41]).tobytes().hex().zfill(8)
-#         return strOut;        
