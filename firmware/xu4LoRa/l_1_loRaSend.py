@@ -105,7 +105,7 @@ if __name__ == "__main__":
         for idx, fileIn in enumerate(jsonFiles):
             if(idx>=0):
             	print("Too Many JSON files")
-                break
+                break;
             print("-======================================================================-")
             print("Looking up file: " + fileIn +" with index:" + str(idx)) 
             baseDateTime = fileIn.replace("_mintsAudio.json","").split('/')
