@@ -7,7 +7,7 @@ def main():
     dirPath = os.path.normpath("/home/teamlary/mintsDataTmp")
     print("Deleting: "+ dirPath)
     for filename in os.listdir(dirPath):
-   	    file_path = os.path.join(dirPath, filename)
+        file_path = os.path.join(dirPath, filename)
         try:
             if os.path.isfile(file_path) or os.path.islink(file_path):
                 os.unlink(file_path)
