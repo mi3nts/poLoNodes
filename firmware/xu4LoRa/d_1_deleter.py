@@ -5,7 +5,7 @@ import datetime
 
 def main():
     dirPath = os.path.normpath("/home/teamlary/mintsDataTmp")
-    print("Deleting: "+ dirPath)
+    print("Deleting going thorugh folder: "+ dirPath)
     for filename in os.listdir(dirPath):
         file_path = os.path.join(dirPath, filename)
         try:
@@ -20,7 +20,7 @@ def main():
 
         
     dirPath = os.path.normpath("/home/teamlary/mintsDataJson")
-    print("Deleting: "+ dirPath)
+    print("Deleting going thorugh folder: "+ dirPath)
     for filename in os.listdir(dirPath):
         file_path = os.path.join(dirPath, filename)
         try:
