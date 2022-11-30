@@ -36,8 +36,6 @@ dataFolder         = mD.dataFolder
 currentIndex = 0 
 
 def main(cfg,currentIndex):
-    labels = pd.read_csv("mintsAudio/labels/labels.csv") 
-    
     while True:
         try:
 
@@ -54,31 +52,13 @@ def main(cfg,currentIndex):
             print ("Error: %s - %s." % (e.filename, e.strerror))
             print("Microphone Not Connected: Check connection")
 
-               
-            # Freeze support for excecutable
-            # freeze_support()
-            # cfg = fn.configSetUp(cfg,tmpFolderName,minConfidence,numOfThreads)
-            # soundClassData = pd.read_csv(tmpFolderName + '/'+ audioFileNamePre+  '.BirdNET.results.csv')
-            # soundClassData["Labels"] = soundClassData["Scientific name"].map(labels.set_index("Scientific name")["Labels"])
-            # print(soundClassData)
-            # for index, row in soundClassData.iterrows():
-            #     sensorDictionary = OrderedDict([
-            #         ("dateTime"     ,str(dateTime + datetime.timedelta(seconds = row['Start (s)']))),
-            #         ("label"        ,row['Labels']),
-            #         ("confidence"   ,row['Confidence'])
-            #          ])
-            #     mSR.sensorFinisher(dateTime,"MBC001",sensorDictionary)
-      
-
-
+       
 if __name__ == "__main__":
     print("=============")
     print("    MINTS    ")
     print("=============")
     print("Connecting to the microphone on Channel: {0}".format(channelSelected) + " with Sample Rate " + str(sampleRate))
     main(cfg,currentIndex)    
-
-
 
 
 

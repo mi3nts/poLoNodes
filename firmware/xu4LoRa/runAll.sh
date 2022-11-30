@@ -1,5 +1,7 @@
 #!/bin/bash
-sleep 40
+sleep 20
+export LD_PRELOAD=/home/teamlary/.local/lib/python3.8/site-packages/scikit_learn.libs/libgomp-d22c30c5.so.1.0.0
+sleep 20
 rm -r /home/teamlary/mintsDataTmp/*
 sleep 1
 rm /home/teamlary/mintsDataJson/*
@@ -18,4 +20,3 @@ kill $(pgrep -f 'a_2_audioAnalyzer.py')
 sleep 5
 python3 a_2_audioAnalyzer.py &
 sleep 5
-
