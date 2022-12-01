@@ -100,10 +100,12 @@ if __name__ == "__main__":
         mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
         mPL.readSensorDataGPS(gpsOnline,serGps,"GPRMC",serE5Mini)        
         
-        jsonFiles = glob(jsonFolderName+ "/*.json", recursive = True)
+        jsonFiles = sorted(glob(jsonFolderName+ "/*.json", recursive = True))
         time.sleep(1)
+        currentFiles= 0
         for idx, fileIn in enumerate(jsonFiles):
-            if(idx>=0):
+          	
+            if(currentFiles>=10):
                 print("Too Many JSON files")
                 break
             print("-======================================================================-")
@@ -123,6 +125,9 @@ if __name__ == "__main__":
             if os.path.isfile(fileIn):
                 print("Deleting file: " +fileIn)
                 os.remove(fileIn)
+                currentFiles= currentFiles+1
+                
+            
         time.sleep(1)
         
         
