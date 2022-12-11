@@ -68,7 +68,6 @@ def on_message(client, userdata, msg):
         print(" - - - =============== - - - ")
         dateTime,gatewayID,nodeID,sensorID,framePort,base16Data = \
             mLS.loRaSummaryReceive(msg,fPortIDs)
-
         nodeIndex = getNodeIndex(nodeID)
         if nodeIndex >= 0 :  
             print()
@@ -82,10 +81,10 @@ def on_message(client, userdata, msg):
             print("Port ID         : " + str(framePort))
             print("Base 16 Data    : " + base16Data)
             print(sensorDictionary)
-            print(" - - - =============== - - - ")
+
     except Exception as e:
         print("[ERROR] Could not publish data, error: {}".format(e))
-        print()
+        print(msg.payload)
         print(" - - - =============== - - - ")
 
 # Create an MQTT client and attach our routines to it.
