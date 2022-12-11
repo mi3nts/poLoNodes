@@ -63,10 +63,9 @@ def on_connect(client, userdata, flags, rc):
         # nodeObjects.append(mLN.node(nodeID))
     
 def on_message(client, userdata, msg):
-    # try:
-        # print()
-        # print(" - - - MINTS DATA RECEIVED - - - ")
-        # # print(msg.payload)
+    try:
+        print()
+        print(" - - - =============== - - - ")
         dateTime,gatewayID,nodeID,sensorID,framePort,base16Data = \
             mLS.loRaSummaryReceive(msg,fPortIDs)
 
@@ -75,7 +74,6 @@ def on_message(client, userdata, msg):
             print()
             print(" - - - MINTS DATA RECEIVED - - - ")
             sensorDictionary = mLS.encodeDecode(sensorID,base16Data,False)
-            print(sensorDictionary["dateTime"])
             dateTime = datetime.datetime.strptime(sensorDictionary["dateTime"], '%Y-%m-%d %H:%M:%S.%f')
             print("Node ID         : " + nodeID)
             print("Gateway ID      : " + gatewayID)
@@ -84,10 +82,11 @@ def on_message(client, userdata, msg):
             print("Port ID         : " + str(framePort))
             print("Base 16 Data    : " + base16Data)
             print(sensorDictionary)
-
-    # except Exception as e:
-    #     print("[ERROR] Could not publish data, error: {}".format(e))
-
+            print(" - - - =============== - - - ")
+    except Exception as e:
+        print("[ERROR] Could not publish data, error: {}".format(e))
+        print()
+        print(" - - - =============== - - - ")
 
 # Create an MQTT client and attach our routines to it.
 client = mqtt.Client()
