@@ -102,7 +102,7 @@ def sensingMBCLR002(dataIn,transmitReceive):
     if (transmitReceive): 
         print("MBCLR002 Read")	
         strOut  = \
-            np.uint8(dataIn[0]).tobytes().hex().zfill(2)+ \
+              np.ubyte(dataIn[0]).tobytes().hex().zfill(2)+ \
         	  np.uint16(dataIn[1]).tobytes().hex().zfill(4)+ \
               np.uint16(dataIn[2]).tobytes().hex().zfill(4)+ \
               np.float32(dataIn[3]).tobytes().hex().zfill(8)+ \
@@ -129,50 +129,60 @@ def sensingMBCLR002(dataIn,transmitReceive):
               np.float32(dataIn[24]).tobytes().hex().zfill(8)
         return strOut;
     else:
-        dateTimePre = datetime.datetime.now() 
-        lag0 = struct.unpack('<H',bytes.fromhex(dataIn[0:4]))[0]
-        lag1 = struct.unpack('<H',bytes.fromhex(dataIn[16:20]))[0]
-        lag2 = struct.unpack('<H',bytes.fromhex(dataIn[32:36]))[0]
-        lag3 = struct.unpack('<H',bytes.fromhex(dataIn[48:52]))[0]
-        lag4 = struct.unpack('<H',bytes.fromhex(dataIn[64:68]))[0]
-        lag5 = struct.unpack('<H',bytes.fromhex(dataIn[80:84]))[0]
-        lag6 = struct.unpack('<H',bytes.fromhex(dataIn[96:100]))[0]
-        lag7 = struct.unpack('<H',bytes.fromhex(dataIn[112:116]))[0]
+        dateTime = datetime.datetime.now() 
+        lag0 = struct.unpack('<H',bytes.fromhex(dataIn[2:6]))[0]
+        lag1 = struct.unpack('<H',bytes.fromhex(dataIn[18:22]))[0]
+        lag2 = struct.unpack('<H',bytes.fromhex(dataIn[34:38]))[0]
+        lag3 = struct.unpack('<H',bytes.fromhex(dataIn[50:54]))[0]    
+        lag4 = struct.unpack('<H',bytes.fromhex(dataIn[66:70]))[0]    
+        lag5 = struct.unpack('<H',bytes.fromhex(dataIn[82:86]))[0]    
+        lag6 = struct.unpack('<H',bytes.fromhex(dataIn[98:102]))[0]    
+        lag7 = struct.unpack('<H',bytes.fromhex(dataIn[114:118]))[0]            
         
-        dateTime0 = dateTimePre - timedelta(seconds = lag0)
-        dateTime1 = dateTimePre - timedelta(seconds = lag1)
-        dateTime2 = dateTimePre - timedelta(seconds = lag2)
-        dateTime3 = dateTimePre - timedelta(seconds = lag3)
-        dateTime4 = dateTimePre - timedelta(seconds = lag4)
-        dateTime5 = dateTimePre - timedelta(seconds = lag5)
-        dateTime6 = dateTimePre - timedelta(seconds = lag6)
-        dateTime7 = dateTimePre - timedelta(seconds = lag7)
+        dateTime0 = dateTime - timedelta(seconds = lag0)
+        dateTime1 = dateTime - timedelta(seconds = lag1)
+        dateTime2 = dateTime - timedelta(seconds = lag2)
+        dateTime3 = dateTime - timedelta(seconds = lag3)
+        dateTime4 = dateTime - timedelta(seconds = lag4)
+        dateTime5 = dateTime - timedelta(seconds = lag5)
+        dateTime6 = dateTime - timedelta(seconds = lag6)
+        dateTime7 = dateTime - timedelta(seconds = lag7)
         
         sensorDictionary =  OrderedDict([
+                ("dateTime"      ,str(dateTime)),
+                ("numOfCalls"    ,struct.unpack('<B',bytes.fromhex(dataIn[0:2]))[0]),
                 ("dateTime0"     ,str(dateTime0)),
-            	("label0"        ,struct.unpack('<H',bytes.fromhex(dataIn[4:8]))[0]),
-                ("confidence0"   ,struct.unpack('<f',bytes.fromhex(dataIn[8:16]))[0]),
+                ("lag0"          ,struct.unpack('<H',bytes.fromhex(dataIn[2:6]))[0]),
+                ("label0"        ,struct.unpack('<H',bytes.fromhex(dataIn[6:10]))[0]),
+                ("confidence0"   ,struct.unpack('<f',bytes.fromhex(dataIn[10:18]))[0]),
                 ("dateTime1"     ,str(dateTime1)),
-            	("label1"        ,struct.unpack('<H',bytes.fromhex(dataIn[4:8]))[0]),
-                ("confidence1"   ,struct.unpack('<f',bytes.fromhex(dataIn[8:16]))[0]),
+                ("lag1"          ,struct.unpack('<H',bytes.fromhex(dataIn[18:22]))[0]),
+                ("label1"        ,struct.unpack('<H',bytes.fromhex(dataIn[22:26]))[0]),
+                ("confidence1"   ,struct.unpack('<f',bytes.fromhex(dataIn[26:34]))[0]),
                 ("dateTime2"     ,str(dateTime2)),
-            	("label2"        ,struct.unpack('<H',bytes.fromhex(dataIn[4:8]))[0]),
-                ("confidence2"   ,struct.unpack('<f',bytes.fromhex(dataIn[8:16]))[0]),
+                ("lag2"          ,struct.unpack('<H',bytes.fromhex(dataIn[34:38]))[0]),
+                ("label2"        ,struct.unpack('<H',bytes.fromhex(dataIn[38:42]))[0]),
+                ("confidence2"   ,struct.unpack('<f',bytes.fromhex(dataIn[42:50]))[0]),
                 ("dateTime3"     ,str(dateTime3)),
-            	("label3"        ,struct.unpack('<H',bytes.fromhex(dataIn[4:8]))[0]),
-                ("confidence3"   ,struct.unpack('<f',bytes.fromhex(dataIn[8:16]))[0]),
+                ("lag3"          ,struct.unpack('<H',bytes.fromhex(dataIn[50:54]))[0]),
+                ("label3"        ,struct.unpack('<H',bytes.fromhex(dataIn[54:58]))[0]),
+                ("confidence3"   ,struct.unpack('<f',bytes.fromhex(dataIn[58:66]))[0]),
                 ("dateTime4"     ,str(dateTime4)),
-            	("label4"        ,struct.unpack('<H',bytes.fromhex(dataIn[4:8]))[0]),
-                ("confidence4"   ,struct.unpack('<f',bytes.fromhex(dataIn[8:16]))[0]),
+                ("lag4"          ,struct.unpack('<H',bytes.fromhex(dataIn[66:70]))[0]),
+                ("label4"        ,struct.unpack('<H',bytes.fromhex(dataIn[70:74]))[0]),
+                ("confidence4"   ,struct.unpack('<f',bytes.fromhex(dataIn[74:82]))[0]),
                 ("dateTime5"     ,str(dateTime5)),
-            	("label5"        ,struct.unpack('<H',bytes.fromhex(dataIn[4:8]))[0]),
-                ("confidence5"   ,struct.unpack('<f',bytes.fromhex(dataIn[8:16]))[0]),
+                ("lag5"          ,struct.unpack('<H',bytes.fromhex(dataIn[82:86]))[0]),
+                ("label5"        ,struct.unpack('<H',bytes.fromhex(dataIn[86:90]))[0]),
+                ("confidence5"   ,struct.unpack('<f',bytes.fromhex(dataIn[90:98]))[0]),
                 ("dateTime6"     ,str(dateTime6)),
-            	("label6"        ,struct.unpack('<H',bytes.fromhex(dataIn[4:8]))[0]),
-                ("confidence6"   ,struct.unpack('<f',bytes.fromhex(dataIn[8:16]))[0]),
+                ("lag6"          ,struct.unpack('<H',bytes.fromhex(dataIn[98:102]))[0]),
+                ("label6"        ,struct.unpack('<H',bytes.fromhex(dataIn[102:106]))[0]),
+                ("confidence6"   ,struct.unpack('<f',bytes.fromhex(dataIn[106:114]))[0]),
                 ("dateTime7"     ,str(dateTime7)),
-            	("label7"        ,struct.unpack('<H',bytes.fromhex(dataIn[4:8]))[0]),
-                ("confidence7"   ,struct.unpack('<f',bytes.fromhex(dataIn[8:16]))[0]),
+                ("lag7"          ,struct.unpack('<H',bytes.fromhex(dataIn[114:118]))[0]),
+                ("label7"        ,struct.unpack('<H',bytes.fromhex(dataIn[118:122]))[0]),
+                ("confidence7"   ,struct.unpack('<f',bytes.fromhex(dataIn[122:130]))[0]),
                ])
         return sensorDictionary;
     
