@@ -261,66 +261,85 @@ def sendCommandHex(serPortE5,sensorID,sensorData,port):
         print("No data received for sensor " + sensorID)
 
 def readSensorDataBirdSong(sensorData,sensorID,serPortE5):
-    print("====================================")
-    print("-----------" +sensorID+ "-----------" ) 
-    print("Current Time (UTC): " +str(datetime.now()))
-    print(sensorID + " Online") 
-    port = deriveSensorStats(sensorID)  
-    sendCommandHex(serPortE5,sensorID,sensorData,port)
-    return;
-    
-def readSensorDataGPS(online,serPort,sensorID,serPortE5):
-    print("====================================")  
-    print("-----------" +sensorID+ "-----------" ) 
-    print("Current Time (UTC): " +str(datetime.now()))
-    if online:
+    try:
+        print("====================================")
+        print("-----------" +sensorID+ "-----------" ) 
+        print("Current Time (UTC): " +str(datetime.now()))
         print(sensorID + " Online") 
-        port = deriveSensorStats(sensorID)
-        if port['portID']==6:
-            sensorData = readSerialLineStrAsIs(serPort,2,"GGA")
-            print(sensorData)
+        port = deriveSensorStats(sensorID)  
+        sendCommandHex(serPortE5,sensorID,sensorData,port)
+        return;
+    except OSError as e:
+        print ("Error: %s - %s." % (e.filename, e.strerror))
+        return;
 
-            sendCommandHex(serPortE5,sensorID,sensorData,port)            
-        if port['portID']==7:
-            sensorData = readSerialLineStrAsIs(serPort,2,"RMC")
-            print(sensorData)
-            # Add an if statement 
-            sendCommandHex(serPortE5,sensorID,sensorData,port)
+def readSensorDataGPS(online,serPort,sensorID,serPortE5):
+    try:
+        print("====================================")  
+        print("-----------" +sensorID+ "-----------" ) 
+        print("Current Time (UTC): " +str(datetime.now()))
+        if online:
+            print(sensorID + " Online") 
+            port = deriveSensorStats(sensorID)
+            if port['portID']==6:
+                sensorData = readSerialLineStrAsIs(serPort,2,"GGA")
+                print(sensorData)
+
+                sendCommandHex(serPortE5,sensorID,sensorData,port)            
+            if port['portID']==7:
+                sensorData = readSerialLineStrAsIs(serPort,2,"RMC")
+                print(sensorData)
+                # Add an if statement 
+                sendCommandHex(serPortE5,sensorID,sensorData,port)
+                return;
+        else:
+            print(sensorID + " Offline")       
             return;
-    else:
-        print(sensorID + " Offline")       
+    except OSError as e:
+        print ("Error: %s - %s." % (e.filename, e.strerror))
         return;
 
 def readSensorData(online,serPort,sensorID,serPortE5):
-    print("====================================")  
-    print("-----------" +sensorID+ "-----------" ) 
-    print("Current Time (UTC): " +str(datetime.now()))
-    if online:
-        print(sensorID + " Online") 
-        port = deriveSensorStats(sensorID)
-        if port['portID']<255:
-            sensorData = readSerialLine(serPort,2,port['numOfParametors'])
-            print(sensorData)
-            sendCommandHex(serPortE5,sensorID,sensorData,port)
+    try:
+        print("====================================")  
+        print("-----------" +sensorID+ "-----------" ) 
+        print("Current Time (UTC): " +str(datetime.now()))
+        if online:
+            print(sensorID + " Online") 
+            port = deriveSensorStats(sensorID)
+            if port['portID']<255:
+                sensorData = readSerialLine(serPort,2,port['numOfParametors'])
+                print(sensorData)
+                sendCommandHex(serPortE5,sensorID,sensorData,port)
+                return;
+        else:
+            print(sensorID + " Offline")       
             return;
-    else:
-        print(sensorID + " Offline")       
+    except OSError as e:
+        print ("Error: %s - %s." % (e.filename, e.strerror))
         return;
-        
-def readSensorDataI2c(online,i2cObject,sensorID,serPortE5):
-    print("====================================")  
-    print("-----------" +sensorID+ "-----------" ) 
-    print("Current Time (UTC): " +str(datetime.now()))    
-    if online:
-        print(sensorID + " Online")  
-        port = deriveSensorStats(sensorID)
-        if port['portID']<255:
-            print("Reading I2C Data")
-            sensorData  =  i2cObject.read()
-            print(sensorData)
-            sendCommandHex(serPortE5,sensorID,sensorData,port)  
-            return;
-    else:
-        print(sensorID + " Offline")       
-        return;
+      
 
+
+def readSensorDataI2c(online,i2cObject,sensorID,serPortE5):
+    try:
+        print("====================================")  
+        print("-----------" +sensorID+ "-----------" ) 
+        print("Current Time (UTC): " +str(datetime.now()))    
+        if online:
+            print(sensorID + " Online")  
+            port = deriveSensorStats(sensorID)
+            if port['portID']<255:
+                print("Reading I2C Data")
+                sensorData  =  i2cObject.read()
+                print(sensorData)
+                sendCommandHex(serPortE5,sensorID,sensorData,port)  
+                return;
+        else:
+            print(sensorID + " Offline")       
+            return;
+
+    except OSError as e:
+        print ("Error: %s - %s." % (e.filename, e.strerror))
+        return;
+      
