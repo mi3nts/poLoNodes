@@ -92,17 +92,101 @@ def encodeDecode(sensorID,sensorData,transmitReceive):
     if sensorID == "GPRMC":
         return sensingGPRMC(sensorData,transmitReceive);  
     if sensorID == "MBCLR001":
-        return sensingMBCLR001(sensorData,transmitReceive);        
+        return sensingMBCLR001(sensorData,transmitReceive);  
+    if sensorID == "MBCLR002":
+        return sensingMBCLR002(sensorData,transmitReceive);  
       
     return " "   
         
     # For transmitting data, transmitRecieve is True
+def sensingMBCLR002(dataIn,transmitReceive):
+    if (transmitReceive): 
+        print("MBCLR002 Read")	
+        strOut  = \
+            np.uint8(dataIn[0]).tobytes().hex().zfill(2)+ \
+        	  np.uint16(dataIn[1]).tobytes().hex().zfill(4)+ \
+              np.uint16(dataIn[2]).tobytes().hex().zfill(4)+ \
+              np.float32(dataIn[3]).tobytes().hex().zfill(8)+ \
+        	  np.uint16(dataIn[4]).tobytes().hex().zfill(4)+ \
+              np.uint16(dataIn[5]).tobytes().hex().zfill(4)+ \
+              np.float32(dataIn[6]).tobytes().hex().zfill(8)+ \
+        	  np.uint16(dataIn[7]).tobytes().hex().zfill(4)+ \
+              np.uint16(dataIn[8]).tobytes().hex().zfill(4)+ \
+              np.float32(dataIn[9]).tobytes().hex().zfill(8)+ \
+        	  np.uint16(dataIn[10]).tobytes().hex().zfill(4)+ \
+              np.uint16(dataIn[11]).tobytes().hex().zfill(4)+ \
+              np.float32(dataIn[12]).tobytes().hex().zfill(8)+ \
+        	  np.uint16(dataIn[13]).tobytes().hex().zfill(4)+ \
+              np.uint16(dataIn[14]).tobytes().hex().zfill(4)+ \
+              np.float32(dataIn[15]).tobytes().hex().zfill(8)+ \
+        	  np.uint16(dataIn[16]).tobytes().hex().zfill(4)+ \
+              np.uint16(dataIn[17]).tobytes().hex().zfill(4)+ \
+              np.float32(dataIn[18]).tobytes().hex().zfill(8)+ \
+        	  np.uint16(dataIn[19]).tobytes().hex().zfill(4)+ \
+              np.uint16(dataIn[20]).tobytes().hex().zfill(4)+ \
+              np.float32(dataIn[21]).tobytes().hex().zfill(8)+ \
+        	  np.uint16(dataIn[22]).tobytes().hex().zfill(4)+ \
+              np.uint16(dataIn[23]).tobytes().hex().zfill(4)+ \
+              np.float32(dataIn[24]).tobytes().hex().zfill(8)
+        return strOut;
+    else:
+        dateTimePre = datetime.datetime.now() 
+        lag0 = struct.unpack('<H',bytes.fromhex(dataIn[0:4]))[0]
+        lag1 = struct.unpack('<H',bytes.fromhex(dataIn[16:20]))[0]
+        lag2 = struct.unpack('<H',bytes.fromhex(dataIn[32:36]))[0]
+        lag3 = struct.unpack('<H',bytes.fromhex(dataIn[48:52]))[0]
+        lag4 = struct.unpack('<H',bytes.fromhex(dataIn[64:68]))[0]
+        lag5 = struct.unpack('<H',bytes.fromhex(dataIn[80:84]))[0]
+        lag6 = struct.unpack('<H',bytes.fromhex(dataIn[96:100]))[0]
+        lag7 = struct.unpack('<H',bytes.fromhex(dataIn[112:116]))[0]
+        
+        dateTime0 = dateTimePre - timedelta(seconds = lag0)
+        dateTime1 = dateTimePre - timedelta(seconds = lag1)
+        dateTime2 = dateTimePre - timedelta(seconds = lag2)
+        dateTime3 = dateTimePre - timedelta(seconds = lag3)
+        dateTime4 = dateTimePre - timedelta(seconds = lag4)
+        dateTime5 = dateTimePre - timedelta(seconds = lag5)
+        dateTime6 = dateTimePre - timedelta(seconds = lag6)
+        dateTime7 = dateTimePre - timedelta(seconds = lag7)
+        
+        sensorDictionary =  OrderedDict([
+                ("dateTime0"     ,str(dateTime)),
+            	("label0"        ,struct.unpack('<H',bytes.fromhex(dataIn[4:8]))[0]),
+                ("confidence0"   ,struct.unpack('<f',bytes.fromhex(dataIn[8:16]))[0]),
+                ("dateTime1"     ,str(dateTime)),
+            	("label1"        ,struct.unpack('<H',bytes.fromhex(dataIn[4:8]))[0]),
+                ("confidence1"   ,struct.unpack('<f',bytes.fromhex(dataIn[8:16]))[0]),
+                ("dateTime2"     ,str(dateTime)),
+            	("label2"        ,struct.unpack('<H',bytes.fromhex(dataIn[4:8]))[0]),
+                ("confidence2"   ,struct.unpack('<f',bytes.fromhex(dataIn[8:16]))[0]),
+                ("dateTime3"     ,str(dateTime)),
+            	("label3"        ,struct.unpack('<H',bytes.fromhex(dataIn[4:8]))[0]),
+                ("confidence3"   ,struct.unpack('<f',bytes.fromhex(dataIn[8:16]))[0]),
+                ("dateTime4"     ,str(dateTime)),
+            	("label4"        ,struct.unpack('<H',bytes.fromhex(dataIn[4:8]))[0]),
+                ("confidence4"   ,struct.unpack('<f',bytes.fromhex(dataIn[8:16]))[0]),
+                ("dateTime5"     ,str(dateTime)),
+            	("label5"        ,struct.unpack('<H',bytes.fromhex(dataIn[4:8]))[0]),
+                ("confidence5"   ,struct.unpack('<f',bytes.fromhex(dataIn[8:16]))[0]),
+                ("dateTime6"     ,str(dateTime)),
+            	("label6"        ,struct.unpack('<H',bytes.fromhex(dataIn[4:8]))[0]),
+                ("confidence6"   ,struct.unpack('<f',bytes.fromhex(dataIn[8:16]))[0]),
+                ("dateTime7"     ,str(dateTime)),
+            	("label7"        ,struct.unpack('<H',bytes.fromhex(dataIn[4:8]))[0]),
+                ("confidence7"   ,struct.unpack('<f',bytes.fromhex(dataIn[8:16]))[0]),
+               ])
+        return sensorDictionary;
+    
+    
+    
+
+    
 def sensingMBCLR001(dataIn,transmitReceive):
 
     if (transmitReceive): 
         print("MBCLR001 Read")	
         strOut  = \
-            np.uint16(dataIn[0]).tobytes().hex().zfill(4)+ \
+            np.ubyte(dataIn[0]).tobytes().hex().zfill(4)+ \
             np.uint16(dataIn[1]).tobytes().hex().zfill(4)+ \
             np.float32(dataIn[2]).tobytes().hex().zfill(8)
         return strOut;  

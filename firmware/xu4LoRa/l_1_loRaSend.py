@@ -2,7 +2,7 @@
 # MQTT Client demo
 # Continuously monitor two different MQTT topics for data,
 # check if the received data matches two predefined 'commands'
-
+import itertools
 import base64
 from cgitb import strong
 # import imp
@@ -34,8 +34,6 @@ import time
 import os
 import smbus2
 
-
-
 debug  = False 
 
 bus     = smbus2.SMBus(0)
@@ -64,6 +62,78 @@ def getLongitudeCords(longitudeStr,longitudeDirection):
         longitudeCord = -1*longitudeCord
     return longitudeCord        
 
+def mintsBCConcatSend08(serE5MiniIn):
+    sensorData =  list(itertools.repeat (0,8*3+1))
+    print(len(sensorData))
+    jsonFiles = sorted(glob(jsonFolderName+ "/*.json", recursive = True))
+    sensorData[0] = len(jsonFiles)
+    if sensorData[0]<=0:
+      print("No Sound data")
+      return
+    currentFiles= 0
+    maxFiles = 8
+    
+    for idx, fileIn in enumerate(jsonFiles):
+        if(currentFiles>=maxFiles):
+            print("Too Many JSON files")
+            break
+        print("================================")
+        print("Looking up file: " + fileIn +" with index:" + str(idx)) 
+        baseDateTime = fileIn.replace("_mintsAudio.json","").split('/')
+        duration     = datetime.datetime.now() - datetime.datetime.strptime(\
+                            baseDateTime[-1], '%Y_%m_%d_%H_%M_%S_%f')
+        durSeconds = int(duration.total_seconds())
+            
+        if durSeconds < 65534:
+            with open(fileIn, 'r') as f:
+                jsonData = json.load(f)
+            print(idx*3)
+            sensorData[idx*3+1] = durSeconds
+            sensorData[idx*3+2] = jsonData['label']
+            sensorData[idx*3+3] = jsonData['confidence']
+  
+            
+        if os.path.isfile(fileIn):
+            print("Deleting file: " +fileIn)
+            os.remove(fileIn)
+            currentFiles= currentFiles+1
+            
+    if len(jsonFiles)>0:
+        print("Sensor Data")
+        print(sensorData)
+    #	mPL.readSensorDataBirdSongSend08(sensorData,"MBCLR001",serE5MiniIn)
+        
+    
+  
+  
+def mintsBCSend(serE5MiniIn,numOfFiles):
+    jsonFiles = sorted(glob(jsonFolderName+ "/*.json", recursive = True))
+    currentFiles= 0
+    for idx, fileIn in enumerate(jsonFiles):
+        if(currentFiles>=numOfFiles):
+            print("Too Many JSON files")
+            break
+        print("-======================================================================-")
+        print("Looking up file: " + fileIn +" with index:" + str(idx)) 
+        baseDateTime = fileIn.replace("_mintsAudio.json","").split('/')
+        duration     = datetime.datetime.now() - datetime.datetime.strptime(\
+                            baseDateTime[-1], '%Y_%m_%d_%H_%M_%S_%f')
+        durSeconds = int(duration.total_seconds())
+            
+        if durSeconds < 65534:
+            with open(fileIn, 'r') as f:
+                jsonData = json.load(f)
+            
+            sensorData = [durSeconds,jsonData['label'],jsonData['confidence']]
+            print(sensorData)
+            mPL.readSensorDataBirdSong(sensorData,"MBCLR001",serE5MiniIn)
+          	
+        if os.path.isfile(fileIn):
+            print("Deleting file: " +fileIn)
+            os.remove(fileIn)
+            currentFiles= currentFiles+1
+  
+  
 if __name__ == "__main__":
     
     print()
@@ -87,51 +157,30 @@ if __name__ == "__main__":
 
     while joined:
         # Add a try catch 
-        start_time = time.time()
+        mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
+        mintsBCConcatSend08(serE5Mini)
+        mPL.readSensorData(canareeOnline,serCanaree,"BME688CNR",serE5Mini)
         
         mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
-        mPL.readSensorData(canareeOnline,serCanaree,"BME688CNR",serE5Mini)
-        mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
+        mintsBCConcatSend08(serE5Mini)
         mPL.readSensorDataI2c(scd30Online,scd30,"SCD30",serE5Mini)
+        
         mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
-        mPL.readSensorDataI2c(as7265xOnline,as7265x,"AS7265X",serE5Mini)
-        mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
-        mPL.readSensorDataGPS(gpsOnline,serGps,"GPGGA",serE5Mini)
-        mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
+        mintsBCConcatSend08(serE5Mini)
         mPL.readSensorDataGPS(gpsOnline,serGps,"GPRMC",serE5Mini)        
         
-        jsonFiles = sorted(glob(jsonFolderName+ "/*.json", recursive = True))
-        time.sleep(1)
-        currentFiles= 0
-        for idx, fileIn in enumerate(jsonFiles):
-          	
-            if(currentFiles>=10):
-                print("Too Many JSON files")
-                break
-            print("-======================================================================-")
-            print("Looking up file: " + fileIn +" with index:" + str(idx)) 
-            baseDateTime = fileIn.replace("_mintsAudio.json","").split('/')
-            duration     = datetime.datetime.now() - datetime.datetime.strptime(\
-                                baseDateTime[-1], '%Y_%m_%d_%H_%M_%S_%f')
-            durSeconds = int(duration.total_seconds())
-            
-            if durSeconds < 65534:
-                with open(fileIn, 'r') as f:
-                    jsonData = json.load(f)
-            
-                sensorData = [durSeconds,jsonData['label'],jsonData['confidence']]
-                mPL.readSensorDataBirdSong(sensorData,"MBCLR001",serE5Mini)
-          	
-            if os.path.isfile(fileIn):
-                print("Deleting file: " +fileIn)
-                os.remove(fileIn)
-                currentFiles= currentFiles+1
-                
-            
-        time.sleep(1)
+        mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
+        mintsBCConcatSend08(serE5Mini)
+        mPL.readSensorDataI2c(as7265xOnline,as7265x,"AS7265X",serE5Mini)
+        
+        mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
+        mintsBCConcatSend08(serE5Mini)
+        mPL.readSensorDataGPS(gpsOnline,serGps,"GPGGA",serE5Mini)
         
         
         
+        
+
         
         
         
