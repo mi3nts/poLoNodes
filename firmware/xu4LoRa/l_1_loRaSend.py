@@ -101,7 +101,7 @@ def mintsBCConcatSend08(serE5MiniIn):
     if len(jsonFiles)>0:
         print("Sensor Data")
         print(sensorData)
-    #	mPL.readSensorDataBirdSongSend08(sensorData,"MBCLR001",serE5MiniIn)
+        mPL.readSensorDataBirdSong(sensorData,"MBCLR002",serE5MiniIn)
         
     
   
