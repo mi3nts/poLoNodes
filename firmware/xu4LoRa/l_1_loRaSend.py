@@ -66,8 +66,8 @@ def mintsBCConcatSend08(serE5MiniIn):
     sensorData =  list(itertools.repeat (0,8*3+1))
     print(len(sensorData))
     jsonFiles = sorted(glob(jsonFolderName+ "/*.json", recursive = True))
-    sensorData[0] = len(jsonFiles)
-    if sensorData[0]<=0:
+    
+    if len(jsonFiles)<=0:
       print("No Sound data")
       return
     currentFiles= 0
@@ -98,7 +98,8 @@ def mintsBCConcatSend08(serE5MiniIn):
             os.remove(fileIn)
             currentFiles= currentFiles+1
             
-    if len(jsonFiles)>0:
+    if currentFiles>0:
+        sensorData[0] = currentFiles
         print("Sensor Data")
         print(sensorData)
         mPL.readSensorDataBirdSong(sensorData,"MBCLR002",serE5MiniIn)
