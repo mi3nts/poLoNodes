@@ -64,8 +64,6 @@ def on_connect(client, userdata, flags, rc):
     
 def on_message(client, userdata, msg):
     try:
-        print()
-        print(" - - - =============== - - - ")
         dateTime,gatewayID,nodeID,sensorID,framePort,base16Data = \
             mLS.loRaSummaryReceive(msg,fPortIDs)
         nodeIndex = getNodeIndex(nodeID)
