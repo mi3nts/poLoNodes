@@ -153,10 +153,15 @@ if __name__ == "__main__":
     scd30Online    = scd30.initiate(30)
     as7265xOnline  = as7265x.initiate()
 
-    joined  = mPL.loRaE5MiniJoin(e5MiniOnline,serE5Mini)
-    # joined = True    
+    
+    
+    while not mPL.loRaE5MiniJoin(e5MiniOnline,serE5Mini):
+      print("Trying to connect")
+      
+   
+   
 
-    while joined:
+    while True:
         # Add a try catch 
         mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
         mintsBCConcatSend08(serE5Mini)
