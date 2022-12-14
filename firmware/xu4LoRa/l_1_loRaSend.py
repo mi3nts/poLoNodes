@@ -157,6 +157,7 @@ if __name__ == "__main__":
     
     while not mPL.loRaE5MiniJoin(e5MiniOnline,serE5Mini):
       print("Trying to connect")
+      time.sleep(5)
       
    
    
