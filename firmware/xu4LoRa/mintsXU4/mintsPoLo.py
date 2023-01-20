@@ -137,6 +137,7 @@ def sendCommand2(serIn,commandStrIn,timeOutIn):
 
 
 def sendCommand(serIn,commandStrIn,timeOutIn):
+    time.sleep(1)
     serIn.write(str.encode(commandStrIn+ '\n\r'))
     line = []
     lines = []
