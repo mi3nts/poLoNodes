@@ -347,30 +347,31 @@ def sensingGPRMC(dataIn,transmitReceive):
 def sensingAS7265X(dataIn,transmitReceive):
 
     if (transmitReceive): 
-        print(len(dataIn))
         print("AS7265X Read")	
-        strOut  = \
-            np.float32(dataIn[0]).tobytes().hex().zfill(8)+ \
-            np.float32(dataIn[1]).tobytes().hex().zfill(8) + \
-            np.float32(dataIn[2]).tobytes().hex().zfill(8)+ \
-            np.float32(dataIn[3]).tobytes().hex().zfill(8) + \
-            np.float32(dataIn[4]).tobytes().hex().zfill(8)+ \
-            np.float32(dataIn[5]).tobytes().hex().zfill(8) + \
-            np.float32(dataIn[6]).tobytes().hex().zfill(8)+ \
-            np.float32(dataIn[7]).tobytes().hex().zfill(8) + \
-            np.float32(dataIn[8]).tobytes().hex().zfill(8)+ \
-            np.float32(dataIn[9]).tobytes().hex().zfill(8) + \
-            np.float32(dataIn[10]).tobytes().hex().zfill(8)+ \
-            np.float32(dataIn[11]).tobytes().hex().zfill(8) + \
-            np.float32(dataIn[12]).tobytes().hex().zfill(8)+ \
-            np.float32(dataIn[13]).tobytes().hex().zfill(8) + \
-            np.float32(dataIn[14]).tobytes().hex().zfill(8)+ \
-            np.float32(dataIn[15]).tobytes().hex().zfill(8) + \
-            np.float32(dataIn[16]).tobytes().hex().zfill(8)+ \
-            np.float32(dataIn[17]).tobytes().hex().zfill(8) ;
-            
-   
-        return strOut;  
+        if(len(dataIn)==18):
+            strOut  = \
+                np.float32(dataIn[0]).tobytes().hex().zfill(8)+ \
+                np.float32(dataIn[1]).tobytes().hex().zfill(8) + \
+                np.float32(dataIn[2]).tobytes().hex().zfill(8)+ \
+                np.float32(dataIn[3]).tobytes().hex().zfill(8) + \
+                np.float32(dataIn[4]).tobytes().hex().zfill(8)+ \
+                np.float32(dataIn[5]).tobytes().hex().zfill(8) + \
+                np.float32(dataIn[6]).tobytes().hex().zfill(8)+ \
+                np.float32(dataIn[7]).tobytes().hex().zfill(8) + \
+                np.float32(dataIn[8]).tobytes().hex().zfill(8)+ \
+                np.float32(dataIn[9]).tobytes().hex().zfill(8) + \
+                np.float32(dataIn[10]).tobytes().hex().zfill(8)+ \
+                np.float32(dataIn[11]).tobytes().hex().zfill(8) + \
+                np.float32(dataIn[12]).tobytes().hex().zfill(8)+ \
+                np.float32(dataIn[13]).tobytes().hex().zfill(8) + \
+                np.float32(dataIn[14]).tobytes().hex().zfill(8)+ \
+                np.float32(dataIn[15]).tobytes().hex().zfill(8) + \
+                np.float32(dataIn[16]).tobytes().hex().zfill(8)+ \
+                np.float32(dataIn[17]).tobytes().hex().zfill(8) ;
+            return strOut;  
+        else:
+            print("Invalid data string read by the Canaaree")
+            return None;
     else:
         dateTime = datetime.datetime.now()
         sensorDictionary =  OrderedDict([
@@ -400,12 +401,16 @@ def sensingSCD30(dataIn,transmitReceive):
 
     if (transmitReceive): 
         print("SCD30 Read")	
-        print(len(dataIn))
-        strOut  = \
-            np.float32(dataIn[0]).tobytes().hex().zfill(8)+ \
-            np.float32(dataIn[1]).tobytes().hex().zfill(8) + \
-            np.float32(dataIn[2]).tobytes().hex().zfill(8)
-        return strOut;  
+        if (len(dataIn)==3):
+            strOut  = \
+                np.float32(dataIn[0]).tobytes().hex().zfill(8)+ \
+                np.float32(dataIn[1]).tobytes().hex().zfill(8) + \
+                np.float32(dataIn[2]).tobytes().hex().zfill(8)
+            return strOut;  
+        else:
+            print("Invalid data string read from the SCD30")
+            return None;
+
     else:
         dateTime = datetime.datetime.now()
         sensorDictionary =  OrderedDict([
@@ -420,16 +425,19 @@ def sensingBME688CNR(dataIn,transmitReceive):
 
     if (transmitReceive): 
         print("BME688CNR Read")	
-        print(len(dataIn))
-        strOut  = \
-            np.float32(dataIn[29]).tobytes().hex().zfill(8)+ \
-            np.float32(dataIn[31]).tobytes().hex().zfill(8) + \
-            np.float32(dataIn[33]).tobytes().hex().zfill(8)+ \
-            np.float32(dataIn[35]).tobytes().hex().zfill(8) + \
-            np.float32(dataIn[37]).tobytes().hex().zfill(8)+ \
-            np.float32(dataIn[39]).tobytes().hex().zfill(8) + \
-            np.float32(dataIn[41]).tobytes().hex().zfill(8)
-        return strOut;  
+        if (len(dataIn)== 44): 
+            strOut  = \
+                np.float32(dataIn[29]).tobytes().hex().zfill(8)+ \
+                np.float32(dataIn[31]).tobytes().hex().zfill(8) + \
+                np.float32(dataIn[33]).tobytes().hex().zfill(8)+ \
+                np.float32(dataIn[35]).tobytes().hex().zfill(8) + \
+                np.float32(dataIn[37]).tobytes().hex().zfill(8)+ \
+                np.float32(dataIn[39]).tobytes().hex().zfill(8) + \
+                np.float32(dataIn[41]).tobytes().hex().zfill(8)
+            return strOut;  
+        else:
+            print("Invalid data string read from the Canaaree")
+            return None;
     else:
         dateTime = datetime.datetime.now()
         sensorDictionary =  OrderedDict([
@@ -446,26 +454,29 @@ def sensingBME688CNR(dataIn,transmitReceive):
 
     
 def sensingIPS7100CNR(dataIn,transmitReceive):
-
     if (transmitReceive):  
-        print(len(dataIn))
         print("IPS7100CNR Read")	
-        strOut  = \
-            np.uint32(dataIn[1]).tobytes().hex().zfill(8)+ \
-            np.uint32(dataIn[3]).tobytes().hex().zfill(8) + \
-            np.uint32(dataIn[5]).tobytes().hex().zfill(8)+ \
-            np.uint32(dataIn[7]).tobytes().hex().zfill(8) + \
-            np.uint32(dataIn[9]).tobytes().hex().zfill(8)+ \
-            np.uint32(dataIn[11]).tobytes().hex().zfill(8) + \
-            np.uint32(dataIn[13]).tobytes().hex().zfill(8)+ \
-            np.float32(dataIn[15]).tobytes().hex().zfill(8)+ \
-            np.float32(dataIn[17]).tobytes().hex().zfill(8) + \
-            np.float32(dataIn[19]).tobytes().hex().zfill(8)+ \
-            np.float32(dataIn[21]).tobytes().hex().zfill(8) + \
-            np.float32(dataIn[23]).tobytes().hex().zfill(8)+ \
-            np.float32(dataIn[25]).tobytes().hex().zfill(8) + \
-            np.float32(dataIn[27]).tobytes().hex().zfill(8)
-        return strOut;  
+        if (len(dataIn)== 44): 
+            strOut  = \
+                np.uint32(dataIn[1]).tobytes().hex().zfill(8)+ \
+                np.uint32(dataIn[3]).tobytes().hex().zfill(8) + \
+                np.uint32(dataIn[5]).tobytes().hex().zfill(8)+ \
+                np.uint32(dataIn[7]).tobytes().hex().zfill(8) + \
+                np.uint32(dataIn[9]).tobytes().hex().zfill(8)+ \
+                np.uint32(dataIn[11]).tobytes().hex().zfill(8) + \
+                np.uint32(dataIn[13]).tobytes().hex().zfill(8)+ \
+                np.float32(dataIn[15]).tobytes().hex().zfill(8)+ \
+                np.float32(dataIn[17]).tobytes().hex().zfill(8) + \
+                np.float32(dataIn[19]).tobytes().hex().zfill(8)+ \
+                np.float32(dataIn[21]).tobytes().hex().zfill(8) + \
+                np.float32(dataIn[23]).tobytes().hex().zfill(8)+ \
+                np.float32(dataIn[25]).tobytes().hex().zfill(8) + \
+                np.float32(dataIn[27]).tobytes().hex().zfill(8)
+            return strOut;  
+        else:
+            print("Invalid data string read from the Canaaree")
+            return None
+
     else:
         dateTime = datetime.datetime.now()
         sensorDictionary =  OrderedDict([
