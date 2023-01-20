@@ -286,6 +286,7 @@ def sensingGPGGA(dataIn,transmitReceive):
             return strOut;  
         else:
             print("GPGGA Data Not Read: No GPS Signal")	
+            return None
 
     else:
         dateTime = datetime.datetime.now()
@@ -325,7 +326,7 @@ def sensingGPRMC(dataIn,transmitReceive):
             return strOut;  
         else:
             print("GPRMC Data Not Read: No GPS Signal")	
-
+            return None
     else:
         dateTime = datetime.datetime.now()
         sensorDictionary =  OrderedDict([
@@ -346,6 +347,7 @@ def sensingGPRMC(dataIn,transmitReceive):
 def sensingAS7265X(dataIn,transmitReceive):
 
     if (transmitReceive): 
+        print(len(dataIn))
         print("AS7265X Read")	
         strOut  = \
             np.float32(dataIn[0]).tobytes().hex().zfill(8)+ \
@@ -398,6 +400,7 @@ def sensingSCD30(dataIn,transmitReceive):
 
     if (transmitReceive): 
         print("SCD30 Read")	
+        print(len(dataIn))
         strOut  = \
             np.float32(dataIn[0]).tobytes().hex().zfill(8)+ \
             np.float32(dataIn[1]).tobytes().hex().zfill(8) + \
@@ -417,6 +420,7 @@ def sensingBME688CNR(dataIn,transmitReceive):
 
     if (transmitReceive): 
         print("BME688CNR Read")	
+        print(len(dataIn))
         strOut  = \
             np.float32(dataIn[29]).tobytes().hex().zfill(8)+ \
             np.float32(dataIn[31]).tobytes().hex().zfill(8) + \
@@ -444,6 +448,7 @@ def sensingBME688CNR(dataIn,transmitReceive):
 def sensingIPS7100CNR(dataIn,transmitReceive):
 
     if (transmitReceive):  
+        print(len(dataIn))
         print("IPS7100CNR Read")	
         strOut  = \
             np.uint32(dataIn[1]).tobytes().hex().zfill(8)+ \
