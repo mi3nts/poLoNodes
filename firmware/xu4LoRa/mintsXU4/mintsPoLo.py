@@ -311,8 +311,13 @@ def readSensorData(online,serPort,sensorID,serPortE5):
             if port['portID']<255:
                 sensorData = readSerialLine(serPort,2,port['numOfParametors'])
                 print(sensorData)
-                sendCommandHex(serPortE5,sensorID,sensorData,port)
-                return;
+                if (sensorData is not None): 
+                	sendCommandHex(serPortE5,sensorID,sensorData,port)
+                	return;
+                else:
+                    print(sensorID + " not read correctly")
+                    return;
+                  
         else:
             print(sensorID + " Offline")       
             return;
