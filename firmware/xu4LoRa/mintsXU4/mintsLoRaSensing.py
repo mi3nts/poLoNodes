@@ -86,10 +86,10 @@ def encodeDecode(sensorID,sensorData,transmitReceive):
         return sensingPM(sensorData,transmitReceive); 
     if sensorID == "MacAD":
         return sensingMacAD(sensorData,transmitReceive);      
-    if sensorID == "GPGGA":
-        return sensingGPGGA(sensorData,transmitReceive);         
-    if sensorID == "GPRMC":
-        return sensingGPRMC(sensorData,transmitReceive);  
+    if sensorID == "GPGGAPL":
+        return sensingGPGGAPL(sensorData,transmitReceive);         
+    if sensorID == "GPRMCPL":
+        return sensingGPRMCPL(sensorData,transmitReceive);  
     if sensorID == "MBCLR001":
         return sensingMBCLR001(sensorData,transmitReceive);  
     if sensorID == "MBCLR002":
@@ -265,13 +265,13 @@ def getLongitudeCords(longitudeStr,longitudeDirection):
     return longitudeCord      
 
 
-def sensingGPGGA(dataIn,transmitReceive):
+def sensingGPGGAPL(dataIn,transmitReceive):
 
     if (transmitReceive): 
         dataIn = pynmea2.parse(dataIn)
         if (dataIn.gps_qual>0):
             timeStamp = str(dataIn.timestamp).split(":")
-            print("GPGGA Read")	
+            print("GPGGAPL Read")	
             strOut  = \
                 np.ubyte(timeStamp[0]).tobytes().hex().zfill(2)+ \
                 np.ubyte(timeStamp[1]).tobytes().hex().zfill(2)+ \
@@ -285,7 +285,7 @@ def sensingGPGGA(dataIn,transmitReceive):
                 np.float32(dataIn.geo_sep).tobytes().hex().zfill(8) ;
             return strOut;  
         else:
-            print("GPGGA Data Not Read: No GPS Signal")	
+            print("GPGGAPL Data Not Read: No GPS Signal")	
             return None
 
     else:
@@ -305,14 +305,14 @@ def sensingGPGGA(dataIn,transmitReceive):
         ])
         return sensorDictionary;
 
-def sensingGPRMC(dataIn,transmitReceive):
+def sensingGPRMCPL(dataIn,transmitReceive):
 
     if (transmitReceive): 
         dataIn = pynmea2.parse(dataIn)
         if (dataIn.status=='A'):
             timeStamp = str(dataIn.timestamp).split(":")
             dateStamp = str(dataIn.datestamp).split("-")
-            print("GPRMC Read")	
+            print("GPRMCPL Read")	
             strOut  = \
                 np.uint16(dateStamp[0]).tobytes().hex().zfill(4)+ \
                 np.ubyte(dateStamp[1]).tobytes().hex().zfill(2)+ \
@@ -325,7 +325,7 @@ def sensingGPRMC(dataIn,transmitReceive):
                 np.float32(dataIn.spd_over_grnd).tobytes().hex().zfill(8) ;
             return strOut;  
         else:
-            print("GPRMC Data Not Read: No GPS Signal")	
+            print("GPRMCPL Data Not Read: No GPS Signal")	
             return None
     else:
         dateTime = datetime.datetime.now()
