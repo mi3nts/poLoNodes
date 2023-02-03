@@ -174,7 +174,7 @@ if __name__ == "__main__":
         
         mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
         mintsBCConcatSend08(serE5Mini)
-        mPL.readSensorDataGPS(gpsOnline,serGps,"GPRMC",serE5Mini)        
+        mPL.readSensorDataGPS(gpsOnline,serGps,"GPRMCPL",serE5Mini)        
         
         mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
         mintsBCConcatSend08(serE5Mini)
@@ -182,7 +182,7 @@ if __name__ == "__main__":
         
         mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
         mintsBCConcatSend08(serE5Mini)
-        mPL.readSensorDataGPS(gpsOnline,serGps,"GPGGA",serE5Mini)
+        mPL.readSensorDataGPS(gpsOnline,serGps,"GPGGAPL",serE5Mini)
         
         
         
