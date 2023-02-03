@@ -282,12 +282,12 @@ def readSensorDataGPS(online,serPort,sensorID,serPortE5):
         if online:
             print(sensorID + " Online") 
             port = deriveSensorStats(sensorID)
-            if port['portID']==6:
+            if port['portID']==106:
                 sensorData = readSerialLineStrAsIs(serPort,2,"GGA")
                 print(sensorData)
 
                 sendCommandHex(serPortE5,sensorID,sensorData,port)            
-            if port['portID']==7:
+            if port['portID']==107:
                 sensorData = readSerialLineStrAsIs(serPort,2,"RMC")
                 print(sensorData)
                 # Add an if statement 
