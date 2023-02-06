@@ -111,6 +111,12 @@ class AS7265X():
             self.enableBulb(LED_IR)
             self.enableBulb(LED_UV)
             self.setIntegrationCycles(1)
+            time.sleep(5)
+            self.disableBulb(LED_WHITE)
+            self.disableBulb(LED_IR)
+            self.disableBulb(LED_UV)
+            time.sleep(1)
+            self.disableIndicator(self)
             time.sleep(1)
             return True ;
         time.sleep(1)  
