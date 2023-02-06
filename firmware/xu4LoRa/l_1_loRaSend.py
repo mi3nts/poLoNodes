@@ -152,8 +152,6 @@ if __name__ == "__main__":
     # I2C Devices 
     scd30Online    = scd30.initiate(30)
     as7265xOnline  = as7265x.initiate()
-
-    
     
     while not mPL.loRaE5MiniJoin(e5MiniOnline,serE5Mini):
       print("Trying to connect")
@@ -181,6 +179,7 @@ if __name__ == "__main__":
             mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
             mintsBCConcatSend08(serE5Mini)
             mPL.readSensorDataGPS(gpsOnline,serGps,"GPGGAPL",serE5Mini)
+            
 
         except OSError as e:
             time.sleep(1)

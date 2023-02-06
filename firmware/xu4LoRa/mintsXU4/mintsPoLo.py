@@ -58,6 +58,17 @@ def readingDeviceProperties(macAddress,loRaE5MiniPorts,canareePorts,gpsPorts):
 
     return;
 
+def loRaE5ReJoin(availE5Mini,serE5Mini):
+    print()
+    if (not availE5Mini):
+        print("E5 Mini Not Connected")
+        quit()
+           
+    joined = joinNetwork(10,serE5Mini,10)  
+    time.sleep(5)
+    return joined;
+  
+  
 def loRaE5MiniJoin(availE5Mini,serE5Mini):
     print()
     if (not availE5Mini):
@@ -77,12 +88,6 @@ def loRaE5MiniJoin(availE5Mini,serE5Mini):
     sendCommand(serE5Mini,'AT+DR=dr2',1)
     sendCommand(serE5Mini,'AT+CH=NUM, 56-63',1)
     sendCommand(serE5Mini,'AT+POWER=20',1)
-
-
-    ## Debugging Purposes 
-    sendCommand(serE5Mini,'AT+STATUS?',1)
-    sendCommand(serE5Mini,'AT+STATUS=?',1)
-
 
     # Check Join
     joined = joinNetwork(10,serE5Mini,10)
