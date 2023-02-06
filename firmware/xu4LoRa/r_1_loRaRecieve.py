@@ -8,6 +8,7 @@ import datetime
 import yaml
 import collections
 import json
+import time
 
 # from poLoNodes.firmware.xu4LoRa.mintsXU4 import mintsLoRaSensing as mSR
 from mintsXU4 import mintsDefinitions as mD
@@ -71,20 +72,24 @@ def on_message(client, userdata, msg):
             print()
             print(" - - - MINTS DATA RECEIVED - - - ")
             sensorDictionary = mLS.encodeDecode(sensorID,base16Data,False)
-            dateTime = datetime.datetime.strptime(sensorDictionary["dateTime"], '%Y-%m-%d %H:%M:%S.%f')
-            print("Node ID         : " + nodeID)
-            print("Gateway ID      : " + gatewayID)
-            print("Sensor ID       : " + sensorID)
-            print("Date Time       : " + str(dateTime))
-            print("Port ID         : " + str(framePort))
-            print("Base 16 Data    : " + base16Data)
-            print(sensorDictionary)
+            if sensorDictionary is not None:
+                dateTime = datetime.datetime.strptime(sensorDictionary["dateTime"], '%Y-%m-%d %H:%M:%S.%f')
+                print("Node ID         : " + nodeID)
+                print("Gateway ID      : " + gatewayID)
+                print("Sensor ID       : " + sensorID)
+                print("Date Time       : " + str(dateTime))
+                print("Port ID         : " + str(framePort))
+                print("Base 16 Data    : " + base16Data)
+                print(sensorDictionary)
+            else:
 
     except Exception as e:
+        time.sleep(1)
         print("[ERROR] Could not publish data, error: {}".format(e))
         print(msg.payload)
         print(" - - - =============== - - - ")
-
+        time.sleep(1)
+        
 # Create an MQTT client and attach our routines to it.
 client = mqtt.Client()
 client.on_connect = on_connect

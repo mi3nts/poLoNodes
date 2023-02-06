@@ -160,30 +160,34 @@ if __name__ == "__main__":
       time.sleep(5)
       
    
-   
-
     while True:
-        # Add a try catch 
-        mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
-        mintsBCConcatSend08(serE5Mini)
-        mPL.readSensorData(canareeOnline,serCanaree,"BME688CNR",serE5Mini)
-        
-        mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
-        mintsBCConcatSend08(serE5Mini)
-        mPL.readSensorDataI2c(scd30Online,scd30,"SCD30",serE5Mini)
-        
-        mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
-        mintsBCConcatSend08(serE5Mini)
-        mPL.readSensorDataGPS(gpsOnline,serGps,"GPRMCPL",serE5Mini)        
-        
-        mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
-        mintsBCConcatSend08(serE5Mini)
-        mPL.readSensorDataI2c(as7265xOnline,as7265x,"AS7265X",serE5Mini)
-        
-        mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
-        mintsBCConcatSend08(serE5Mini)
-        mPL.readSensorDataGPS(gpsOnline,serGps,"GPGGAPL",serE5Mini)
-        
+        try:    
+            mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
+            mintsBCConcatSend08(serE5Mini)
+            mPL.readSensorData(canareeOnline,serCanaree,"BME688CNR",serE5Mini)
+            
+            mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
+            mintsBCConcatSend08(serE5Mini)
+            mPL.readSensorDataI2c(scd30Online,scd30,"SCD30",serE5Mini)
+            
+            mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
+            mintsBCConcatSend08(serE5Mini)
+            mPL.readSensorDataGPS(gpsOnline,serGps,"GPRMCPL",serE5Mini)        
+            
+            mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
+            mintsBCConcatSend08(serE5Mini)
+            mPL.readSensorDataI2c(as7265xOnline,as7265x,"AS7265X",serE5Mini)
+            
+            mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
+            mintsBCConcatSend08(serE5Mini)
+            mPL.readSensorDataGPS(gpsOnline,serGps,"GPGGAPL",serE5Mini)
+
+        except OSError as e:
+            time.sleep(1)
+            print ("Error: %s - %s." % (e.filename, e.strerror))
+            time.sleep(1)
+
+                  
         
         
         

@@ -77,10 +77,13 @@ def loRaE5MiniJoin(availE5Mini,serE5Mini):
     sendCommand(serE5Mini,'AT+DR=dr2',1)
     sendCommand(serE5Mini,'AT+CH=NUM, 56-63',1)
     sendCommand(serE5Mini,'AT+POWER=20',1)
-    # Changing to Power Mode Polo F Port
 
-    # sendCommand(serE5Mini,'AT+PORT=4',2)
-    
+
+    ## Debugging Purposes 
+    sendCommand(serE5Mini,'AT+STATUS?',1)
+    sendCommand(serE5Mini,'AT+STATUS=?',1)
+
+
     # Check Join
     joined = joinNetwork(10,serE5Mini,10)
 
@@ -153,9 +156,6 @@ def sendCommand(serIn,commandStrIn,timeOutIn):
                 break
     return lines;
 
-        # except:
-        #     print("Incomplete String Read")
-        #     line = []
 def readSerialLineStrAsIs(serIn,timeOutSensor,strExpected):
     line = []
     startTime = time.time()
@@ -178,9 +178,6 @@ def readSerialLineStrAsIs(serIn,timeOutSensor,strExpected):
                     else:    
                         startFound = True
                         line = []
-
-
-
 
 def readSerialLineStr(serIn,timeOutSensor,strExpected):
     line = []
@@ -213,9 +210,6 @@ def readSerialLineStr(serIn,timeOutSensor,strExpected):
 def swapBytes(inputIn):
     return bytes([c for t in zip(inputIn[1::2], inputIn[::2]) for c in t])
 
-
-
-    
 def joinNetwork(numberOfTries,ser,timeOutIn):
     for currentTry in range(numberOfTries):
         print("Joining Network Trial: " + str(currentTry))
@@ -252,14 +246,21 @@ def readSerialLine(serIn,timeOutSensor,sizeExpected):
                         line = []
 
 def sendCommandHex(serPortE5,sensorID,sensorData,port):
-    hexString = mLS.encodeDecode(sensorID,sensorData,receiveTransmit)
-    print("HEX STRING: ")
-    print(hexString)
-    if hexString is not None:
-        sendCommand(serPortE5,'AT+PORT='+ str(port['portID']),2) 
-        sendCommand(serPortE5,'AT+MSGHEX='+str(hexString ),5)    
-    else: 
-        print("No data received for sensor " + sensorID)
+    try:
+        hexString = mLS.encodeDecode(sensorID,sensorData,receiveTransmit)
+        print("HEX STRING: ")
+        print(hexString)
+        if hexString is not None:
+            sendCommand(serPortE5,'AT+PORT='+ str(port['portID']),2) 
+            sendCommand(serPortE5,'AT+MSGHEX='+str(hexString ),5)    
+        else: 
+            print("No data received for sensor " + sensorID)
+    except OSError as e:
+        time.sleep(1)
+        print ("Error: %s - %s." % (e.filename, e.strerror))
+        time.sleep(1)
+        return;
+
 
 def readSensorDataBirdSong(sensorData,sensorID,serPortE5):
     try:
@@ -271,7 +272,9 @@ def readSensorDataBirdSong(sensorData,sensorID,serPortE5):
         sendCommandHex(serPortE5,sensorID,sensorData,port)
         return;
     except OSError as e:
+        time.sleep(1)        
         print ("Error: %s - %s." % (e.filename, e.strerror))
+        time.sleep(1)
         return;
 
 def readSensorDataGPS(online,serPort,sensorID,serPortE5):
@@ -285,8 +288,8 @@ def readSensorDataGPS(online,serPort,sensorID,serPortE5):
             if port['portID']==106:
                 sensorData = readSerialLineStrAsIs(serPort,2,"GGA")
                 print(sensorData)
-
-                sendCommandHex(serPortE5,sensorID,sensorData,port)            
+                sendCommandHex(serPortE5,sensorID,sensorData,port)  
+                return;          
             if port['portID']==107:
                 sensorData = readSerialLineStrAsIs(serPort,2,"RMC")
                 print(sensorData)
@@ -297,7 +300,9 @@ def readSensorDataGPS(online,serPort,sensorID,serPortE5):
             print(sensorID + " Offline")       
             return;
     except OSError as e:
+        time.sleep(1)
         print ("Error: %s - %s." % (e.filename, e.strerror))
+        time.sleep(1)
         return;
 
 def readSensorData(online,serPort,sensorID,serPortE5):
@@ -322,7 +327,9 @@ def readSensorData(online,serPort,sensorID,serPortE5):
             print(sensorID + " Offline")       
             return;
     except OSError as e:
+        time.sleep(1)
         print ("Error: %s - %s." % (e.filename, e.strerror))
+        time.sleep(1)
         return;
       
 
@@ -346,6 +353,8 @@ def readSensorDataI2c(online,i2cObject,sensorID,serPortE5):
             return;
 
     except OSError as e:
+        time.sleep(1)
         print ("Error: %s - %s." % (e.filename, e.strerror))
+        time.sleep(1)
         return;
       
