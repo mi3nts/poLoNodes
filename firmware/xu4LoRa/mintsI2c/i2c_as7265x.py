@@ -116,7 +116,7 @@ class AS7265X():
             self.disableBulb(LED_IR)
             self.disableBulb(LED_UV)
             time.sleep(1)
-            self.disableIndicator(self)
+            self.disableIndicator()
             time.sleep(1)
             return True ;
         time.sleep(1)  
