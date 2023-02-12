@@ -35,6 +35,7 @@ mqttPW       = loRaCredentials['password']
 nodeObjects  = []
 decoder = json.JSONDecoder(object_pairs_hook=collections.OrderedDict)
 
+
 print()
 print("============ MINTS POLO NODES ============")
 print()
