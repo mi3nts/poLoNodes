@@ -43,7 +43,7 @@ def main(cfg):
     labels = pd.read_csv("mintsAudio/labels/labels.csv") 
 
     while True:
-        # try:
+        try:
             audioFolders = glob(tmpFolderName+ "/*/", recursive = True)
             time.sleep(1)
             for folderIn in audioFolders:
@@ -71,7 +71,13 @@ def main(cfg):
                     mSR.directoryCheck(fn.getJsonFileName(jsonFolderName,dateTimeCurrent))
                     with open(fn.getJsonFileName(jsonFolderName,dateTimeCurrent), "w") as outfile:
                         json.dump(sensorDictionary, outfile)
-           
+        
+        except Exception as e:
+            time.sleep(.5)
+            print ("Error and type: %s - %s." % (e,type(e)))
+            time.sleep(.5)
+            print("Audio File Error")
+            time.sleep(.5)           
 
 if __name__ == "__main__":
     print("=============")

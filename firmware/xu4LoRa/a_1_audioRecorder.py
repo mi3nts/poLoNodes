@@ -48,10 +48,12 @@ def main(cfg,currentIndex):
             print("=============")
             print()
 
-        except OSError as e:
-            print ("Error: %s - %s." % (e.filename, e.strerror))
+        except Exception as e:
+            time.sleep(.5)
+            print ("Error and type: %s - %s." % (e,type(e)))
+            time.sleep(.5)
             print("Microphone Not Connected: Check connection")
-
+            time.sleep(.5)
        
 if __name__ == "__main__":
     print("=============")

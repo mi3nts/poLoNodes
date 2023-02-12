@@ -187,12 +187,13 @@ def sensingMBCLR002(dataIn,transmitReceive):
                 ])
             return sensorDictionary;
     
-    except OSError as e:
-        time.sleep(1)
-        print ("Error: %s - %s." % (e.filename, e.strerror))
-        time.sleep(1)
-        return;
-      
+    except Exception as e:
+        time.sleep(.5)
+        print ("Error and type: %s - %s." % (e,type(e)))
+        time.sleep(.5)
+        print("Data Packet Not Sent for IPS7100")
+        time.sleep(.5)
+        return None     
     
 def sensingMBCLR001(dataIn,transmitReceive):
     try:
@@ -213,12 +214,15 @@ def sensingMBCLR001(dataIn,transmitReceive):
                     ("confidence"   ,struct.unpack('<f',bytes.fromhex(dataIn[8:16]))[0]),
             ])
             return sensorDictionary;
-    except OSError as e:
-        time.sleep(1)
-        print ("Error: %s - %s." % (e.filename, e.strerror))
-        time.sleep(1)
-        return;
-      
+    except Exception as e:
+        time.sleep(.5)
+        print ("Error and type: %s - %s." % (e,type(e)))
+        time.sleep(.5)
+        print("Data Packet Not Sent for MBCLR001")
+        time.sleep(.5)
+        return None
+
+
 def sensingPM(dataIn,transmitReceive):
     try:
         print("Reading Power Mode")	
@@ -233,11 +237,14 @@ def sensingPM(dataIn,transmitReceive):
                     ("powerMode",struct.unpack('<B',bytes.fromhex(dataIn[0:8]))[0])
             ])
             return sensorDictionary;
-    except OSError as e:
-        time.sleep(1)
-        print ("Error: %s - %s." % (e.filename, e.strerror))
-        time.sleep(1)
-        return;
+    except Exception as e:
+        time.sleep(.5)
+        print ("Error and type: %s - %s." % (e,type(e)))
+        time.sleep(.5)
+        print("Data Packet Not Sent for PM")
+        time.sleep(.5)
+        return None
+
 
 def sensingPMPoLo(dataIn,transmitReceive):
     try:    
@@ -253,12 +260,14 @@ def sensingPMPoLo(dataIn,transmitReceive):
                     ("powerMode",struct.unpack('<B',bytes.fromhex(dataIn[0:2]))[0])
             ])
             return sensorDictionary;
-    except OSError as e:
-        time.sleep(1)
-        print ("Error: %s - %s." % (e.filename, e.strerror))
-        time.sleep(1)
-        return;
-
+    except Exception as e:
+        time.sleep(.5)
+        print ("Error and type: %s - %s." % (e,type(e)))
+        time.sleep(.5)
+        print("Data Packet Not Sent for PMPoLo")
+        time.sleep(.5)
+        return None
+    
 def sensingMacAD(dataIn,transmitReceive):
     try:
         print("Reading Mac Address")	
@@ -273,12 +282,14 @@ def sensingMacAD(dataIn,transmitReceive):
                     ("macAddress" ,dataIn),
             ])
             return sensorDictionary;
-    except OSError as e:
-        time.sleep(1)
-        print ("Error: %s - %s." % (e.filename, e.strerror))
-        time.sleep(1)
-        return;
-        
+    except Exception as e:
+        time.sleep(.5)
+        print ("Error and type: %s - %s." % (e,type(e)))
+        time.sleep(.5)
+        print("Data Packet Not Sent for Mac Address")
+        time.sleep(.5)
+        return None
+            
 def getLatitudeCords(latitudeStr,latitudeDirection):
     latitude = float(latitudeStr)
     latitudeCord      =  math.floor(latitude/100) +(latitude - 100*(math.floor(latitude/100)))/60
@@ -333,12 +344,13 @@ def sensingGPGGAPL(dataIn,transmitReceive):
                     ("undulation"          ,struct.unpack('<f',bytes.fromhex(dataIn[58:66]))[0]),
             ])
             return sensorDictionary;
-    except OSError as e:
-        time.sleep(1)
-        print ("Error: %s - %s." % (e.filename, e.strerror))
-        time.sleep(1)
-        return;
-
+    except Exception as e:
+        time.sleep(.5)
+        print ("Error and type: %s - %s." % (e,type(e)))
+        time.sleep(.5)
+        print("Data Packet Not Sent for GPGGAPL")
+        time.sleep(.5)
+        return None
 
 def sensingGPRMCPL(dataIn,transmitReceive):
     try:
@@ -377,12 +389,13 @@ def sensingGPRMCPL(dataIn,transmitReceive):
                     ("speedOverGround"     ,struct.unpack('<f',bytes.fromhex(dataIn[46:54]))[0]),
             ])
             return sensorDictionary;
-    except OSError as e:
-        time.sleep(1)
-        print ("Error: %s - %s." % (e.filename, e.strerror))
-        time.sleep(1)
-        return;
-
+    except Exception as e:
+        time.sleep(.5)
+        print ("Error and type: %s - %s." % (e,type(e)))
+        time.sleep(.5)
+        print("Data Packet Not Sent for GPRMCPL")
+        time.sleep(.5)
+        return None
 
 def sensingAS7265X(dataIn,transmitReceive):
     try:
@@ -436,11 +449,13 @@ def sensingAS7265X(dataIn,transmitReceive):
                     ("channelL940nm" ,struct.unpack('<f',bytes.fromhex(dataIn[136:144]))[0]),
             ])
             return sensorDictionary;
-    except OSError as e:
-        time.sleep(1)
-        print ("Error: %s - %s." % (e.filename, e.strerror))
-        time.sleep(1)
-        return;
+    except Exception as e:
+        time.sleep(.5)
+        print ("Error and type: %s - %s." % (e,type(e)))
+        time.sleep(.5)
+        print("Data Packet Not Sent for AS7265X")
+        time.sleep(.5)
+        return None
 
 
 def sensingSCD30(dataIn,transmitReceive):
@@ -467,11 +482,13 @@ def sensingSCD30(dataIn,transmitReceive):
             ])
             return sensorDictionary;
 
-    except OSError as e:
-        time.sleep(1)
-        print ("Error: %s - %s." % (e.filename, e.strerror))
-        time.sleep(1)
-        return;
+    except Exception as e:
+        time.sleep(.5)
+        print ("Error and type: %s - %s." % (e,type(e)))
+        time.sleep(.5)
+        print("Data Packet Not Sent for SCD30")
+        time.sleep(.5)
+        return None
 
 def sensingBME688CNR(dataIn,transmitReceive):
     try:
@@ -504,12 +521,14 @@ def sensingBME688CNR(dataIn,transmitReceive):
             ])
             return sensorDictionary;
 
-    except OSError as e:
-        time.sleep(1)
-        print ("Error: %s - %s." % (e.filename, e.strerror))
-        time.sleep(1)
-        return;
-    
+    except Exception as e:
+        time.sleep(.5)
+        print ("Error and type: %s - %s." % (e,type(e)))
+        time.sleep(.5)
+        print("Data Packet Not Sent for BME688CNR")
+        time.sleep(.5)
+        return None
+        
 def sensingIPS7100CNR(dataIn,transmitReceive):
     try:
         if (transmitReceive):  
@@ -556,11 +575,13 @@ def sensingIPS7100CNR(dataIn,transmitReceive):
             ])
             return sensorDictionary;
 
-    except OSError as e:
-        time.sleep(1)
-        print ("Error: %s - %s." % (e.filename, e.strerror))
-        time.sleep(1)
-        return;
+    except Exception as e:
+        time.sleep(.5)
+        print ("Error and type: %s - %s." % (e,type(e)))
+        time.sleep(.5)
+        print("Data Packet Not Sent for IPS7100CNR")
+        time.sleep(.5)
+        return None
     
 def directoryCheck(outputPath):
     exists = os.path.isfile(outputPath)

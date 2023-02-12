@@ -181,10 +181,12 @@ if __name__ == "__main__":
             mPL.readSensorDataGPS(gpsOnline,serGps,"GPGGAPL",serE5Mini)
             
 
-        except OSError as e:
-            time.sleep(1)
-            print ("Error: %s - %s." % (e.filename, e.strerror))
-            time.sleep(1)
+        except Exception as e:
+            time.sleep(.5)
+            print ("Error and type: %s - %s." % (e,type(e)))
+            time.sleep(.5)
+            print("Data Packet Not Sent")
+            time.sleep(.5)
 
                   
         

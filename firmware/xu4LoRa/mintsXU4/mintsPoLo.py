@@ -145,7 +145,7 @@ def sendCommand2(serIn,commandStrIn,timeOutIn):
 
 
 def sendCommand(serIn,commandStrIn,timeOutIn):
-    time.sleep(1)
+    time.sleep(.5)
     serIn.write(str.encode(commandStrIn+ '\n\r'))
     line = []
     lines = []
@@ -260,10 +260,12 @@ def sendCommandHex(serPortE5,sensorID,sensorData,port):
             sendCommand(serPortE5,'AT+MSGHEX='+str(hexString ),5)    
         else: 
             print("No data received for sensor " + sensorID)
-    except OSError as e:
-        time.sleep(1)
-        print ("Error: %s - %s." % (e.filename, e.strerror))
-        time.sleep(1)
+    except Exception as e:
+        time.sleep(.5)
+        print ("Error and type: %s - %s." % (e,type(e)))
+        time.sleep(.5)
+        print("Data Packet Not Sent for IPS7100CNR")
+        time.sleep(.5)
         return;
 
 
@@ -276,10 +278,12 @@ def readSensorDataBirdSong(sensorData,sensorID,serPortE5):
         port = deriveSensorStats(sensorID)  
         sendCommandHex(serPortE5,sensorID,sensorData,port)
         return;
-    except OSError as e:
-        time.sleep(1)        
-        print ("Error: %s - %s." % (e.filename, e.strerror))
-        time.sleep(1)
+    except Exception as e:
+        time.sleep(.5)
+        print ("Error and type: %s - %s." % (e,type(e)))
+        time.sleep(.5)
+        print("Data Packet Not Sent for IPS7100CNR")
+        time.sleep(.5)
         return;
 
 def readSensorDataGPS(online,serPort,sensorID,serPortE5):
@@ -304,10 +308,12 @@ def readSensorDataGPS(online,serPort,sensorID,serPortE5):
         else:
             print(sensorID + " Offline")       
             return;
-    except OSError as e:
-        time.sleep(1)
-        print ("Error: %s - %s." % (e.filename, e.strerror))
-        time.sleep(1)
+    except Exception as e:
+        time.sleep(.5)
+        print ("Error and type: %s - %s." % (e,type(e)))
+        time.sleep(.5)
+        print("Data Packet Not Sent for IPS7100CNR")
+        time.sleep(.5)
         return;
 
 def readSensorData(online,serPort,sensorID,serPortE5):
@@ -331,12 +337,13 @@ def readSensorData(online,serPort,sensorID,serPortE5):
         else:
             print(sensorID + " Offline")       
             return;
-    except OSError as e:
-        time.sleep(1)
-        print ("Error: %s - %s." % (e.filename, e.strerror))
-        time.sleep(1)
+    except Exception as e:
+        time.sleep(.5)
+        print ("Error and type: %s - %s." % (e,type(e)))
+        time.sleep(.5)
+        print("Data Packet Not Sent for IPS7100CNR")
+        time.sleep(.5)
         return;
-      
 
 
 def readSensorDataI2c(online,i2cObject,sensorID,serPortE5):
@@ -357,9 +364,10 @@ def readSensorDataI2c(online,i2cObject,sensorID,serPortE5):
             print(sensorID + " Offline")       
             return;
 
-    except OSError as e:
-        time.sleep(1)
-        print ("Error: %s - %s." % (e.filename, e.strerror))
-        time.sleep(1)
+    except Exception as e:
+        time.sleep(.5)
+        print ("Error and type: %s - %s." % (e,type(e)))
+        time.sleep(.5)
+        print("Data Packet Not Sent for IPS7100CNR")
+        time.sleep(.5)
         return;
-      
