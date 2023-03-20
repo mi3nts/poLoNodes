@@ -93,15 +93,17 @@ def loRaE5MiniJoin(availE5Mini,serE5Mini):
     joined = joinNetwork(10,serE5Mini,10)
 
     if not joined:
+        print("No network found, trying again in 60 seconds") 
         time.sleep(60)
         joined  = joinNetwork(10,serE5Mini,10)
 
     if not joined:
-        print("No Network Found")
-        quit()
+        print("No network found") 
+        time.sleep(60)
+        return joined;
     else:
         print()
-        print("Network Found")
+        print("Network found")
         print()
  
     sensorID = "PMPoLo"    
