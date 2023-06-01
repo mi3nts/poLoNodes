@@ -391,7 +391,7 @@ def readSensorDataRG15(online,serPort,sensorID,serPortE5,preData):
         if online:
             print(sensorID + " Online") 
             port = deriveSensorStats(sensorID)
-            print(port)
+            # print(port)
             if port['portID']<255:
                 sensorDataWhole = sendCommand(serPort,'R',1)
                 sensorData      = sensorDataWhole[0].split(',')
