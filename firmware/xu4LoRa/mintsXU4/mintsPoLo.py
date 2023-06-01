@@ -268,12 +268,11 @@ def readSerialLine(serIn,timeOutSensor,sizeExpected):
         # try:
             for c in serIn.read():
                 line.append(chr(c))
-                # print((''.join(line)))
                 if chr(c) == '\n':
                     if startFound == True:
                         dataString     = (''.join(line))
                         dataStringPost = dataString.replace('\r\n', '')
-                        dataStringData =  dataStringPost.split(',')
+                        dataStringData = dataStringPost.split(',')
                         print("Reading Serial Line")
                         if sizeExpected == len(dataStringData):
                             print("Returning Data")
@@ -283,6 +282,10 @@ def readSerialLine(serIn,timeOutSensor,sizeExpected):
                     else:    
                         startFound = True
                         line = []
+    return;
+
+
+
 
 def sendCommandHex(serPortE5,sensorID,sensorData,port):
     try:
@@ -375,7 +378,37 @@ def readSensorData(online,serPort,sensorID,serPortE5):
         time.sleep(.5)
         print ("Error and type: %s - %s." % (e,type(e)))
         time.sleep(.5)
-        print("Data Packet Not Sent for IPS7100CNR")
+        print("Data Packet Not Sent")
+        time.sleep(.5)
+        return;
+
+
+def readSensorDataRG15(online,serPort,sensorID,serPortE5,preData):
+    try:
+        print("====================================")  
+        print("-----------" +sensorID+ "-----------" ) 
+        print("Current Time (UTC): " +str(datetime.now()))
+        if online:
+            print(sensorID + " Online") 
+            port = deriveSensorStats(sensorID)
+            if port['portID']<255:
+                sensorData = readSerialLine(serPort,2,port['numOfParametors'])
+                print(sensorData)
+                if (sensorData is not None)and sensorData != preData : 
+                	sendCommandHex(serPortE5,sensorID,sensorData,port)
+                	return;
+                else:
+                    print(sensorID + " not read correctly")
+                    return;
+                  
+        else:
+            print(sensorID + " Offline")       
+            return;
+    except Exception as e:
+        time.sleep(.5)
+        print ("Error and type: %s - %s." % (e,type(e)))
+        time.sleep(.5)
+        print("Data Packet Not Sent")
         time.sleep(.5)
         return;
 

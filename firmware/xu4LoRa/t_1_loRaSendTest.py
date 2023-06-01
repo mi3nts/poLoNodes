@@ -149,12 +149,15 @@ if __name__ == "__main__":
     e5MiniOnline,serE5Mini   = mPL.getPort(loRaE5MiniPorts,0,9600)
     canareeOnline,serCanaree = mPL.getPort(canareePorts,0,115200)
     gpsOnline,serGps         = mPL.getPort(gpsPorts,0,115200)
+    
     rainOnline,serRain    = mPL.getRainPort(rainPorts,0,9600)
-  
+    preRainData           = ""
+
     # I2C Devices 
     scd30Online    = scd30.initiate(30)
     as7265xOnline  = as7265x.initiate()
     
+
     while not mPL.loRaE5MiniJoin(e5MiniOnline,serE5Mini):
       print("Trying to connect")
       time.sleep(5)
@@ -184,7 +187,9 @@ if __name__ == "__main__":
             
             mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
             mintsBCConcatSend08(serE5Mini)
-            mPL.readSensorData(gpsOnline,serGps,"GPGGAPL",serE5Mini)
+            
+            preRainData = \
+                mPL.readSensorDataRG15(rainOnline,serRain,"RG15",serE5Mini,preRainData)
 
 
         except Exception as e:

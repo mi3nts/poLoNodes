@@ -94,8 +94,44 @@ def encodeDecode(sensorID,sensorData,transmitReceive):
         return sensingMBCLR001(sensorData,transmitReceive);  
     if sensorID == "MBCLR002":
         return sensingMBCLR002(sensorData,transmitReceive);  
-      
+    if sensorID == "RG15":
+        return sensingRG15(sensorData,transmitReceive);  
+
     return;   
+
+
+def sensingRG15(dataIn,transmitReceive):
+    try:
+        if (transmitReceive): 
+            print("RG15 Read")	
+            if (len(dataIn)==4):
+                strOut  = \ 
+                    np.float32(dataIn[0].replace(' ', "").replace('mm', "").replace('Acc', "")).tobytes().hex().zfill(8) + \
+                    np.float32(dataIn[1].replace(' ', "").replace('mm', "").replace('EventAcc', "")).tobytes().hex().zfill(8) + \
+                    np.float32(dataIn[2].replace(' ', "").replace('mm', "").replace('TotalAcc', "")).tobytes().hex().zfill(8) + \ 
+                    np.float32(dataIn[3].replace(' ', "").replace('mmph', "").replace('RInt', "")).tobytes().hex().zfill(8)      
+                return strOut;  
+            else:
+                print("Invalid data string read from the RG15")
+                return None;
+        else:
+            dateTime = datetime.datetime.now()
+            sensorDictionary =  OrderedDict([
+                    ("dateTime"           ,str(dateTime)),
+                    ("accumulation"       ,struct.unpack('<f',bytes.fromhex(dataIn[0:8]))[0]),
+                    ("eventAccumulation"  ,struct.unpack('<f',bytes.fromhex(dataIn[8:16]))[0]),
+                    ("totalAccumulation"  ,struct.unpack('<f',bytes.fromhex(dataIn[16:24]))[0]),
+                    ("rainPerInterval"    ,struct.unpack('<f',bytes.fromhex(dataIn[24:32]))[0]),
+            ])
+            return sensorDictionary;
+
+    except Exception as e:
+        time.sleep(.5)
+        print ("Error and type: %s - %s." % (e,type(e)))
+        time.sleep(.5)
+        print("Data Packet Not Sent for RG15")
+        time.sleep(.5)
+        return None
         
     # For transmitting data, transmitRecieve is True
 def sensingMBCLR002(dataIn,transmitReceive):
