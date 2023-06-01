@@ -49,7 +49,8 @@ def getRainPort(portsIn,indexIn,baudRateIn):
     second  = sendCommand(serPort,'R',1)
     highRes = sendCommand(serPort,'H',1)
     metric  = sendCommand(serPort,'M',1)
-    checkStr  = "Acc" in (second[0] + highRes[0] + metric[0])
+
+    checkStr  = second[0] + highRes[0] + metric[0]
     availabilty = "Acc" in checkStr
     print(checkStr)
     print(availabilty)
