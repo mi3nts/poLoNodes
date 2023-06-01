@@ -399,7 +399,7 @@ def readSensorDataRG15(online,serPort,sensorID,serPortE5):
                 
                 print("-"+ sensorDataWhole[0] + "-")
                 print(preRainData)
-                print(sensorDataWhole[0] != preRainData)
+                print(str(sensorDataWhole[0]) != preRainData)
 
                 sensorData      = sensorDataWhole[0].split(',')
                 if port['numOfParametors'] == len(sensorData):
