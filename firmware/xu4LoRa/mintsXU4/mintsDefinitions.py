@@ -84,6 +84,7 @@ canareePorts             = findPorts("Canaree PM","PID=10C4:EA60")
 gpsPorts                 = findPortsGPS("u-blox")
 
     
+rainPorts                = ['/dev/ttyS1'] # Direct connected to the gpio port - May not be available on all polo nodes
 
 
  
