@@ -83,7 +83,8 @@ def on_message(client, userdata, msg):
                 print("Base 16 Data    : " + base16Data)
                 print(sensorDictionary)
             else:
-
+                print(" ----- ")
+    
     except Exception as e:
         time.sleep(1)
         print("[ERROR] Could not publish data, error: {}".format(e))
