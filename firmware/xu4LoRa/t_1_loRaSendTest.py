@@ -46,7 +46,7 @@ gpsPorts            = mD.gpsPorts
 appKey              = mD.appKey
 macAddress          = mD.macAddress
 jsonFolderName      = mD.dataFolderJson
-
+print(gpsPorts)
 
 def getLatitudeCords(latitudeStr,latitudeDirection):
     latitude = float(latitudeStr)
@@ -149,7 +149,8 @@ if __name__ == "__main__":
     gpsOnline,serGps         = mPL.getPort(gpsPorts,0,115200)
 
     # Check if the rain sensor is online
-    
+
+
     
     # I2C Devices 
     scd30Online    = scd30.initiate(30)
