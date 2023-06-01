@@ -46,7 +46,7 @@ gpsPorts            = mD.gpsPorts
 appKey              = mD.appKey
 macAddress          = mD.macAddress
 jsonFolderName      = mD.dataFolderJson
-print(gpsPorts)
+
 
 def getLatitudeCords(latitudeStr,latitudeDirection):
     latitude = float(latitudeStr)
@@ -140,7 +140,7 @@ if __name__ == "__main__":
     print()
     print("============ MINTS POLO NODES ============")
     print()
-    
+    print(gpsPorts)
     mPL.readingDeviceProperties(macAddress,loRaE5MiniPorts,canareePorts,gpsPorts)
     
     print("")
