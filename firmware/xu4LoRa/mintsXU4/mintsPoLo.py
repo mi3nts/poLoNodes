@@ -394,9 +394,9 @@ def readSensorDataRG15(online,serPort,sensorID,serPortE5,preData):
             print(port)
             if port['portID']<255:
                 sensorDataWhole = sendCommand(serPort,'R',1)
-                sensorData      = sensorDataWhole.split(',')
+                sensorData      = sensorDataWhole[0].split(',')
                 if port['numOfParametors'] == len(sensorData):
-                    if (sensorDataWhole is not None)and sensorDataWhole != preData:
+                    if (sensorDataWhole is not None)and sensorDataWhole[0] != preData:
                         sendCommandHex(serPortE5,sensorID,sensorData,port)
                         return;
                     else:
