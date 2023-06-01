@@ -58,9 +58,14 @@ def getRainPort(portsIn,indexIn,baudRateIn):
 
     print("Requesting Metric units from the rain sensor")
     metric  = sendCommand(serPort,'M',1)
+
+    print("Requesting Polling mode")
+    metric  = sendCommand(serPort,'P',1)
+
+
     checkStr  = second[0] + highRes[0] + metric[0]
 
-    print("Checking availabilty of rain sensor")
+    print("Checking availabilty of the rain sensor")
     availabilty = "Acc" in checkStr
     print(availabilty)
     
