@@ -393,16 +393,15 @@ def readSensorDataRG15(online,serPort,sensorID,serPortE5,preData):
             port = deriveSensorStats(sensorID)
             print(port)
             if port['portID']<255:
-                # sendCommand(serPort,'R',1)
-                # sensorData = readSerialLine(serPort,2,port['numOfParametors'])
-                sensorData = sendCommand(serPort,'R',1)
-                print(sensorData[0])
-                # if (sensorData is not None)and sensorData != preData : 
-                # 	sendCommandHex(serPortE5,sensorID,sensorData,port)
-                # 	return;
-                # else:
-                #     print(sensorID + " not read correctly")
-                #     return;
+                sensorDataWhole = sendCommand(serPort,'R',1)
+                sensorData      = sensorDataWhole.split(',')
+                if port['numOfParametors'] == len(sensorData):
+                    if (sensorDataWhole is not None)and sensorDataWhole != preData : 
+                    	sendCommandHex(serPortE5,sensorID,sensorData,port)
+                        return;
+                    else:
+                        print(sensorID + " not read correctly")
+                        return;
                   
         else:
             print(sensorID + " Offline")       
