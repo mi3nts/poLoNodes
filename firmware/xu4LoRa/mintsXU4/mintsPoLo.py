@@ -50,7 +50,7 @@ def getRainPort(portsIn,indexIn,baudRateIn):
     highRes = sendCommand(serPort,'H',1)
     metric  = sendCommand(serPort,'M',1)
 
-    print(first + reset+ second + highRes + metric)
+    print(second + highRes + metric)
     
     return availabilty,serPort;
 
