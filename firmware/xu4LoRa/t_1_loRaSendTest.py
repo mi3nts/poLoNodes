@@ -151,7 +151,7 @@ if __name__ == "__main__":
     gpsOnline,serGps         = mPL.getPort(gpsPorts,0,115200)
     
     rainOnline,serRain       = mPL.getRG15Port(rainPorts,0,9600)
-    # preRainData = "Acc  0.00 mm, EventAcc  0.18 mm, TotalAcc  0.18 mm, RInt  0.00 mmph"
+    # 
 
     # I2C Devices 
     scd30Online    = scd30.initiate(30)
@@ -170,7 +170,7 @@ if __name__ == "__main__":
             mPL.readSensorData(canareeOnline,serCanaree,"BME688CNR",serE5Mini)
             
             preRainData = \
-                mPL.readSensorDataRG15(rainOnline,serRain,"RG15",serE5Mini,preRainData)
+                mPL.readSensorDataRG15(rainOnline,serRain,"RG15",serE5Mini)
 
             mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
             mintsBCConcatSend08(serE5Mini)
