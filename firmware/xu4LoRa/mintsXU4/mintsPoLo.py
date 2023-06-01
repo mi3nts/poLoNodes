@@ -69,7 +69,7 @@ def getRG15Port(portsIn,indexIn,baudRateIn):
     availabilty = "Acc" in checkStr
     print(availabilty)
     
-    return availabilty,serPort;
+    return availabilty,serPort,second[0];
 
 
 def readingDeviceProperties(macAddress,loRaE5MiniPorts,canareePorts,gpsPorts):
