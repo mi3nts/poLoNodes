@@ -40,6 +40,16 @@ def getPort(portsIn,indexIn,baudRateIn):
         serPort = openSerial(portsIn[indexIn],baudRateIn)
     return availabilty,serPort;
 
+def getRainPort(portsIn,indexIn,baudRateIn):
+    availabilty  = True
+    # serPort = []
+    serPort = openSerial(portsIn[indexIn],baudRateIn)
+    lk = sendCommand(serPort,'m',1)
+    print(lk)
+    
+    return availabilty,serPort;
+
+
 def readingDeviceProperties(macAddress,loRaE5MiniPorts,canareePorts,gpsPorts):
     
     print("Mac Address: {0}".format(macAddress))

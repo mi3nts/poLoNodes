@@ -43,6 +43,8 @@ as7265x = AS7265X(bus,debug)
 loRaE5MiniPorts     = mD.loRaE5MiniPorts
 canareePorts        = mD.canareePorts
 gpsPorts            = mD.gpsPorts
+rainPorts           = mD.rainPorts 
+
 appKey              = mD.appKey
 macAddress          = mD.macAddress
 jsonFolderName      = mD.dataFolderJson
@@ -134,14 +136,13 @@ def mintsBCSend(serE5MiniIn,numOfFiles):
             os.remove(fileIn)
             currentFiles= currentFiles+1
   
-  
+
+
 if __name__ == "__main__":
     
     print()
     print("============ MINTS POLO NODES ============")
     print()
-    print("test1")
-    print(gpsPorts)
     mPL.readingDeviceProperties(macAddress,loRaE5MiniPorts,canareePorts,gpsPorts)
     
     print("")
@@ -150,7 +151,8 @@ if __name__ == "__main__":
     gpsOnline,serGps         = mPL.getPort(gpsPorts,0,115200)
 
     # Check if the rain sensor is online
-
+    print("Checking if the rain sensor is online")
+    rainOnline,serRain    = mPL.getRainPort(rainPorts,0,9600)
 
     
     # I2C Devices 
