@@ -44,16 +44,26 @@ def getRainPort(portsIn,indexIn,baudRateIn):
     availabilty  = True
     serPort = openSerial(portsIn[indexIn],baudRateIn)
     
+    print("Requesting data from the rain sensor")
     sendCommand(serPort,'R',1)
-    sendCommand(serPort,'O',1)
-    second  = sendCommand(serPort,'R',1)
-    highRes = sendCommand(serPort,'H',1)
-    metric  = sendCommand(serPort,'M',1)
 
+    print("Resetting rain sensor")
+    sendCommand(serPort,'O',1)
+
+    print("Requesting data from the rain sensor")
+    second  = sendCommand(serPort,'R',1)
+
+    print("Requesting High Res data from the rain sensor")
+    highRes = sendCommand(serPort,'H',1)
+
+    print("Requesting Metric units from the rain sensor")
+    metric  = sendCommand(serPort,'M',1)
     checkStr  = second[0] + highRes[0] + metric[0]
+
+    print("Checking availabilty of rain sensor")
     availabilty = "Acc" in checkStr
-    print(checkStr)
     print(availabilty)
+    
     return availabilty,serPort;
 
 
