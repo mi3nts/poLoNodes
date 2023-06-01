@@ -42,10 +42,15 @@ def getPort(portsIn,indexIn,baudRateIn):
 
 def getRainPort(portsIn,indexIn,baudRateIn):
     availabilty  = True
-    # serPort = []
     serPort = openSerial(portsIn[indexIn],baudRateIn)
-    lk = sendCommand(serPort,'m',1)
-    print(lk)
+    
+    first   = sendCommand(serPort,'R',1)
+    reset   = sendCommand(serPort,'O',1)
+    second  = sendCommand(serPort,'R',1)
+    highRes = sendCommand(serPort,'H',1)
+    Metric  = sendCommand(serPort,'M',1)
+
+    print(Metric)
     
     return availabilty,serPort;
 
