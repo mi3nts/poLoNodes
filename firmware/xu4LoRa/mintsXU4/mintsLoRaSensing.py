@@ -107,8 +107,7 @@ def sensingRG15(dataIn,transmitReceive):
             if (len(dataIn)==4):
                 strOut  = np.float32(dataIn[0].replace(' ', "").replace('mm', "").replace('Acc', "")).tobytes().hex().zfill(8) + \
                     np.float32(dataIn[1].replace(' ', "").replace('mm', "").replace('EventAcc', "")).tobytes().hex().zfill(8) + \
-                    np.float32(dataIn[2].replace(' ', "").replace('mm', "").replace('TotalAcc', "")).tobytes().hex().zfill(8) + \ 
-                    np.float32(dataIn[3].replace(' ', "").replace('mmph', "").replace('RInt', "")).tobytes().hex().zfill(8)      
+                    np.float32(dataIn[2].replace(' ', "").replace('mm', "").replace('TotalAcc', "")).tobytes().hex().zfill(8) + np.float32(dataIn[3].replace(' ', "").replace('mmph', "").replace('RInt', "")).tobytes().hex().zfill(8)      
                 return strOut;  
             else:
                 print("Invalid data string read from the RG15")
