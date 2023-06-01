@@ -40,7 +40,7 @@ def getPort(portsIn,indexIn,baudRateIn):
         serPort = openSerial(portsIn[indexIn],baudRateIn)
     return availabilty,serPort;
 
-def getRainPort(portsIn,indexIn,baudRateIn):
+def getRG15Port(portsIn,indexIn,baudRateIn):
     availabilty  = True
     serPort = openSerial(portsIn[indexIn],baudRateIn)
     

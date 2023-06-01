@@ -150,7 +150,7 @@ if __name__ == "__main__":
     canareeOnline,serCanaree = mPL.getPort(canareePorts,0,115200)
     gpsOnline,serGps         = mPL.getPort(gpsPorts,0,115200)
     
-    rainOnline,serRain    = mPL.getRainPort(rainPorts,0,9600)
+    rainOnline,serRain    = mPL.getRG15Port(rainPorts,0,9600)
     preRainData           = ""
 
     # I2C Devices 
