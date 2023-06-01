@@ -69,7 +69,7 @@ def getRG15Port(portsIn,indexIn,baudRateIn):
     availabilty = "Acc" in checkStr
     print(availabilty)
     
-    return availabilty,serPort,second[0];
+    return availabilty,serPort;
 
 
 def readingDeviceProperties(macAddress,loRaE5MiniPorts,canareePorts,gpsPorts):
@@ -383,7 +383,8 @@ def readSensorData(online,serPort,sensorID,serPortE5):
         return;
 
 
-def readSensorDataRG15(online,serPort,sensorID,serPortE5,preData):
+def readSensorDataRG15(online,serPort,sensorID,serPortE5):
+    preRainData = "Acc  0.00 mm, EventAcc  0.18 mm, TotalAcc  0.18 mm, RInt  0.00 mmph"
     try:
         print("====================================")  
         print("-----------" +sensorID+ "-----------" ) 
@@ -396,9 +397,9 @@ def readSensorDataRG15(online,serPort,sensorID,serPortE5,preData):
                 sensorDataWhole = sendCommand(serPort,'R',1)
                 sensorData      = sensorDataWhole[0].split(',')
                 if port['numOfParametors'] == len(sensorData):
-                    if (sensorDataWhole is not None) and sensorDataWhole[0] != preData:
+                    if (sensorDataWhole is not None) and sensorDataWhole[0] != preRainData:
                         sendCommandHex(serPortE5,sensorID,sensorData,port)
-                        return sensorDataWhole[0];
+                        return;
                     else:
                         print(sensorID + " not sent")
                         return;
