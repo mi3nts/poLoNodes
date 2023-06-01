@@ -140,6 +140,7 @@ if __name__ == "__main__":
     print()
     print("============ MINTS POLO NODES ============")
     print()
+    print("test1")
     print(gpsPorts)
     mPL.readingDeviceProperties(macAddress,loRaE5MiniPorts,canareePorts,gpsPorts)
     
