@@ -43,8 +43,7 @@ as7265x = AS7265X(bus,debug)
 loRaE5MiniPorts     = mD.loRaE5MiniPorts
 canareePorts        = mD.canareePorts
 gpsPorts            = mD.gpsPorts
-rainPorts           = mD.rainPorts 
-
+rainPorts           = mD.rainPorts
 appKey              = mD.appKey
 macAddress          = mD.macAddress
 jsonFolderName      = mD.dataFolderJson
@@ -136,28 +135,25 @@ def mintsBCSend(serE5MiniIn,numOfFiles):
             os.remove(fileIn)
             currentFiles= currentFiles+1
   
-
-
+  
 if __name__ == "__main__":
     
     print()
     print("============ MINTS POLO NODES ============")
     print()
+    
     mPL.readingDeviceProperties(macAddress,loRaE5MiniPorts,canareePorts,gpsPorts)
     
     print("")
+    
     e5MiniOnline,serE5Mini   = mPL.getPort(loRaE5MiniPorts,0,9600)
     canareeOnline,serCanaree = mPL.getPort(canareePorts,0,115200)
     gpsOnline,serGps         = mPL.getPort(gpsPorts,0,115200)
-    
-    rainOnline,serRain       = mPL.getRG15Port(rainPorts,0,9600)
-    # 
 
     # I2C Devices 
     scd30Online    = scd30.initiate(30)
     as7265xOnline  = as7265x.initiate()
     
-
     while not mPL.loRaE5MiniJoin(e5MiniOnline,serE5Mini):
       print("Trying to connect")
       time.sleep(5)
@@ -185,10 +181,6 @@ if __name__ == "__main__":
             mintsBCConcatSend08(serE5Mini)
             mPL.readSensorDataGPS(gpsOnline,serGps,"GPGGAPL",serE5Mini)
             
-            mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
-            mintsBCConcatSend08(serE5Mini)
-            mPL.readSensorDataRG15(rainOnline,serRain,"RG15",serE5Mini)
-
 
         except Exception as e:
             time.sleep(.5)
