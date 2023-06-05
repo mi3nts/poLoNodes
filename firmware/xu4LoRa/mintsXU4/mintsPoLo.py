@@ -41,34 +41,40 @@ def getPort(portsIn,indexIn,baudRateIn):
     return availabilty,serPort;
 
 def getRG15Port(portsIn,indexIn,baudRateIn):
-    availabilty  = True
-    serPort = openSerial(portsIn[indexIn],baudRateIn)
-    
-    print("Requesting data from the rain sensor")
-    sendCommand(serPort,'R',1)
+    availabilty  = False
+    try: 
+        serPort = openSerial(portsIn[indexIn],baudRateIn)
+        
+        print("Requesting data from the rain sensor")
+        sendCommand(serPort,'R',1)
 
-    print("Resetting rain sensor")
-    sendCommand(serPort,'O',1)
+        print("Resetting rain sensor")
+        sendCommand(serPort,'O',1)
 
-    print("Requesting data from the rain sensor")
-    second  = sendCommand(serPort,'R',1)
+        print("Requesting data from the rain sensor")
+        second  = sendCommand(serPort,'R',1)
 
-    print("Requesting High Res data from the rain sensor")
-    highRes = sendCommand(serPort,'H',1)
+        print("Requesting High Res data from the rain sensor")
+        highRes = sendCommand(serPort,'H',1)
 
-    print("Requesting Metric units from the rain sensor")
-    metric  = sendCommand(serPort,'M',1)
+        print("Requesting Metric units from the rain sensor")
+        metric  = sendCommand(serPort,'M',1)
 
-    print("Requesting Polling mode")
-    metric  = sendCommand(serPort,'P',1)
+        print("Requesting Polling mode")
+        metric  = sendCommand(serPort,'P',1)
 
+        checkStr  = second[0] + highRes[0] + metric[0]
 
-    checkStr  = second[0] + highRes[0] + metric[0]
+        print("Checking availabilty of the rain sensor")
+        availabilty = "Acc" in checkStr
+        
+    except Exception as e:
+        time.sleep(.5)
+        print ("Error and type: %s - %s." % (e,type(e)))
+        time.sleep(.5)
+        print("RG15 not found")
+        time.sleep(.5)
 
-    print("Checking availabilty of the rain sensor")
-    availabilty = "Acc" in checkStr
-    print(availabilty)
-    
     return availabilty,serPort;
 
 
