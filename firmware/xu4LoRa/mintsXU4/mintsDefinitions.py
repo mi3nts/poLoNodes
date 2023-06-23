@@ -55,7 +55,7 @@ macAddress               = findMacAddress()
 mintsDefinitions         = yaml.load(open('mintsXU4/credentials/mintsDefinitions.yaml'),Loader=yaml.FullLoader)
 credentials              = yaml.load(open('mintsXU4/credentials/credentials.yaml'),Loader=yaml.FullLoader)
 loRaCredentials          = yaml.load(open('mintsXU4/credentials/loRacredentials.yaml'),Loader=yaml.FullLoader)
-fPortIDs                 = yaml.load(open('mintsXU4/credentials/portIDs.yaml'),Loader=yaml.FullLoader)['portIDs']
+fPortIDs                 = yaml.load(open('mintsXU4/credentials/portIDs.yml'),Loader=yaml.FullLoader)['portIDs']
 nodeIDs                  = yaml.load(open('mintsXU4/credentials/nodeIDs.yaml'),Loader=yaml.FullLoader)
 
 keys                     = yaml.load(open('mintsXU4/credentials/keys.yaml'),Loader=yaml.FullLoader)
