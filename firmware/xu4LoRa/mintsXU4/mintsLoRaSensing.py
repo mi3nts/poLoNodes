@@ -531,7 +531,7 @@ def sensingBME688CNR(dataIn,transmitReceive):
     try:
         if (transmitReceive): 
             print("BME688CNR Read")	
-            if (len(dataIn)== 44): 
+            if (len(dataIn)== 44 or len(dataIn)== 43): 
                 strOut  = \
                     np.float32(dataIn[29]).tobytes().hex().zfill(8)+ \
                     np.float32(dataIn[31]).tobytes().hex().zfill(8) + \
