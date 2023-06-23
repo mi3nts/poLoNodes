@@ -266,7 +266,7 @@ def joinNetwork(numberOfTries,ser,timeOutIn):
 
     return False;
 
-def readSerialLine(serIn,timeOutSensor,sizeExpected):
+def readSerialLine(serIn,timeOutSensor,sizeExpected,sizeExpectedCheck2):
     line = []
     startTime = time.time()
     startFound = False
@@ -286,6 +286,9 @@ def readSerialLine(serIn,timeOutSensor,sizeExpected):
                         if sizeExpected == len(dataStringData):
                             print("Returning Data")
                             return dataStringData;
+                        if sizeExpectedCheck2 == len(dataStringData):
+                            print("Returning Data")
+                            return dataStringData;                    
                         else:
                             line = []
                     else:    
@@ -371,7 +374,7 @@ def readSensorData(online,serPort,sensorID,serPortE5):
             print(sensorID + " Online") 
             port = deriveSensorStats(sensorID)
             if port['portID']<255:
-                sensorData = readSerialLine(serPort,2,port['numOfParametors'])
+                sensorData = readSerialLine(serPort,2,port['numOfParametors'],port['numOfParametorsCheck2'])
                 print(sensorData)
                 if (sensorData is not None): 
                 	sendCommandHex(serPortE5,sensorID,sensorData,port)
