@@ -279,10 +279,6 @@ def readSerialLine(serIn,timeOutSensor,sizeExpected,sizeExpectedCheck):
                         dataString     = (''.join(line))
                         dataStringPost = dataString.replace('\r\n', '')
                         dataStringData = dataStringPost.split(',')
-                        print("Reading Serial Line")
-                        print(dataString)
-                        print("Item Length")
-                        print(len(dataStringData))
                         if sizeExpected == len(dataStringData):
                             print("Returning Data")
                             return dataStringData;
@@ -375,7 +371,7 @@ def readSensorData(online,serPort,sensorID,serPortE5):
             port = deriveSensorStats(sensorID)
             if port['portID']<255:
                 sensorData = readSerialLine(serPort,2,port['numOfParametors'],port['numOfParametorsCheck'])
-                print(sensorData)
+                # print(sensorData)
                 if (sensorData is not None): 
                 	sendCommandHex(serPortE5,sensorID,sensorData,port)
                 	return;
