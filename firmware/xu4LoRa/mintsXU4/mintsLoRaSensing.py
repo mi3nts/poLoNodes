@@ -572,7 +572,7 @@ def sensingIPS7100CNR(dataIn,transmitReceive):
     try:
         if (transmitReceive):  
             print("IPS7100CNR Read")	
-            if (len(dataIn)== 44): 
+            if (len(dataIn)== 44 or len(dataIn)== 43): 
                 strOut  = \
                     np.uint32(dataIn[1]).tobytes().hex().zfill(8)+ \
                     np.uint32(dataIn[3]).tobytes().hex().zfill(8) + \
