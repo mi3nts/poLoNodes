@@ -342,7 +342,7 @@ def getLongitudeCords(longitudeStr,longitudeDirection):
 
 
 def sensingGPGGAPL(dataIn,transmitReceive):
-    print(dataIn)
+    
     try:
         if (transmitReceive): 
             dataIn = pynmea2.parse(dataIn)
