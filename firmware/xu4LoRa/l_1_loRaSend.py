@@ -169,25 +169,25 @@ if __name__ == "__main__":
             mintsBCConcatSend08(serE5Mini)
             mPL.readSensorData(canareeOnline,serCanaree,"BME688CNR",serE5Mini)
             
-            # mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
-            # mintsBCConcatSend08(serE5Mini)
-            # mPL.readSensorDataI2c(scd30Online,scd30,"SCD30",serE5Mini)
+            mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
+            mintsBCConcatSend08(serE5Mini)
+            mPL.readSensorDataI2c(scd30Online,scd30,"SCD30",serE5Mini)
             
-            # mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
-            # mintsBCConcatSend08(serE5Mini)
-            # mPL.readSensorDataGPS(gpsOnline,serGps,"GPRMCPL",serE5Mini)        
+            mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
+            mintsBCConcatSend08(serE5Mini)
+            mPL.readSensorDataGPS(gpsOnline,serGps,"GPRMCPL",serE5Mini)        
             
-            # mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
-            # mintsBCConcatSend08(serE5Mini)
-            # mPL.readSensorDataI2c(as7265xOnline,as7265x,"AS7265X",serE5Mini)
+            mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
+            mintsBCConcatSend08(serE5Mini)
+            mPL.readSensorDataI2c(as7265xOnline,as7265x,"AS7265X",serE5Mini)
             
-            # mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
-            # mintsBCConcatSend08(serE5Mini)
-            # mPL.readSensorDataGPS(gpsOnline,serGps,"GPGGAPL",serE5Mini)
+            mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
+            mintsBCConcatSend08(serE5Mini)
+            mPL.readSensorDataGPS(gpsOnline,serGps,"GPGGAPL",serE5Mini)
             
-            # mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
-            # mintsBCConcatSend08(serE5Mini)
-            # mPL.readSensorDataRG15(rainOnline,serRain,"RG15",serE5Mini)
+            mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
+            mintsBCConcatSend08(serE5Mini)
+            mPL.readSensorDataRG15(rainOnline,serRain,"RG15",serE5Mini)
 
 
         except Exception as e:
