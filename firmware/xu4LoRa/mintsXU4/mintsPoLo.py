@@ -281,6 +281,7 @@ def readSerialLine(serIn,timeOutSensor,sizeExpected):
                         dataStringData = dataStringPost.split(',')
                         print("Reading Serial Line")
                         print(dataString)
+                        print(len(dataString))
                         if sizeExpected == len(dataStringData):
                             print("Returning Data")
                             return dataStringData;
