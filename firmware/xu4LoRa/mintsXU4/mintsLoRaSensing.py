@@ -567,6 +567,8 @@ def sensingBME688CNR(dataIn,transmitReceive):
         return None
         
 def sensingIPS7100CNR(dataIn,transmitReceive):
+    print(dataIn)
+    print(len(dataIn))
     try:
         if (transmitReceive):  
             print("IPS7100CNR Read")	
