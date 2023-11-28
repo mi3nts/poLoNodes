@@ -18,7 +18,7 @@
 
 ## Wiring Map 
 
-![IMG_6718.JPG](https://github.com/mi3nts/poLoNodes/blob/main/Resources/Images/IMG_6718.JPG)
+![Box_hole.JPG](https://github.com/mi3nts/poLoNodes/blob/main/Resources/Images/IMG_6718.JPG)
 
 > 1. GPS USB **IN** (*from 8*), DC Barrel Type Power **IN** (*from 5*)
 > 2. LoRa Antenna Wire **OUT** (*from LoRa WAN Board*) 
