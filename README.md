@@ -27,4 +27,15 @@
 > 5. USB wire for WiFi Antenna **IN** (*from 4*),  DC Barrel Type Power **OUT** (*from adapter and switch*)
 > 6. Switch
 > 7. WiFi Antenna
-> 8. GPS USB **IN & OUT** (*cable management*), MIC Wire **IN & OUT**, AC Power Cord **IN** (*cable management*) 
+> 8. GPS USB **IN & OUT** (*cable management*), MIC Wire **IN & OUT**, AC Power Cord **IN** (*cable management*)
+
+## HOW TO READ DATA?
+
+> 1. From MINTS Team member collect credential files.
+> 2. Paste them in cloned git repository poLoNodes and in the following folder ```poLoNodes\firmware\xu4LoRa\mintsXU4\credentials```
+> 3. Update the nodeID from DWServices for the particular node in the file ```poLoNodes\firmware\xu4LoRa\mintsXU4\credentials\nodeIDs.yaml```
+> 4. Go to ```poLoNodes\firmware\xu4LoRa```
+> 5. Install needed libraries.
+> 6. Run  ```python3 r_1_loRaRecieve.py```
+> 7. If running properly it should show data strings.
+
