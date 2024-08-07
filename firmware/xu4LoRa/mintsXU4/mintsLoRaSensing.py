@@ -96,8 +96,46 @@ def encodeDecode(sensorID,sensorData,transmitReceive):
         return sensingMBCLR002(sensorData,transmitReceive);  
     if sensorID == "RG15":
         return sensingRG15(sensorData,transmitReceive);  
-
+    if sensorID == "BME280V2":
+        return sensingBME280V2(sensorData,transmitReceive); 
     return;   
+
+def sensingBME280V2(dataIn,transmitReceive):
+    try:
+        if (transmitReceive): 
+            print("BME280V2 Read")	
+            if (len(dataIn)==5):
+                strOut  = \
+                    np.float32(dataIn[0]).tobytes().hex().zfill(8) + \
+                    np.float32(dataIn[1]).tobytes().hex().zfill(8) + \
+                    np.float32(dataIn[2]).tobytes().hex().zfill(8) + \
+                    np.float32(dataIn[3]).tobytes().hex().zfill(8) + \
+                    np.float32(dataIn[4]).tobytes().hex().zfill(8)
+                return strOut;  
+            else:
+                print("Invalid data string read from the BME280")
+
+                return None;
+
+        else:
+            dateTime = datetime.datetime.now()
+            sensorDictionary =  OrderedDict([
+                    ("dateTime"     ,str(dateTime)),
+                    ("temperature"  ,struct.unpack('<f',bytes.fromhex(dataIn[0:8]))[0]),
+                    ("pressure"     ,struct.unpack('<f',bytes.fromhex(dataIn[8:16]))[0]),
+                    ("humidity"     ,struct.unpack('<f',bytes.fromhex(dataIn[16:24]))[0]),
+                    ("dewPoint"     ,struct.unpack('<f',bytes.fromhex(dataIn[24:32]))[0]),
+                    ("altitude"     ,struct.unpack('<f',bytes.fromhex(dataIn[32:40]))[0]),        
+            ])
+            return sensorDictionary;
+
+    except Exception as e:
+        time.sleep(.5)
+        print ("Error and type: %s - %s." % (e,type(e)))
+        time.sleep(.5)
+        print("Data Packet Not Sent for SCD30")
+        time.sleep(.5)
+        return None
 
 
 def sensingRG15(dataIn,transmitReceive):
