@@ -147,7 +147,9 @@ if __name__ == "__main__":
     
     print("")
     e5MiniOnline,serE5Mini   = mPL.getPort(loRaE5MiniPorts,0,9600)
+    
     canareeOnline,serCanaree = mPL.getPort(canareePorts,0,115200)
+    
     gpsOnline,serGps         = mPL.getPort(gpsPorts,0,115200)
     
     rainOnline,serRain       = mPL.getRG15Port(rainPorts,0,9600)

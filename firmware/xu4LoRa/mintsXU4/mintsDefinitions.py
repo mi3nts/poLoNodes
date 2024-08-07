@@ -1,4 +1,3 @@
-
 # from turtle import st
 from getmac import get_mac_address
 import serial.tools.list_ports
@@ -75,14 +74,16 @@ keys                     = yaml.load(open('mintsXU4/credentials/keys.yaml'),Load
 
 appKey                   = keys['appKey']
 
-
 # mqttBroker                = mintsDefinitions['broker']
 tlsCert                   = mintsDefinitions['tlsCert']
 
 loRaE5MiniPorts          = findPorts("CP2102N USB to UART Bridge Controller","PID=10C4:EA60")
-canareePorts             = findPorts("Canaree PM","PID=10C4:EA60")
-gpsPorts                 = findPortsGPS("u-blox")
 
+canareePorts             = findPorts("Canaree PM","PID=10C4:EA60")
+
+ipsPorts                 = findPorts("CBL-7100","PID=10C4:EA60")
+
+gpsPorts                 = findPortsGPS("u-blox")
     
 rainPorts                = ['/dev/ttyS1'] # Direct connected to the gpio port - May not be available on all polo nodes
 

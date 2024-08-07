@@ -18,14 +18,12 @@ import numpy as np
 
 loRaE5MiniPorts     = mD.loRaE5MiniPorts
 canareePorts        = mD.canareePorts
+ipsPorts            = mD.ipsPorts
 gpsPorts            = mD.gpsPorts
 appKey              = mD.appKey
 macAddress          = mD.macAddress
 fPortIDs            = mD.fPortIDs
 receiveTransmit     = True
-
- 
-
 
 def deriveSensorStats(sensorID):
     for port in fPortIDs:
@@ -88,6 +86,10 @@ def readingDeviceProperties(macAddress,loRaE5MiniPorts,canareePorts,gpsPorts):
     
     print("Canaree Ports:")
     for dev in canareePorts:
+        print("\t{0}".format(dev))
+    
+    print("IPS Ports:")
+    for dev in ipsPorts:
         print("\t{0}".format(dev))
     
     print("GPS Ports:")
