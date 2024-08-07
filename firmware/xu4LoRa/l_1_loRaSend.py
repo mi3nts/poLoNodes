@@ -40,7 +40,7 @@ debug  = False
 bus     = smbus2.SMBus(0)
 bme280  = BME280(bus,debug)
 scd30   = SCD30(bus,debug)
-as7265x = AS7265X(bus,debug)
+# as7265x = AS7265X(bus,debug)
 
 loRaE5MiniPorts     = mD.loRaE5MiniPorts
 canareePorts        = mD.canareePorts
@@ -162,7 +162,7 @@ if __name__ == "__main__":
 
     # I2C Devices 
     scd30Online    = scd30.initiate(30)
-    as7265xOnline  = as7265x.initiate()
+    # as7265xOnline  = as7265x.initiate()
     bme280Online   =  bme280.initiate(30)
 
     while not mPL.loRaE5MiniJoin(e5MiniOnline,serE5Mini):
@@ -187,7 +187,7 @@ if __name__ == "__main__":
                 
                 mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
                 mintsBCConcatSend08(serE5Mini)
-                mPL.readSensorDataI2c(as7265xOnline,as7265x,"AS7265X",serE5Mini)
+                # mPL.readSensorDataI2c(as7265xOnline,as7265x,"AS7265X",serE5Mini)
                 
                 mPL.readSensorData(canareeOnline,serCanaree,"IPS7100CNR",serE5Mini)
                 mintsBCConcatSend08(serE5Mini)
