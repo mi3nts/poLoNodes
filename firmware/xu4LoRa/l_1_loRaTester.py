@@ -155,7 +155,7 @@ if __name__ == "__main__":
 
     gpsOnline,serGps              = mPL.getPort(gpsPorts,0,115200)
     
-    
+
     while not mPL.loRaE5MiniJoin(e5MiniOnline,serE5Mini):
       print("Trying to connect")
       time.sleep(5)
@@ -166,7 +166,7 @@ if __name__ == "__main__":
             if ips7100Online:    
                 mPL.readSensorData(ips7100Online,serIPS7100,"IPS7100",serE5Mini)
                 mintsBCConcatSend08(serE5Mini)
-                time.sleep(30)
+                time.sleep(60)
 
         except Exception as e:
             time.sleep(.5)
