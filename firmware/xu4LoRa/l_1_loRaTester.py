@@ -166,7 +166,7 @@ if __name__ == "__main__":
             if ips7100Online:    
                 mPL.readSensorData(ips7100Online,serIPS7100,"IPS7100",serE5Mini)
                 mintsBCConcatSend08(serE5Mini)
-                time.sleep(60)
+                time.sleep(30)
 
         except Exception as e:
             time.sleep(.5)
