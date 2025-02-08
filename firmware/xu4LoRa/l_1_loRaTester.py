@@ -180,6 +180,7 @@ if __name__ == "__main__":
             time.sleep(30)
 
 
+
         # except Exception as e:
         #     time.sleep(.5)
         #     print ("Error and type: %s - %s." % (e,type(e)))
