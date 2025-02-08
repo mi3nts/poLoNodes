@@ -72,6 +72,8 @@ def getPortIndex(portIDIn,fPortIDs):
 
 def encodeDecode(sensorID,sensorData,transmitReceive):
     # print("Encode Decode")
+    if sensorID == "IPS7100":
+        return sensingIPS7100(sensorData,transmitReceive);
     if sensorID == "IPS7100CNR":
         return sensingIPS7100CNR(sensorData,transmitReceive);
     if sensorID == "BME688CNR":
@@ -657,7 +659,64 @@ def sensingIPS7100CNR(dataIn,transmitReceive):
         print("Data Packet Not Sent for IPS7100CNR")
         time.sleep(.5)
         return None
+
+
+def sensingIPS7100(dataIn,transmitReceive):
+    try:
+        if (transmitReceive):  
+            print("IPS7100 Read")	
+            if (len(dataIn)== 29): 
+                strOut  = \
+                    np.uint32(dataIn[1]).tobytes().hex().zfill(8)+ \
+                    np.uint32(dataIn[3]).tobytes().hex().zfill(8) + \
+                    np.uint32(dataIn[5]).tobytes().hex().zfill(8)+ \
+                    np.uint32(dataIn[7]).tobytes().hex().zfill(8) + \
+                    np.uint32(dataIn[9]).tobytes().hex().zfill(8)+ \
+                    np.uint32(dataIn[11]).tobytes().hex().zfill(8) + \
+                    np.uint32(dataIn[13]).tobytes().hex().zfill(8)+ \
+                    np.float32(dataIn[15]).tobytes().hex().zfill(8)+ \
+                    np.float32(dataIn[17]).tobytes().hex().zfill(8) + \
+                    np.float32(dataIn[19]).tobytes().hex().zfill(8)+ \
+                    np.float32(dataIn[21]).tobytes().hex().zfill(8) + \
+                    np.float32(dataIn[23]).tobytes().hex().zfill(8)+ \
+                    np.float32(dataIn[25]).tobytes().hex().zfill(8) + \
+                    np.float32(dataIn[27]).tobytes().hex().zfill(8)
+                return strOut;  
+            else:
+                print("Invalid data string read from the IPS7100")
+                return None
+
+        else:
+            dateTime = datetime.datetime.now()
+            sensorDictionary =  OrderedDict([
+                    ("dateTime" , str(dateTime)), 
+                    ("pc0_1"  ,struct.unpack('<L',bytes.fromhex(dataIn[0:8]))[0]),
+                    ("pc0_3"  ,struct.unpack('<L',bytes.fromhex(dataIn[8:16]))[0]),
+                    ("pc0_5"  ,struct.unpack('<L',bytes.fromhex(dataIn[16:24]))[0]),
+                    ("pc1_0"  ,struct.unpack('<L',bytes.fromhex(dataIn[24:32]))[0]),
+                    ("pc2_5"  ,struct.unpack('<L',bytes.fromhex(dataIn[32:40]))[0]),
+                    ("pc5_0"  ,struct.unpack('<L',bytes.fromhex(dataIn[40:48]))[0]), 
+                    ("pc10_0" ,struct.unpack('<L',bytes.fromhex(dataIn[48:56]))[0]),
+                    ("pm0_1"  ,struct.unpack('<f',bytes.fromhex(dataIn[56:64]))[0]), 
+                    ("pm0_3"  ,struct.unpack('<f',bytes.fromhex(dataIn[64:72]))[0]),
+                    ("pm0_5"  ,struct.unpack('<f',bytes.fromhex(dataIn[72:80]))[0]),
+                    ("pm1_0"  ,struct.unpack('<f',bytes.fromhex(dataIn[80:88]))[0]),
+                    ("pm2_5"  ,struct.unpack('<f',bytes.fromhex(dataIn[88:96]))[0]),
+                    ("pm5_0"  ,struct.unpack('<f',bytes.fromhex(dataIn[96:104]))[0]), 
+                    ("pm10_0" ,struct.unpack('<f',bytes.fromhex(dataIn[104:112]))[0])
+            ])
+            return sensorDictionary;
+
+    except Exception as e:
+        time.sleep(.5)
+        print ("Error and type: %s - %s." % (e,type(e)))
+        time.sleep(.5)
+        print("Data Packet Not Sent for IPS7100")
+        time.sleep(.5)
+        return None
     
+
+
 def directoryCheck(outputPath):
     exists = os.path.isfile(outputPath)
     directoryIn = os.path.dirname(outputPath)
