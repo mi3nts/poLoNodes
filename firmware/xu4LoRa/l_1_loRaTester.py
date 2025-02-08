@@ -153,40 +153,27 @@ if __name__ == "__main__":
 
     ips7100Online,serIPS7100      = mPL.getPort(ipsPorts,0,115200)
 
-    # canareeOnline,serCanaree      = mPL.getPort(canareePorts,0,115200)
-    
     gpsOnline,serGps              = mPL.getPort(gpsPorts,0,115200)
     
-    # rainOnline,serRain            = mPL.getRG15Port(rainPorts,0,9600)
-    # 
-
-    # # I2C Devices 
-    # scd30Online    = scd30.initiate(30)
-    # as7265xOnline  = as7265x.initiate()
-    # bme280Online   =  bme280.initiate(30)
-
+    
     while not mPL.loRaE5MiniJoin(e5MiniOnline,serE5Mini):
       print("Trying to connect")
       time.sleep(5)
       
    
     while True:
-        # try:
+        try:
+            if ips7100Online:    
+                mPL.readSensorData(ips7100Online,serIPS7100,"IPS7100",serE5Mini)
+                mintsBCConcatSend08(serE5Mini)
+                time.sleep(30)
 
-
-        if ips7100Online:    
-            mPL.readSensorData(ips7100Online,serIPS7100,"IPS7100",serE5Mini)
-            mintsBCConcatSend08(serE5Mini)
-            time.sleep(30)
-
-
-
-        # except Exception as e:
-        #     time.sleep(.5)
-        #     print ("Error and type: %s - %s." % (e,type(e)))
-        #     time.sleep(.5)
-        #     print("Data Packet Not Sent")
-        #     time.sleep(.5)
+        except Exception as e:
+            time.sleep(.5)
+            print ("Error and type: %s - %s." % (e,type(e)))
+            time.sleep(.5)
+            print("Data Packet Not Sent")
+            time.sleep(.5)
 
                   
         
