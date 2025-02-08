@@ -275,7 +275,6 @@ def readSerialLine(serIn,timeOutSensor,sizeExpected,sizeExpectedCheck):
     while (time.time()-startTime)<timeOutSensor:   
         # try:
             for c in serIn.read():
-                print(c)
                 line.append(chr(c))
                 if chr(c) == '\n':
                     if startFound == True:
